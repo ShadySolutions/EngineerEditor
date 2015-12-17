@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 
 namespace ConsoleApplication1
 {
     class Program
     {
-        static void Main(string[] args)
+        [STAThread]
+        static void Main()
         {
-            System.Console.WriteLine("Hallo World!!!");
-            System.Console.Read();
+            using (var mainWindow = new GameWindow(800, 600))
+            {
+                mainWindow.Run();
+            }
         }
     }
 }
