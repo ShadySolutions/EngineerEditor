@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 
-namespace ConsoleApplication1
+namespace Engineer.Runner
 {
     class Program
     {
         [STAThread]
         static void Main()
         {
-            using (var mainWindow = new GameWindow(800, 600))
+            using (var MainWindow = new Runner(800, 600, OpenTK.Graphics.GraphicsMode.Default, "Engineer Runner"))
             {
-                mainWindow.Run();
+                MainWindow.Run();
             }
         }
     }
