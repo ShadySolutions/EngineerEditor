@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engineer.Draw
 {
-    public abstract class ShaderAttributePackage
+    public class ShaderAttributePackage
     {
         protected bool _AttributesBound;
         protected int _BufferLines;
@@ -20,7 +20,10 @@ namespace Engineer.Draw
         protected List<string> _ID;
         protected List<string> _Type;
         protected List<byte[]> _Data;
-        protected abstract bool ActivateAttributesWithManualBuffer(int Program_Indexer);
+        protected virtual bool ActivateAttributesWithManualBuffer(int Program_Indexer)
+        {
+            return false;
+        }
         public int BufferLines
         {
             get
@@ -83,7 +86,10 @@ namespace Engineer.Draw
             _DataSize[Index] = DataSize;
             return true;
         }
-        public abstract void Bind(int Program_Indexer);
+        public virtual void Bind(int Program_Indexer)
+        {
+
+        }
         public virtual void ClearData()
         {
             _AttributesBound = false;
@@ -93,7 +99,10 @@ namespace Engineer.Draw
                 _Data[i] = null;
             }
         }
-        public abstract bool Activate(int Program_Indexer);
+        public virtual bool Activate(int Program_Indexer)
+        {
+            return false;
+        }
         public virtual void SetDataManualy(int BufferLines, byte[] Data)
         {
             _ManualBufferLines = BufferLines;

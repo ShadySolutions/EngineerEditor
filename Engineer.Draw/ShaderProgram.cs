@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engineer.Draw
 {
-    public abstract class ShaderProgram
+    public class ShaderProgram
     {
         protected bool _Compiled;
         protected int _Program_Indexer;
@@ -103,8 +103,17 @@ namespace Engineer.Draw
         {
             return Compile(VertexShaderString, FragmentShaderString, null, null, null);
         }
-        public abstract bool Compile(string VertexShaderString, string FragmentShaderString, string GeometryShaderString, string TessellationControlString, string TessellationEvaluationString);
-        public abstract void Draw(GraphicDrawMode DrawMode, int Offset);
-        public abstract void Activate();
+        public virtual bool Compile(string VertexShaderString, string FragmentShaderString, string GeometryShaderString, string TessellationControlString, string TessellationEvaluationString)
+        {
+            return false;
+        }
+        public virtual void Draw(GraphicDrawMode DrawMode, int Offset)
+        {
+            
+        }
+        public virtual void Activate()
+        {
+
+        }
     }
 }

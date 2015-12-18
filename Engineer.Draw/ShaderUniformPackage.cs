@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engineer.Draw
 {
-    public abstract class ShaderUniformPackage
+    public class ShaderUniformPackage
     {
         protected List<int> _Size;
         protected List<string> _ID;
@@ -49,7 +49,10 @@ namespace Engineer.Draw
             _Data[Index] = Data;
             return true;
         }
-        public abstract bool Activate(int Program_Indexer);
+        public virtual bool Activate(int Program_Indexer)
+        {
+            return true;
+        }
         public virtual void ClearData()
         {
             for (int i = 0; i < _ID.Count; i++)

@@ -32,7 +32,7 @@ namespace Engineer.Draw
         Patches = 14,
         PatchesExt = 14
     }
-    public abstract class ShaderManager
+    public class ShaderManager
     {
         protected int _ActiveShaderIndex;
         protected int _DrawLineOffset;
@@ -55,7 +55,10 @@ namespace Engineer.Draw
         {
 
         }
-        public abstract bool AddShader(string ID);
+        public virtual bool AddShader(string ID)
+        {
+            return false;
+        }
         public virtual bool CompileShader(string ID, string VertexShaderString, string FragmentShaderString)
         {
             int ShaderIndex = FindShader(ID);
