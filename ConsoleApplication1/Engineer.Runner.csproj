@@ -57,6 +57,28 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engineer.Data\Engineer.Data.csproj">
+      <Project>{27001881-9739-4d9f-8bbe-57afd825996a}</Project>
+      <Name>Engineer.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engineer.Draw.GLSL\Engineer.Draw.GLSL.csproj">
+      <Project>{ebbfeedb-75ee-4625-bea8-0f33d579ec9e}</Project>
+      <Name>Engineer.Draw.GLSL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engineer.Draw.GL\Engineer.Draw.FixedGL.csproj">
+      <Project>{d48b9b10-b585-415a-a710-a4e4d8bd339e}</Project>
+      <Name>Engineer.Draw.FixedGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engineer.Draw\Engineer.Draw.csproj">
+      <Project>{cb524cc3-ddad-4e7f-8112-253896a2857c}</Project>
+      <Name>Engineer.Draw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engineer.Mathematics\Engineer.Mathematics.csproj">
+      <Project>{c808fad5-1905-4463-8f73-d8f3bb19eeb6}</Project>
+      <Name>Engineer.Mathematics</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

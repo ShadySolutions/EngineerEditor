@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Draw", "Engineer.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Draw.GLSL", "Engineer.Draw.GLSL\Engineer.Draw.GLSL.csproj", "{EBBFEEDB-75EE-4625-BEA8-0F33D579EC9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Draw.GL", "Engineer.Draw.GL\Engineer.Draw.GL.csproj", "{D48B9B10-B585-415A-A710-A4E4D8BD339E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Draw.FixedGL", "Engineer.Draw.GL\Engineer.Draw.FixedGL.csproj", "{D48B9B10-B585-415A-A710-A4E4D8BD339E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Mathematics", "Engineer.Mathematics\Engineer.Mathematics.csproj", "{C808FAD5-1905-4463-8F73-D8F3BB19EEB6}"
 EndProject

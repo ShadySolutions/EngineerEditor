@@ -34,26 +34,21 @@ namespace Engineer.Draw
     }
     public class ShaderManager
     {
-        protected int _ActiveShaderIndex;
+        protected string _ActiveShaderID;
         protected int _DrawLineOffset;
         protected GraphicDrawMode _DrawMode;
-        protected List<ShaderProgram> _Shader;
-        protected int FindShader(string ID)
-        {
-            for (int i = 0; i < _Shader.Count; i++) if (_Shader[i].ShaderID == ID) return i;
-            return -1;
-        }
+        protected Dictionary<string, ShaderProgram> _Shader;
         public ShaderProgram Active
         {
             get
             {
-                if (_ActiveShaderIndex < 0) return null;
-                return _Shader[_ActiveShaderIndex];
+                if (_ActiveShaderID == "") return null;
+                return _Shader[_ActiveShaderID];
             }
         }
         public ShaderManager()
         {
-
+            _ActiveShaderID = "";
         }
         public virtual bool AddShader(string ID)
         {
@@ -61,28 +56,20 @@ namespace Engineer.Draw
         }
         public virtual bool CompileShader(string ID, string VertexShaderString, string FragmentShaderString)
         {
-            int ShaderIndex = FindShader(ID);
-            if (ShaderIndex == -1) return false;
-            return _Shader[ShaderIndex].Compile(VertexShaderString, FragmentShaderString);
+            return _Shader[ID].Compile(VertexShaderString, FragmentShaderString);
         }
         public virtual bool CompileShader(string ID, string VertexShaderString, string FragmentShaderString, string GeometryShaderString, string TessellationControlString, string TessellationEvaluationString)
         {
-            int ShaderIndex = FindShader(ID);
-            if (ShaderIndex == -1) return false;
-            return _Shader[ShaderIndex].Compile(VertexShaderString, FragmentShaderString, GeometryShaderString, TessellationControlString, TessellationEvaluationString);
+            return _Shader[ID].Compile(VertexShaderString, FragmentShaderString, GeometryShaderString, TessellationControlString, TessellationEvaluationString);
         }
         virtual public bool DeleteShader(string ID)
         {
-            int ShaderIndex = FindShader(ID);
-            if (ShaderIndex == -1) return false;
-            _Shader.RemoveAt(ShaderIndex);
+            _Shader.Remove(ID);
             return true;
         }
         virtual public bool ActivateShader(string ID)
         {
-            int ShaderIndex = FindShader(ID);
-            if (ShaderIndex == -1) return false;
-            _ActiveShaderIndex = ShaderIndex;
+            _ActiveShaderID = ID;
             return true;
         }
         virtual public void SetDrawMode(GraphicDrawMode DrawMode)
@@ -91,7 +78,7 @@ namespace Engineer.Draw
         }
         virtual public void Draw()
         {
-            if (_ActiveShaderIndex != -1) _Shader[_ActiveShaderIndex].Draw(_DrawMode, _DrawLineOffset);
+            if (_ActiveShaderID != "") _Shader[_ActiveShaderID].Draw(_DrawMode, _DrawLineOffset);
         }
     }
 }

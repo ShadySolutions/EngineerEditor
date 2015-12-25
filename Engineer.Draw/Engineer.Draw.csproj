@@ -49,6 +49,12 @@
     <Compile Include="ShaderRenderer.cs" />
     <Compile Include="ShaderUniformPackage.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engineer.Mathematics\Engineer.Mathematics.csproj">
+      <Project>{c808fad5-1905-4463-8f73-d8f3bb19eeb6}</Project>
+      <Name>Engineer.Mathematics</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -19,11 +19,11 @@ namespace Engineer.Draw.GLSL
         {
             for (int i = 0; i <_Shader.Count; i++)
             {
-                if (_Shader[i].ShaderID == ID) return false;
+                if (_Shader[ID] != null) return false;
             }
             GLSLShaderProgram NewProgram;
             NewProgram = new GLSLShaderProgram(ID);
-            _Shader.Add(NewProgram);
+            _Shader.Add(ID, NewProgram);
             return true;
         }
     }

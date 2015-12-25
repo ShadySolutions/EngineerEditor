@@ -7,8 +7,8 @@
     <ProjectGuid>{D48B9B10-B585-415A-A710-A4E4D8BD339E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Engineer.Draw.GL</RootNamespace>
-    <AssemblyName>Engineer.Draw.GL</AssemblyName>
+    <RootNamespace>Engineer.Draw.FixedGL</RootNamespace>
+    <AssemblyName>Engineer.Draw.FixedGL</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="opentk">
+      <HintPath>..\DLLs\opentk.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +50,10 @@
     <ProjectReference Include="..\Engineer.Draw\Engineer.Draw.csproj">
       <Project>{cb524cc3-ddad-4e7f-8112-253896a2857c}</Project>
       <Name>Engineer.Draw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engineer.Mathematics\Engineer.Mathematics.csproj">
+      <Project>{c808fad5-1905-4463-8f73-d8f3bb19eeb6}</Project>
+      <Name>Engineer.Mathematics</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

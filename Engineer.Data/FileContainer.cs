@@ -118,4 +118,24 @@ namespace Engineer.Data
             if (StartTime.IsValid()) StartTime += (NStartFrame - StartFrame);
         }
     }
+    public class MeshContainer : FileContainer
+    {
+        private List<Geometry> _Geometries;
+        public List<Geometry> Geometries
+        {
+            get
+            {
+                return _Geometries;
+            }
+
+            set
+            {
+                _Geometries = value;
+            }
+        }
+        public MeshContainer()
+        {
+            this._Geometries = new List<Geometry>();
+        }
+    }
 }
