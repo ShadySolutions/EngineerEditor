@@ -26,6 +26,22 @@ namespace Engineer.Draw
         {
 
         }
+        public virtual void Transform2D(int Width, int Height)
+        {
+
+        }
+        public virtual void TransformOrtho(int Left, int Right, int Bottom, int Top)
+        {
+
+        }
+        public virtual void TransformPerspective(int Width, int Height, int Angle)
+        {
+
+        }
+        public virtual void TransformView(Vertex Eye, Vertex Sight)
+        {
+
+        }
         public virtual void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces)
         {
 

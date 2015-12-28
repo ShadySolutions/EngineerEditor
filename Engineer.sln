@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		DLLs\OpenTK.dll = DLLs\OpenTK.dll
 		DLLs\OpenTK.GLControl.dll = DLLs\OpenTK.GLControl.dll
+		ConsoleApplication1\bin\Debug\storm.obj = ConsoleApplication1\bin\Debug\storm.obj
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Draw", "Engineer.Draw\Engineer.Draw.csproj", "{CB524CC3-DDAD-4E7F-8112-253896A2857C}"
