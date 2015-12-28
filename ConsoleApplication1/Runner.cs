@@ -42,9 +42,7 @@ namespace Engineer.Runner
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Color3(System.Drawing.Color.Aqua);
-
             _Engine.CurrentRenderer.RenderGeometry(OBJ.Geometries[0].Vertices, OBJ.Geometries[0].Normals, OBJ.Geometries[0].TexCoords, OBJ.Geometries[0].Faces);
-
             SwapBuffers();
         }
     }
