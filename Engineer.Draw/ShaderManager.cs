@@ -49,6 +49,7 @@ namespace Engineer.Draw
         public ShaderManager()
         {
             _ActiveShaderID = "";
+            _Shader = new Dictionary<string, ShaderProgram>();
         }
         public virtual bool AddShader(string ID)
         {

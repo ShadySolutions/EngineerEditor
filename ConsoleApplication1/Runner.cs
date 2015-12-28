@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define FixedPipeline
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using OpenTK.Graphics.OpenGL;
 using Engineer.Data;
 using Engineer.Draw;
 using Engineer.Draw.FixedGL;
+using Engineer.Draw.GLSL;
 
 namespace Engineer.Runner
 {
@@ -56,7 +58,11 @@ namespace Engineer.Runner
         public Runner(int width, int height, GraphicsMode mode, string title) : base(width, height, mode, title)
         {
             _Engine = new DrawEngine();
+            #if FixedPipeline
             GLRenderer Render = new GLRenderer();
+            #else
+            GLSLShaderRenderer Render = new GLSLShaderRenderer();
+            #endif
             Render.RenderDestination = this;
             _Engine.CurrentRenderer = Render;
             OBJ = new OBJContainer();
@@ -75,7 +81,7 @@ namespace Engineer.Runner
             GLPerspective(45, this.ClientRectangle.Width * 1.0 / this.ClientRectangle.Height, 0.001, 100000000);
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
-            GLLookAt(1, 1, 1, 0, 0, 0, 0, 1, 0);
+            GLLookAt(0, 1, 1, 0, 0, 0, 0, 1, 0);
             GL.Scale(0.15, 0.15, 0.15);
         }
         protected override void OnRenderFrame(FrameEventArgs e)
