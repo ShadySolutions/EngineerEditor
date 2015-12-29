@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
+using Engineer.IO;
 
 namespace Engineer.Data
 {
@@ -38,17 +39,17 @@ namespace Engineer.Data
                 }
                 if (Line.StartsWith("vn"))
                 {
-                    NewGeometry.Normals.Add(new Mathematics.Vertex(Convert.ToSingle(Parts[1]), Convert.ToSingle(Parts[2]), Convert.ToSingle(Parts[3])));
+                    NewGeometry.Normals.Add(new Mathematics.Vertex(Converter.ToSingle(Parts[1]), Converter.ToSingle(Parts[2]), Converter.ToSingle(Parts[3])));
                     continue;
                 }
                 if (Line.StartsWith("vt"))
                 {
-                    NewGeometry.TexCoords.Add(new Mathematics.Vertex(Convert.ToSingle(Parts[1]), Convert.ToSingle(Parts[2]), 0));
+                    NewGeometry.TexCoords.Add(new Mathematics.Vertex(Converter.ToSingle(Parts[1]), Converter.ToSingle(Parts[2]), 0));
                     continue;
                 }
                 if (Line.StartsWith("v"))
                 {
-                    NewGeometry.Vertices.Add(new Mathematics.Vertex(Convert.ToSingle(Parts[1]), Convert.ToSingle(Parts[2]), Convert.ToSingle(Parts[3])));
+                    NewGeometry.Vertices.Add(new Mathematics.Vertex(Converter.ToSingle(Parts[1]), Converter.ToSingle(Parts[2]), Converter.ToSingle(Parts[3])));
                     continue;
                 }
                 if (Line.StartsWith("f"))
