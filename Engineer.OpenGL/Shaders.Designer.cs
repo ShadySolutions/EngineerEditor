@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Engineer.Draw.GLSL {
+namespace Engineer.Draw.OpenGL {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Engineer.Draw.GLSL {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Engineer.Draw.GLSL.Shaders", typeof(Shaders).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Engineer.Draw.OpenGL.Shaders", typeof(Shaders).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

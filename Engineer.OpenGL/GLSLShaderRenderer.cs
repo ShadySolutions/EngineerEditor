@@ -8,7 +8,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using Engineer.Mathematics;
 
-namespace Engineer.Draw.GLSL
+namespace Engineer.Draw.OpenGL.GLSL
 {
     public class GLSLShaderRenderer : ShaderRenderer
     {
@@ -16,7 +16,7 @@ namespace Engineer.Draw.GLSL
         {
             _Manager = new GLSLShaderManager();
             _Manager.AddShader("Default");
-            _Manager.CompileShader("Default", global::Engineer.Draw.GLSL.Shaders.Default_Vertex, global::Engineer.Draw.GLSL.Shaders.Default_Fragment, null, null, null);
+            _Manager.CompileShader("Default", global::Engineer.Draw.OpenGL.Shaders.Default_Vertex, global::Engineer.Draw.OpenGL.Shaders.Default_Fragment, null, null, null);
             _Manager.ActivateShader("Default");
         }
         public override void Transform2D(int Width, int Height)

@@ -10,8 +10,8 @@ using OpenTK.Graphics.OpenGL;
 using Engineer.Mathematics;
 using Engineer.Data;
 using Engineer.Draw;
-using Engineer.Draw.FixedGL;
-using Engineer.Draw.GLSL;
+using Engineer.Draw.OpenGL.FixedGL;
+using Engineer.Draw.OpenGL.GLSL;
 
 namespace Engineer.Runner
 {

@@ -8,7 +8,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System.Runtime.InteropServices;
 
-namespace Engineer.Draw.GLSL
+namespace Engineer.Draw.OpenGL.GLSL
 {
     public class GLSLShaderAttributePackage : ShaderAttributePackage
     {

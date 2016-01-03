@@ -8,7 +8,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
-namespace Engineer.Draw.FixedGL
+namespace Engineer.Draw.OpenGL.FixedGL
 {
     public class GLRenderer : Renderer
     {

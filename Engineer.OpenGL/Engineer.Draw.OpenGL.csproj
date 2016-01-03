@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D48B9B10-B585-415A-A710-A4E4D8BD339E}</ProjectGuid>
+    <ProjectGuid>{71F8AAD9-38BC-4115-AEFB-350CCBF9D06F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Engineer.Draw.FixedGL</RootNamespace>
-    <AssemblyName>Engineer.Draw.FixedGL</AssemblyName>
+    <RootNamespace>Engineer.Draw.OpenGL</RootNamespace>
+    <AssemblyName>Engineer.Draw.OpenGL</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="OpenTK">
       <HintPath>..\DLLs\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK.GLControl">
@@ -47,8 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalFunctions.cs" />
     <Compile Include="GLRenderer.cs" />
+    <Compile Include="GLSLShaderAttributePackage.cs" />
+    <Compile Include="GLSLShaderManager.cs" />
+    <Compile Include="GLSLShaderProgram.cs" />
+    <Compile Include="GLSLShaderRenderer.cs" />
+    <Compile Include="GLSLShaderUniformPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shaders.Designer.cs">
+      <DependentUpon>Shaders.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engineer.Draw\Engineer.Draw.csproj">
@@ -59,6 +69,12 @@
       <Project>{c808fad5-1905-4463-8f73-d8f3bb19eeb6}</Project>
       <Name>Engineer.Mathematics</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Shaders.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shaders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

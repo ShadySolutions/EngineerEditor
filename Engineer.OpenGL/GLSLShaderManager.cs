@@ -7,7 +7,7 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
-namespace Engineer.Draw.GLSL
+namespace Engineer.Draw.OpenGL.GLSL
 {
     public class GLSLShaderManager : ShaderManager
     {
