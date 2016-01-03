@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using Engineer.IO;
+using Engineer.Mathematics;
 
 namespace Engineer.Data
 {
@@ -68,6 +69,36 @@ namespace Engineer.Data
             }
             this.Geometries.Add(NewGeometry);
             Reader.Close();
+        }
+        public void Repack()
+        {
+            for(int i = 0; i < this.Geometries.Count; i++)
+            {
+                List<Vertex> NewVertices = new List<Vertex>();
+                List<Vertex> NewNormals = new List<Vertex>();
+                List<Vertex> NewTexCoords = new List<Vertex>();
+                for (int j = 0; j < this.Geometries[i].Faces.Count; j++)
+                {
+                    for (int k = 0; k < this.Geometries[i].Faces[j].Vertices.Count; k++)
+                    {
+                        NewVertices.Add(this.Geometries[i].Vertices[this.Geometries[i].Faces[j].Vertices[k]]);
+                        this.Geometries[i].Faces[j].Vertices[k] = NewVertices.Count - 1;
+                    }
+                    for (int k = 0; k < this.Geometries[i].Faces[j].Normals.Count; k++)
+                    {
+                        NewNormals.Add(this.Geometries[i].Normals[this.Geometries[i].Faces[j].Normals[k]]);
+                        this.Geometries[i].Faces[j].Normals[k] = NewNormals.Count - 1;
+                    }
+                    for (int k = 0; k < this.Geometries[i].Faces[j].TexCoords.Count; k++)
+                    {
+                        NewTexCoords.Add(this.Geometries[i].TexCoords[this.Geometries[i].Faces[j].TexCoords[k]]);
+                        this.Geometries[i].Faces[j].TexCoords[k] = NewTexCoords.Count - 1;
+                    }
+                }
+                this.Geometries[i].Vertices = NewVertices;
+                this.Geometries[i].Normals = NewNormals;
+                this.Geometries[i].TexCoords = NewTexCoords;
+            }
         }
     }
 }

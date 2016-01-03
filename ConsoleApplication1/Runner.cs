@@ -1,4 +1,4 @@
-﻿#define FixedPipeline
+﻿//#define FixedPipeline
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +34,7 @@ namespace Engineer.Runner
             _Engine.CurrentRenderer = Render;
             OBJ = new OBJContainer();
             OBJ.Load("storm.obj", null);
+            OBJ.Repack();
         }
         protected override void OnResize(EventArgs e)
         {
@@ -47,8 +48,8 @@ namespace Engineer.Runner
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            GL.Color3(System.Drawing.Color.Aqua);
+            _Engine.CurrentRenderer.Clear();
+            _Engine.CurrentRenderer.SetSurface(new float[4]{1,0,0,1});
             _Engine.CurrentRenderer.RenderGeometry(OBJ.Geometries[0].Vertices, OBJ.Geometries[0].Normals, OBJ.Geometries[0].TexCoords, OBJ.Geometries[0].Faces);
             SwapBuffers();
         }

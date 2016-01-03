@@ -62,7 +62,7 @@ namespace Engineer.Draw.OpenGL.GLSL
                             {
                                 for (int k = 0; k < 4; k++)
                                 {
-                                    NewMatrix[j, k] = BitConverter.ToSingle(_Data[0], ((j * 4) + k) * 4);
+                                    NewMatrix[j, k] = BitConverter.ToSingle(_Data[i], ((j * 4) + k) * 4);
                                 }
                             }
                             GL.UniformMatrix4(CurrentUniformLocation, false, ref NewMatrix);

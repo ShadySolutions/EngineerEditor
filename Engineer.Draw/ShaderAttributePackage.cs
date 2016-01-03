@@ -86,6 +86,16 @@ namespace Engineer.Draw
             _DataSize[Index] = DataSize;
             return true;
         }
+        public virtual bool Exists(string ID)
+        {
+            int Index = -1;
+            for (int i = 0; i < _ID.Count; i++)
+            {
+                if (_ID[i] == ID) Index = i;
+            }
+            if (Index == -1) return false;
+            return true;
+        }
         public virtual void Bind(int Program_Indexer)
         {
 

@@ -88,8 +88,8 @@ namespace Engineer.Draw.OpenGL.GLSL
             if (_Compiled)
             {
                 GL.UseProgram(_Program_Indexer);
-                _Uniforms.Activate(_Program_Indexer);
-                _Attributes.Activate(_Program_Indexer);
+                if (!_Uniforms.Activate(_Program_Indexer)) return;
+                if (!_Attributes.Activate(_Program_Indexer)) return;
                 GL.DrawArrays((PrimitiveType)DrawMode, Offset, _Attributes.BufferLines);
                 GL.UseProgram(0);
                 _Attributes.ClearData();

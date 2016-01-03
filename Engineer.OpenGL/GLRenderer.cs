@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 using Engineer.Mathematics;
 using OpenTK;
@@ -12,6 +13,14 @@ namespace Engineer.Draw.OpenGL.FixedGL
 {
     public class GLRenderer : Renderer
     {
+        public override void Clear()
+        {
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+        }
+        public override void SetSurface(float[] Color)
+        {
+            GL.Color3(Color);
+        }
         public override void SetProjectionMatrix(float[] Matrix)
         {
             GL.MatrixMode(MatrixMode.Projection);

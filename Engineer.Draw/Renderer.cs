@@ -26,6 +26,13 @@ namespace Engineer.Draw
         {
 
         }
+        public virtual void Clear()
+        {
+        }
+        public virtual void SetSurface(float[] Color)
+        {
+
+        }
         public virtual void SetProjectionMatrix(float[] Matrix)
         {
 
