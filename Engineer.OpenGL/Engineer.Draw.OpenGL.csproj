@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalFunctions.cs" />
     <Compile Include="GLRenderer.cs" />
     <Compile Include="GLSLShaderAttributePackage.cs" />
     <Compile Include="GLSLShaderManager.cs" />

@@ -19,17 +19,11 @@ namespace Engineer.Draw.OpenGL.GLSL
             _Manager.CompileShader("Default", global::Engineer.Draw.OpenGL.Shaders.Default_Vertex, global::Engineer.Draw.OpenGL.Shaders.Default_Fragment, null, null, null);
             _Manager.ActivateShader("Default");
         }
-        public override void Transform2D(int Width, int Height)
+        public override void SetProjectionMatrix(float[] Matrix)
         {
-            
         }
-        public override void TransformOrtho(int Left, int Right, int Bottom, int Top)
+        public override void SetModelViewMatrix(float[] Matrix)
         {
-            
-        }
-        public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces)
-        {
-            
         }
     }
 }

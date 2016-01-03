@@ -115,5 +115,24 @@ namespace Engineer.Mathematics
         {
             return new Vertex(X, Y, Z);
         }
+        public float Length()
+        {
+            return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+        }
+        public VertexBuilder Normalize()
+        {
+            float Divider = 1.0f / this.Length();
+            VertexBuilder VB = new VertexBuilder(this);
+            VB.X *= Divider;
+            VB.Y *= Divider;
+            VB.Z *= Divider;
+            return VB;
+        }
+        public static VertexBuilder Cross(VertexBuilder Left, VertexBuilder Right)
+        {
+            return new VertexBuilder(Left.Y * Right.Z - Left.Z * Right.Y,
+                                    Left.Z * Right.X - Left.X * Right.Z,
+                                    Left.X * Right.Y - Left.Y * Right.X);
+        }
     }
 }
