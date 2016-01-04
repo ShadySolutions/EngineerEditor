@@ -61,8 +61,11 @@ namespace Engineer.Draw.OpenGL {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #version 150
+        ///   Looks up a localized string similar to #version 400
         ///uniform vec4 Color;
+        ///in vec3 F_Vertex;
+        ///in vec3 F_Normal;
+        ///in vec3 F_TextureUV;
         ///out vec4 FinalColor;
         ///
         ///void main() 
@@ -77,7 +80,7 @@ namespace Engineer.Draw.OpenGL {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #version 150
+        ///   Looks up a localized string similar to #version 400
         ///uniform mat4 ModelView;
         ///uniform mat4 Projection;
         ///in vec3 V_Vertex;

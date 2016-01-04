@@ -16,8 +16,11 @@ namespace Engineer.Draw.OpenGL.GLSL
         {
             _Manager = new GLSLShaderManager();
             _Manager.AddShader("Default");
-            _Manager.CompileShader("Default", global::Engineer.Draw.OpenGL.Shaders.Default_Vertex, global::Engineer.Draw.OpenGL.Shaders.Default_Fragment, null, null, null);
             _Manager.ActivateShader("Default");
+            _Manager.Active.Attributes.SetDefinition("V_Vertex", 3 * sizeof(float), "vec3");
+            _Manager.Active.Attributes.SetDefinition("V_Normal", 3 * sizeof(float), "vec3");
+            _Manager.Active.Attributes.SetDefinition("V_TextureUV", 2 * sizeof(float), "vec2");
+            _Manager.CompileShader("Default", global::Engineer.Draw.OpenGL.Shaders.Default_Vertex, global::Engineer.Draw.OpenGL.Shaders.Default_Fragment, null, null, null);
         }
         public byte [] ConvertToByteArray(float[] Array)
         {
@@ -67,12 +70,9 @@ namespace Engineer.Draw.OpenGL.GLSL
         }
         public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces)
         {
-            if (!_Manager.Active.Attributes.Exists("V_Vertex")) _Manager.Active.Attributes.SetDefinition("V_Vertex", 3 * sizeof(float), "vec3");
-            //if (!_Manager.Active.Attributes.Exists("V_Normal")) _Manager.Active.Attributes.SetDefinition("V_Normal", 3 * sizeof(float), "vec3");
-            //if (!_Manager.Active.Attributes.Exists("V_TextureUV")) _Manager.Active.Attributes.SetDefinition("V_TextureUV", 2 * sizeof(float), "vec2");
             _Manager.Active.Attributes.SetData("V_Vertex", Vertices.Count * 3 * sizeof(float), ConvertToByteArray(Vertices, 3));
-            //_Manager.Active.Attributes.SetData("V_Normal", Vertices.Count * 3 * sizeof(float), ConvertToByteArray(Normals, 3));
-            //_Manager.Active.Attributes.SetData("V_TextureUV", Vertices.Count * 2 * sizeof(float), ConvertToByteArray(TexCoords, 2));
+            _Manager.Active.Attributes.SetData("V_Normal", Vertices.Count * 3 * sizeof(float), ConvertToByteArray(Normals, 3));
+            _Manager.Active.Attributes.SetData("V_TextureUV", Vertices.Count * 2 * sizeof(float), ConvertToByteArray(TexCoords, 2));
             _Manager.SetDrawMode(GraphicDrawMode.Triangles);
             _Manager.Draw();
         }

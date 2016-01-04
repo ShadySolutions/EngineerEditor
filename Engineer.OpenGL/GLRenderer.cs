@@ -39,9 +39,9 @@ namespace Engineer.Draw.OpenGL.FixedGL
             {
                 for (int j = 0; j < Faces[i].Vertices.Count; j++)
                 {
+                    GL.Normal3(Normals[Faces[i].Normals[j]].X, Normals[Faces[i].Normals[j]].Y, Normals[Faces[i].Normals[j]].Z);
+                    GL.TexCoord3(TexCoords[Faces[i].TexCoords[j]].X, TexCoords[Faces[i].TexCoords[j]].Y, TexCoords[Faces[i].TexCoords[j]].Z);
                     GL.Vertex3(Vertices[Faces[i].Vertices[j]].X, Vertices[Faces[i].Vertices[j]].Y, Vertices[Faces[i].Vertices[j]].Z);
-                    //GL.Normal3(Vertices[Faces[i].Normals[j]].X, Vertices[Faces[i].Normals[j]].Y, Vertices[Faces[i].Normals[j]].Z);
-                    //GL.TexCoord3(Vertices[Faces[i].TexCoords[j]].X, Vertices[Faces[i].TexCoords[j]].Y, Vertices[Faces[i].TexCoords[j]].Z);
                 }
             }
             GL.End();
