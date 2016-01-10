@@ -37,23 +37,23 @@ namespace Engineer.Draw.OpenGL.GLSL
                         }
                         else if (_Type[i] == "int")
                         {
-                            GL.Uniform1(CurrentUniformLocation, BitConverter.ToInt32(_Data[0], 0));
+                            GL.Uniform1(CurrentUniformLocation, BitConverter.ToInt32(_Data[i], 0));
                         }
                         else if (_Type[i] == "float")
                         {
-                            GL.Uniform1(CurrentUniformLocation, BitConverter.ToSingle(_Data[0], 0));
+                            GL.Uniform1(CurrentUniformLocation, BitConverter.ToSingle(_Data[i], 0));
                         }
                         else if (_Type[i] == "vec2")
                         {
-                            GL.Uniform2(CurrentUniformLocation, BitConverter.ToSingle(_Data[0], 0), BitConverter.ToSingle(_Data[0], 4));
+                            GL.Uniform2(CurrentUniformLocation, BitConverter.ToSingle(_Data[i], 0), BitConverter.ToSingle(_Data[i], 4));
                         }
                         else if (_Type[i] == "vec3")
                         {
-                            GL.Uniform3(CurrentUniformLocation, BitConverter.ToSingle(_Data[0], 0), BitConverter.ToSingle(_Data[0], 4), BitConverter.ToSingle(_Data[0], 8));
+                            GL.Uniform3(CurrentUniformLocation, BitConverter.ToSingle(_Data[i], 0), BitConverter.ToSingle(_Data[i], 4), BitConverter.ToSingle(_Data[i], 8));
                         }
                         else if (_Type[i] == "vec4")
                         {
-                            GL.Uniform4(CurrentUniformLocation, BitConverter.ToSingle(_Data[0], 0), BitConverter.ToSingle(_Data[0], 4), BitConverter.ToSingle(_Data[0], 8), BitConverter.ToSingle(_Data[0], 12));
+                            GL.Uniform4(CurrentUniformLocation, BitConverter.ToSingle(_Data[i], 0), BitConverter.ToSingle(_Data[i], 4), BitConverter.ToSingle(_Data[i], 8), BitConverter.ToSingle(_Data[i], 12));
                         }
                         else if (_Type[i] == "mat4")
                         {
@@ -69,9 +69,7 @@ namespace Engineer.Draw.OpenGL.GLSL
                         }
                         else SomeFailed = true;
                     }
-                    else SomeFailed = true;
                 }
-                else SomeFailed = true;
             }
             return !SomeFailed;
         }

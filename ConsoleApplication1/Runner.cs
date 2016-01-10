@@ -19,6 +19,50 @@ namespace Engineer.Runner
 {
     public class Runner : OpenTK.GameWindow
     {
+        /// Temp
+        public byte[] ConvertToByteArray(float[] Array)
+        {
+            byte[] ByteArray = new byte[Array.Length * 4];
+            Buffer.BlockCopy(Array, 0, ByteArray, 0, ByteArray.Length);
+            return ByteArray;
+        }
+        public byte[] ConvertToByteArray(List<Vertex> Vertices, int Relevant)
+        {
+            byte[] ByteArray;
+            List<byte> ByteList = new List<byte>(Vertices.Count * Relevant * sizeof(float));
+            for (int i = 0; i < Vertices.Count; i++)
+            {
+                ByteArray = BitConverter.GetBytes(Vertices[i].X);
+                ByteList.AddRange(ByteArray);
+                if (Relevant > 1)
+                {
+                    ByteArray = BitConverter.GetBytes(Vertices[i].Y);
+                    ByteList.AddRange(ByteArray);
+                }
+                if (Relevant > 2)
+                {
+                    ByteArray = BitConverter.GetBytes(Vertices[i].Z);
+                    ByteList.AddRange(ByteArray);
+                }
+            }
+            return ByteList.ToArray();
+        }
+        private void SetExampleShader(GLSLShaderProgram S)
+        {
+            S.Uniforms.SetData("Lights[0].Enabled", BitConverter.GetBytes(true));
+            S.Uniforms.SetData("Lights[0].Position", ConvertToByteArray(new float[3] { 0, -4, -4 }));
+            S.Uniforms.SetData("Lights[0].Ambient", ConvertToByteArray(new float[3] { 0.4f, 0.4f, 0.4f }));
+            S.Uniforms.SetData("Lights[0].Diffuse", ConvertToByteArray(new float[3] { 0.8f, 0.8f, 0.8f }));
+            S.Uniforms.SetData("Lights[0].Attenuation", ConvertToByteArray(new float[3] { 0.6f, 0.2f, 0.2f }));
+            S.Uniforms.SetData("CurrentMaterial.Shininess", BitConverter.GetBytes(0.00002f));
+            S.Uniforms.SetData("CurrentMaterial.Specular", ConvertToByteArray(new float[3] { 0.4f, 0.4f, 0.4f }));
+            S.Uniforms.SetData("CurrentMaterial.Ambient", ConvertToByteArray(new float[3] { 0.5f, 0.5f, 0.5f }));
+            S.Uniforms.SetData("EnabledLighting", BitConverter.GetBytes(true));
+            S.Uniforms.SetData("CameraPosition", ConvertToByteArray(new float[3] { 0, 1, 1 }));
+            S.Uniforms.SetData("Color", ConvertToByteArray(new float[4] { 1, 1, 1, 1 }));
+        }
+        /// Temp
+
         private Scene _Scene;
         private DrawEngine _Engine;
         public Runner(int width, int height, GraphicsMode mode, string title) : base(width, height, mode, title)
@@ -59,7 +103,8 @@ namespace Engineer.Runner
         {
             #if !FixedPipeline
             GLSLShaderRenderer SR = _Engine.CurrentRenderer as GLSLShaderRenderer;
-            //SR.
+            GLSLShaderProgram S = SR.CurrentShader() as GLSLShaderProgram;
+            SetExampleShader(S);
             #endif
 
             _Engine.DrawScene(_Scene, this.ClientRectangle.Width, this.ClientRectangle.Height);

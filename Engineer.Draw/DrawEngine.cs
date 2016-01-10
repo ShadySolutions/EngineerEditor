@@ -36,7 +36,7 @@ namespace Engineer.Draw
                                                            (CurrentScene.BackColor.B *1.0f + 1)/256,
                                                            (CurrentScene.BackColor.A *1.0f + 1)/256});
             this._CurrentRenderer.Clear();
-            this._CurrentRenderer.SetSurface(new float[4] { 1, 0, 0, 1 });
+            //this._CurrentRenderer.SetSurface(new float[4] { 1, 0, 0, 1 });
             this._Matrix.MatrixMode("Projection");
             this._Matrix.DefaultPerspective(Width, Height);
             this._Matrix.MatrixMode("ModelView");

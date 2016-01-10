@@ -120,17 +120,22 @@ namespace Engineer.Draw.OpenGL {
         ///	vec3 Specular;
         ///	vec3 Ambient;
         ///};
-        ///uniform bool EnabledTexture;
         ///uniform bool EnabledLighting;
-        ///uniform bool EnabledFog;
-        ///uniform int ColorMethod;
         ///uniform vec3 CameraPosition;
-        ///uniform vec4 GlobalColor;
+        ///uniform vec4 Color;
         ///uniform mat4 ModelView;
         ///uniform mat4 Projection;
-        ///uniform sampler2D TextureSampler;
         ///uniform Material CurrentMaterial;
-        ///uniform Light Lights[8];        /// [rest of string was truncated]&quot;;.
+        ///uniform Light Lights[1];
+        ///in vec3 F_Vertex;
+        ///in vec3 F_Normal;
+        ///in vec3 F_TextureUV;
+        ///out vec4 FinalColor;
+        ///
+        ///void main()
+        ///{
+        ///	FinalColor = Color;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Example_Fragment {
             get {

@@ -165,17 +165,13 @@ struct Material
 	vec3 Specular;
 	vec3 Ambient;
 };
-uniform bool EnabledTexture;
 uniform bool EnabledLighting;
-uniform bool EnabledFog;
-uniform int ColorMethod;
 uniform vec3 CameraPosition;
-uniform vec4 GlobalColor;
+uniform vec4 Color;
 uniform mat4 ModelView;
 uniform mat4 Projection;
-uniform sampler2D TextureSampler;
 uniform Material CurrentMaterial;
-uniform Light Lights[8];
+uniform Light Lights[1];
 in vec3 F_Vertex;
 in vec3 F_Normal;
 in vec3 F_TextureUV;
@@ -183,13 +179,12 @@ out vec4 FinalColor;
 
 void main()
 {
-	FinalColor = GlobalColor;
-	if (EnabledTexture) FinalColor = FinalColor * texture(TextureSampler, FragTexture);
+	FinalColor = Color;
 	if (EnabledLighting)
 	{
 		mat3 NormalMatrix = transpose(inverse(mat3(ModelView)));
 		vec3 TotalAmbient = vec3(0,0,0);
-		for (int i = 0; i &lt; 8; i++)
+		for (int i = 0; i &lt; 1; i++)
 		{
 			if (Lights[i].Enabled)
 			{
@@ -197,23 +192,22 @@ void main()
 			}
 		}
 		vec3 FinalLight = TotalAmbient;
-		for (int i = 0; i &lt; 8; i++)
+		for (int i = 0; i &lt; 1; i++)
 		{
 			if (Lights[i].Enabled)
 			{
-				vec3 SurfacePosition = vec3(Projection * ModelView * vec4(FragVertex, 1));
+				vec3 SurfacePosition = vec3(Projection * ModelView * vec4(F_Vertex, 1));
 				vec3 SurfaceToLight = normalize(SurfacePosition - mat3(ModelView) * Lights[i].Position);
 				vec3 SurfaceToCamera = normalize(CameraPosition - SurfacePosition);
 				float DistanceToLight = length(mat3(ModelView) * Lights[i].Position - SurfacePosition);
 				float CurrentAttenuation = 1.0 / (Lights[i].Attenuation.x + Lights[i].Attenuation.y * DistanceToLight + Lights[i].Attenuation.z * DistanceToLight * DistanceToLight);
-				FragNormal = normalize(FragNormal);
-				vec3 Normal = normalize(NormalMatrix * FragNormal);
+				vec3 Normal = normalize(NormalMatrix * F_Normal);
 				float DiffuseCoefficient = max(0.0, dot(Normal, SurfaceToLight));
 				vec3 CurrentDiffuse = DiffuseCoefficient * FinalColor.rgb * Lights[i].Diffuse;
 				float SpecularCoefficient = 0.0;
-				if (DiffuseCoefficient &gt; 0.0) SpecularCoefficient = pow(max(0.0, dot(SurfaceToCamera, reflect(-SurfaceToLight, Normal))), CurrentMaterial.Shininess);
+				if (DiffuseCoefficient &gt; 0.0) SpecularCoefficient = pow(max(0.0, dot(SurfaceToCamera, reflect(SurfaceToLight, Normal))), CurrentMaterial.Shininess);
 				vec3 CurrentSpecular = SpecularCoefficient * CurrentMaterial.Specular * Lights[i].Diffuse;
-				FinalLight = FinalLight + CurrentAttenuation*(CurrentDiffuse);// + CurrentSpecular);
+				FinalLight = FinalLight + CurrentAttenuation*(CurrentDiffuse + CurrentSpecular);
 			}
 		}
 		vec3 Gamma = vec3(1.0 / 2.2);
