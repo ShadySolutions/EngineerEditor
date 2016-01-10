@@ -29,6 +29,10 @@ namespace Engineer.Draw
         public virtual void Clear()
         {
         }
+        public virtual void ClearColor(float[] Color)
+        {
+            
+        }
         public virtual void SetSurface(float[] Color)
         {
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CB524CC3-DDAD-4E7F-8112-253896A2857C}</ProjectGuid>
+    <ProjectGuid>{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Engineer.Draw</RootNamespace>
-    <AssemblyName>Engineer.Draw</AssemblyName>
+    <RootNamespace>Engineer.Engine</RootNamespace>
+    <AssemblyName>Engineer.Engine</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,23 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawEngine.cs" />
+    <Compile Include="Actor.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="Light.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderer.cs" />
-    <Compile Include="ShaderAttributePackage.cs" />
-    <Compile Include="ShaderManager.cs" />
-    <Compile Include="ShaderProgram.cs" />
-    <Compile Include="ShaderRenderer.cs" />
-    <Compile Include="ShaderUniformPackage.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="SceneObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engineer.Data\Engineer.Data.csproj">
       <Project>{27001881-9739-4d9f-8bbe-57afd825996a}</Project>
       <Name>Engineer.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engineer.Engine\Engineer.Engine.csproj">
-      <Project>{efb51f33-46a8-4367-a8a3-9e647ca6bbe7}</Project>
-      <Name>Engineer.Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engineer.Mathematics\Engineer.Mathematics.csproj">
       <Project>{c808fad5-1905-4463-8f73-d8f3bb19eeb6}</Project>

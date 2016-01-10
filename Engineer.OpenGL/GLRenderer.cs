@@ -17,6 +17,10 @@ namespace Engineer.Draw.OpenGL.FixedGL
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
+        public override void ClearColor(float[] Color)
+        {
+            GL.ClearColor(Color[0], Color[1], Color[2], Color[3]);
+        }
         public override void SetSurface(float[] Color)
         {
             GL.Color3(Color);

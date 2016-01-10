@@ -53,6 +53,10 @@ namespace Engineer.Draw.OpenGL.GLSL
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
         }
+        public override void ClearColor(float[] Color)
+        {
+            GL.ClearColor(Color[0], Color[1], Color[2], Color[3]);
+        }
         public override void SetSurface(float[] Color)
         {
             if (!_Manager.Active.Uniforms.Exists("Color")) _Manager.Active.Uniforms.SetDefinition("Color", 4 * sizeof(float), "vec4");
