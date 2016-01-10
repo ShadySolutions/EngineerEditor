@@ -69,7 +69,8 @@ namespace Engineer.Draw
                         this._CurrentRenderer.RenderGeometry(CurrentScene.Actors[i].Geometries[j].Vertices,
                                                              CurrentScene.Actors[i].Geometries[j].Normals,
                                                              CurrentScene.Actors[i].Geometries[j].TexCoords,
-                                                             CurrentScene.Actors[i].Geometries[j].Faces);
+                                                             CurrentScene.Actors[i].Geometries[j].Faces,
+                                                             CurrentScene.Actors[i].Animated);
                     }
                     this._Matrix.PopMatrix();
                 }

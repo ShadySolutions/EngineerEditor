@@ -92,7 +92,6 @@ namespace Engineer.Draw.OpenGL.GLSL
                 if (!_Attributes.Activate(_Program_Indexer)) return;
                 GL.DrawArrays((PrimitiveType)DrawMode, Offset, _Attributes.BufferLines);
                 GL.UseProgram(0);
-                _Attributes.ClearData();
             }
         }
     }

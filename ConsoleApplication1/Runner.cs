@@ -1,4 +1,4 @@
-﻿#define FixedPipeline
+﻿//#define FixedPipeline
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,11 +40,15 @@ namespace Engineer.Runner
             OBJ.Repack();
             Actor NewActor = new Actor(OBJ);
             NewActor.Scale = new Vertex(0.15f, 0.15f, 0.15f);
+            Actor NewActor1 = new Actor(OBJ);
+            NewActor1.Translation = new Vertex(1, 0, 0);
+            NewActor1.Scale = new Vertex(0.15f, 0.15f, 0.15f);
             Camera NewCamera = new Camera();
             NewCamera.Translation = new Vertex(0, 1, 1);
             NewCamera.Rotation = new Vertex(45, 0, 0);
             _Scene = new Scene();
             _Scene.Actors.Add(NewActor);
+            //_Scene.Actors.Add(NewActor1);
             _Scene.Cameras.Add(NewCamera);
             _Scene.ActiveCamera = 0;
         }
@@ -53,6 +57,11 @@ namespace Engineer.Runner
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
+            #if !FixedPipeline
+            GLSLShaderRenderer SR = _Engine.CurrentRenderer as GLSLShaderRenderer;
+            //SR.
+            #endif
+
             _Engine.DrawScene(_Scene, this.ClientRectangle.Width, this.ClientRectangle.Height);
             SwapBuffers();
         }

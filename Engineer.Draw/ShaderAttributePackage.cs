@@ -8,6 +8,8 @@ namespace Engineer.Draw
 {
     public class ShaderAttributePackage
     {
+        protected bool _BufferExists;
+        protected bool _DataChanged;
         protected bool _AttributesBound;
         protected int _BufferLines;
         protected int _BufferLineLength;
@@ -36,8 +38,21 @@ namespace Engineer.Draw
                 _BufferLines = value;
             }
         }
+        public bool BufferExists
+        {
+            get
+            {
+                return _BufferExists;
+            }
+
+            set
+            {
+                _BufferExists = value;
+            }
+        }
         public ShaderAttributePackage()
         {
+            this._DataChanged = true;
             this._Size = new List<int>();
             this._DataSize = new List<int>();
             this._ID = new List<string>();
@@ -46,6 +61,7 @@ namespace Engineer.Draw
         }
         public ShaderAttributePackage(ShaderAttributePackage ShaderAttributePackage)
         {
+            this._DataChanged = true;
             this._AttributesBound = ShaderAttributePackage._AttributesBound;
             this._BufferLines = ShaderAttributePackage._BufferLines;
             this._BufferLineLength = ShaderAttributePackage._BufferLineLength;
@@ -84,6 +100,7 @@ namespace Engineer.Draw
             if (Index == -1) return false;
             _Data[Index] = Data;
             _DataSize[Index] = DataSize;
+            _DataChanged = true;
             return true;
         }
         public virtual bool Exists(string ID)

@@ -35,7 +35,7 @@ namespace Engineer.Draw.OpenGL.FixedGL
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(Matrix);
         }
-        public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces)
+        public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces, bool Update)
         {
             if (Faces[0].Vertices.Count > 3) GL.Begin(PrimitiveType.Quads);
             else GL.Begin(PrimitiveType.Triangles);

@@ -64,13 +64,16 @@ namespace Engineer.Draw.OpenGL.GLSL
         }
         public override void ClearData()
         {
-            _BufferPointer.Free();
+            this._BufferExists = false;
             GL.DeleteBuffers(1, ref _VertexBuffer_Indexer);
             GL.DeleteVertexArrays(1, ref _VertexArray_Indexer);
             base.ClearData();
         }
         public override bool Activate(int Program_Indexer)
         {
+            if (!_DataChanged) return true;
+            GL.DeleteBuffers(1, ref _VertexBuffer_Indexer);
+            GL.DeleteVertexArrays(1, ref _VertexArray_Indexer);
             if (_ManualBufferLines > 0) return ActivateAttributesWithManualBuffer(Program_Indexer);
             int CurrentOffset = 0;
             byte[] Data;
@@ -123,6 +126,9 @@ namespace Engineer.Draw.OpenGL.GLSL
                 Offset += _Size[i];
                 CurrentOffset += _Size[i];
             }
+            _BufferPointer.Free();
+            this._BufferExists = true;
+            this._DataChanged = false;
 	        return true;
         }
     }
