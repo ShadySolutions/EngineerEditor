@@ -13,6 +13,10 @@ namespace Engineer.Draw.OpenGL.FixedGL
 {
     public class GLRenderer : Renderer
     {
+        public override void SetViewport(int Width, int Height)
+        {
+            GL.Viewport(0, 0, Width, Height);
+        }
         public override void Clear()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);

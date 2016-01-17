@@ -68,6 +68,10 @@ namespace Engineer.Draw
             _Shader.Remove(ID);
             return true;
         }
+        virtual public bool ShaderExists(string ID)
+        {
+            return _Shader.ContainsKey(ID);
+        }
         virtual public bool ActivateShader(string ID)
         {
             _ActiveShaderID = ID;

@@ -34,11 +34,17 @@ namespace Engineer.Draw.OpenGL.GLSL
             GL.ShaderSource(_VertexShader_Indexer, VertexShaderString);
             GL.CompileShader(_VertexShader_Indexer);
             GL.GetShader(_VertexShader_Indexer, ShaderParameter.CompileStatus, out IsCompiled);
-            if (IsCompiled == 0) return false;
+            if (IsCompiled == 0)
+            {
+                return false;
+            }
             GL.ShaderSource(_FragmentShader_Indexer, FragmentShaderString);
             GL.CompileShader(_FragmentShader_Indexer);
             GL.GetShader(_FragmentShader_Indexer, ShaderParameter.CompileStatus, out IsCompiled);
-            if (IsCompiled == 0) return false;
+            if (IsCompiled == 0)
+            {
+                return false;
+            }
             if(GeometryShaderString != null)
             {
                 _GeometryShader_Indexer = GL.CreateShader(ShaderType.GeometryShader);
@@ -72,7 +78,10 @@ namespace Engineer.Draw.OpenGL.GLSL
             _Attributes.Bind(_Program_Indexer);
             GL.LinkProgram(_Program_Indexer);
             GL.GetProgram(_Program_Indexer, GetProgramParameterName.LinkStatus, out IsCompiled);
-            if (IsCompiled == 0) return false;
+            if (IsCompiled == 0)
+            {
+                return false;
+            }
             _Compiled = true;
             return true;
         }

@@ -17,10 +17,7 @@ namespace Engineer.Draw.OpenGL.GLSL
         }
         public override bool AddShader(string ID)
         {
-            for (int i = 0; i <_Shader.Count; i++)
-            {
-                if (_Shader[ID] != null) return false;
-            }
+            if (_Shader.ContainsKey(ID)) return false;
             GLSLShaderProgram NewProgram;
             NewProgram = new GLSLShaderProgram(ID);
             _Shader.Add(ID, NewProgram);

@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Draw.OpenGL", "Eng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Engine", "Engineer.Engine\Engineer.Engine.csproj", "{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialEditor", "MaterialEditor\MaterialEditor.csproj", "{3794C7C5-41F8-4DA4-8AE3-23247B9B6EE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadySolutions.UI.NodeEditor", "ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj", "{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3794C7C5-41F8-4DA4-8AE3-23247B9B6EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3794C7C5-41F8-4DA4-8AE3-23247B9B6EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3794C7C5-41F8-4DA4-8AE3-23247B9B6EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3794C7C5-41F8-4DA4-8AE3-23247B9B6EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

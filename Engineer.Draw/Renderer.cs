@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Engineer.Mathematics;
+using Engineer.Engine;
 
 namespace Engineer.Draw
 {
@@ -26,6 +27,10 @@ namespace Engineer.Draw
         {
 
         }
+        public virtual void SetViewport(int Width, int Height)
+        {
+
+        }
         public virtual void Clear()
         {
         }
@@ -34,6 +39,10 @@ namespace Engineer.Draw
             
         }
         public virtual void SetSurface(float[] Color)
+        {
+
+        }
+        public virtual void SetMaterial(object MaterialData, bool Update)
         {
 
         }
@@ -49,5 +58,6 @@ namespace Engineer.Draw
         {
 
         }
+        
     }
 }

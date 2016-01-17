@@ -167,5 +167,41 @@ namespace Engineer.Draw.OpenGL {
                 return ResourceManager.GetString("Example_Vertex", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #version 400
+        /////Structures
+        ///struct Light
+        ///{
+        ///	vec3 Color;
+        ///	vec3 Position;
+        ///	vec3 Attenuation;
+        ///	float Intensity;
+        ///};
+        /////Globals
+        ///uniform vec3 CameraPosition;
+        ///uniform mat4 ModelView;
+        ///uniform mat4 Projection;
+        ///uniform Light Lights[1];
+        /////Input/Output
+        ///in vec3 F_Vertex;
+        ///in vec3 F_Normal;
+        ///in vec3 F_TextureUV;
+        ///out vec4 FinalColor;
+        ///
+        ///void Ambient(in Light Lights[1], in vec4 Ambient, out vec4 Result)
+        ///{
+        ///	Result = Ambient;
+        ///}
+        ///
+        ///void Diffuse(in Light Lights[1], in vec4 Color, out vec4 Result)
+        ///{
+        ///	mat3 Norm [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Partial_Fragment {
+            get {
+                return ResourceManager.GetString("Partial_Fragment", resourceCulture);
+            }
+        }
     }
 }

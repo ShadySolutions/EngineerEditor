@@ -53,10 +53,32 @@ namespace Engineer.Draw
             }
             return ByteList.ToArray();
         }
+        protected virtual void SetUpShader(string ID, string[] ShaderCodes)
+        {
+            _Manager.AddShader(ID);
+            _Manager.ActivateShader(ID);
+            _Manager.Active.Attributes.SetDefinition("V_Vertex", 3 * sizeof(float), "vec3");
+            _Manager.Active.Attributes.SetDefinition("V_Normal", 3 * sizeof(float), "vec3");
+            _Manager.Active.Attributes.SetDefinition("V_TextureUV", 2 * sizeof(float), "vec2");
+
+            _Manager.Active.Uniforms.SetDefinition("Lights[0].Color", 12, "vec3");
+            _Manager.Active.Uniforms.SetDefinition("Lights[0].Position", 12, "vec3");
+            _Manager.Active.Uniforms.SetDefinition("Lights[0].Attenuation", 12, "vec3");
+            _Manager.Active.Uniforms.SetDefinition("Lights[0].Intensity", 4, "float");
+            _Manager.Active.Uniforms.SetDefinition("CameraPosition", 12, "vec3");
+
+            _Manager.CompileShader(ID, ShaderCodes[0], ShaderCodes[1], ShaderCodes[2], ShaderCodes[3], ShaderCodes[4]);
+        }
         public override void SetSurface(float[] Color)
         {
             if (!_Manager.Active.Uniforms.Exists("Color")) _Manager.Active.Uniforms.SetDefinition("Color", 4 * sizeof(float), "vec4");
             _Manager.Active.Uniforms.SetData("Color", ConvertToByteArray(Color));
+        }
+        public override void SetMaterial(object MaterialData, bool Update)
+        {
+            string[] ShaderData = (string[])MaterialData;
+            if (!_Manager.ShaderExists(ShaderData[0]) || Update) SetUpShader(ShaderData[0], new string[5] { ShaderData[1], ShaderData[2], ShaderData[3], ShaderData[4], ShaderData[5] });
+            _Manager.ActivateShader(ShaderData[0]);
         }
         public override void SetProjectionMatrix(float[] Matrix)
         {

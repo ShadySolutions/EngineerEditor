@@ -49,17 +49,11 @@ namespace Engineer.Runner
         }
         private void SetExampleShader(GLSLShaderProgram S)
         {
-            S.Uniforms.SetData("Lights[0].Enabled", BitConverter.GetBytes(true));
+            S.Uniforms.SetData("Lights[0].Color", ConvertToByteArray(new float[3] { 0.8f, 0.8f, 0.8f }));
             S.Uniforms.SetData("Lights[0].Position", ConvertToByteArray(new float[3] { 0, -4, -4 }));
-            S.Uniforms.SetData("Lights[0].Ambient", ConvertToByteArray(new float[3] { 0.4f, 0.4f, 0.4f }));
-            S.Uniforms.SetData("Lights[0].Diffuse", ConvertToByteArray(new float[3] { 0.8f, 0.8f, 0.8f }));
             S.Uniforms.SetData("Lights[0].Attenuation", ConvertToByteArray(new float[3] { 0.6f, 0.2f, 0.2f }));
-            S.Uniforms.SetData("CurrentMaterial.Shininess", BitConverter.GetBytes(0.00002f));
-            S.Uniforms.SetData("CurrentMaterial.Specular", ConvertToByteArray(new float[3] { 0.4f, 0.4f, 0.4f }));
-            S.Uniforms.SetData("CurrentMaterial.Ambient", ConvertToByteArray(new float[3] { 0.5f, 0.5f, 0.5f }));
-            S.Uniforms.SetData("EnabledLighting", BitConverter.GetBytes(true));
+            S.Uniforms.SetData("Lights[0].Intensity", BitConverter.GetBytes(1.0f));
             S.Uniforms.SetData("CameraPosition", ConvertToByteArray(new float[3] { 0, 1, 1 }));
-            S.Uniforms.SetData("Color", ConvertToByteArray(new float[4] { 1, 1, 1, 1 }));
         }
         /// Temp
 

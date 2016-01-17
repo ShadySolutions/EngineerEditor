@@ -13,6 +13,7 @@ namespace Engineer.Draw
     {
         private MatrixTransformer _Matrix;
         private Renderer _CurrentRenderer;
+        private MaterialTranslator _CurrentTranslator;
         public Renderer CurrentRenderer
         {
             get
@@ -25,12 +26,25 @@ namespace Engineer.Draw
                 _CurrentRenderer = value;
             }
         }
+        public MaterialTranslator CurrentTranslator
+        {
+            get
+            {
+                return _CurrentTranslator;
+            }
+
+            set
+            {
+                _CurrentTranslator = value;
+            }
+        }
         public DrawEngine()
         {
             this._Matrix = new MatrixTransformer();
         }
         public virtual void DrawScene(Scene CurrentScene, int Width, int Height)
         {
+            this._CurrentRenderer.SetViewport(Width, Height);
             this._CurrentRenderer.ClearColor(new float[4] {(CurrentScene.BackColor.R *1.0f + 1)/256,
                                                            (CurrentScene.BackColor.G *1.0f + 1)/256,
                                                            (CurrentScene.BackColor.B *1.0f + 1)/256,
@@ -74,6 +88,14 @@ namespace Engineer.Draw
                     }
                     this._Matrix.PopMatrix();
                 }
+            }
+        }
+        public virtual void ForceApplyMaterial(string ID, Material AppliedMaterial)
+        {
+            ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
+            if(this.CurrentTranslator.TranslateMaterial(AppliedMaterial))
+            {
+                _CurrentRenderer.SetMaterial(new string[6] { "Generated", SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, true);
             }
         }
     }
