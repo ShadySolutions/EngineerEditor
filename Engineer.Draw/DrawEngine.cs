@@ -44,13 +44,25 @@ namespace Engineer.Draw
         }
         public virtual void DrawScene(Scene CurrentScene, int Width, int Height)
         {
+            if (CurrentScene == null) return;
+            this._CurrentRenderer.SetCameraPosition(CurrentScene.Cameras[CurrentScene.ActiveCamera].Translation);
+            for(int i = 0; i < CurrentScene.Lights.Count; i++)
+            {
+                Vertex[] LightVertices = new Vertex[4];
+                LightVertices[0] = VertexBuilder.FromRGB(CurrentScene.Lights[i].Color.R,
+                                                         CurrentScene.Lights[i].Color.G,
+                                                         CurrentScene.Lights[i].Color.B);
+                LightVertices[1] = CurrentScene.Lights[i].Translation;
+                LightVertices[2] = CurrentScene.Lights[i].Attenuation;
+                LightVertices[3] = new Vertex(CurrentScene.Lights[i].Intensity, 0, 0);
+                this._CurrentRenderer.SetViewLight(LightVertices);
+            }
             this._CurrentRenderer.SetViewport(Width, Height);
             this._CurrentRenderer.ClearColor(new float[4] {(CurrentScene.BackColor.R *1.0f + 1)/256,
                                                            (CurrentScene.BackColor.G *1.0f + 1)/256,
                                                            (CurrentScene.BackColor.B *1.0f + 1)/256,
                                                            (CurrentScene.BackColor.A *1.0f + 1)/256});
             this._CurrentRenderer.Clear();
-            //this._CurrentRenderer.SetSurface(new float[4] { 1, 0, 0, 1 });
             this._Matrix.MatrixMode("Projection");
             this._Matrix.DefaultPerspective(Width, Height);
             this._Matrix.MatrixMode("ModelView");
@@ -89,6 +101,7 @@ namespace Engineer.Draw
                     this._Matrix.PopMatrix();
                 }
             }
+            this._CurrentRenderer.ResetLights();
         }
         public virtual void ForceApplyMaterial(string ID, Material AppliedMaterial)
         {

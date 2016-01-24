@@ -72,15 +72,12 @@ namespace MaterialEditor
             OBJContainer OBJ = new OBJContainer();
             OBJ.Load("storm.obj", null);
             OBJ.Repack();
-            Actor NewActor = new Actor(OBJ);
+            Actor NewActor = new Actor(OBJ, "Stormtrooper");
             NewActor.Scale = new Vertex(0.20f, 0.20f, 0.20f);
-            Actor NewActor1 = new Actor(OBJ);
-            NewActor1.Translation = new Vertex(1, 0, 0);
-            NewActor1.Scale = new Vertex(0.15f, 0.15f, 0.15f);
-            Camera NewCamera = new Camera();
+            Camera NewCamera = new Camera("Main Camera");
             NewCamera.Translation = new Vertex(0, 1.2f, 1);
             NewCamera.Rotation = new Vertex(40, 0, 0);
-            _Scene = new Scene();
+            _Scene = new Scene("Stagodf");
             _Scene.Actors.Add(NewActor);
             _Scene.Cameras.Add(NewCamera);
             _Scene.ActiveCamera = 0;

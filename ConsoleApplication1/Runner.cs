@@ -76,17 +76,13 @@ namespace Engineer.Runner
             OBJContainer OBJ = new OBJContainer();
             OBJ.Load("storm.obj", null);
             OBJ.Repack();
-            Actor NewActor = new Actor(OBJ);
+            Actor NewActor = new Actor(OBJ, "Stormtrooper");
             NewActor.Scale = new Vertex(0.15f, 0.15f, 0.15f);
-            Actor NewActor1 = new Actor(OBJ);
-            NewActor1.Translation = new Vertex(1, 0, 0);
-            NewActor1.Scale = new Vertex(0.15f, 0.15f, 0.15f);
-            Camera NewCamera = new Camera();
+            Camera NewCamera = new Camera("Main Camera");
             NewCamera.Translation = new Vertex(0, 1, 1);
             NewCamera.Rotation = new Vertex(45, 0, 0);
-            _Scene = new Scene();
+            _Scene = new Scene("Scene_01");
             _Scene.Actors.Add(NewActor);
-            //_Scene.Actors.Add(NewActor1);
             _Scene.Cameras.Add(NewCamera);
             _Scene.ActiveCamera = 0;
         }

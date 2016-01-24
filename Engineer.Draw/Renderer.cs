@@ -11,6 +11,8 @@ namespace Engineer.Draw
     public class Renderer
     {
         private object _RenderDestination;
+        protected int _LightCounter;
+        protected int _NumLights;
         public object RenderDestination
         {
             get
@@ -25,7 +27,7 @@ namespace Engineer.Draw
         }
         public Renderer()
         {
-
+            this._LightCounter = 0;
         }
         public virtual void SetViewport(int Width, int Height)
         {
@@ -54,10 +56,20 @@ namespace Engineer.Draw
         {
 
         }
+        public virtual void SetCameraPosition(Vertex CameraPosition)
+        {
+        }
+        public virtual void SetViewLight(Vertex[] LightParameters)
+        {
+            
+        }
+        public virtual void ResetLights()
+        {
+            this._LightCounter = 0;
+        }
         public virtual void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces, bool Update)
         {
 
-        }
-        
+        }  
     }
 }

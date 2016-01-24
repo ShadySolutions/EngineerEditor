@@ -8,7 +8,7 @@ namespace Engineer.Engine
 {
     public class Camera : SceneObject
     {
-        public Camera() : base()
+        public Camera(string Name) : base(Name)
         {
 
         }

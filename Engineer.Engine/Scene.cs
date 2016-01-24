@@ -7,9 +7,16 @@ using System.Threading.Tasks;
 
 namespace Engineer.Engine
 {
+    public enum SceneObjectType
+    {
+        Actor = 0,
+        Camera = 1,
+        Light = 2
+    }
     public class Scene
     {
         private int _ActiveCamera;
+        private string _Name;
         private Color _BackColor;
         private List<SceneObject> _Objects;
         private List<Actor> _Actors;
@@ -25,6 +32,18 @@ namespace Engineer.Engine
             set
             {
                 _ActiveCamera = value;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+
+            set
+            {
+                _Name = value;
             }
         }
         public Color BackColor
@@ -83,9 +102,10 @@ namespace Engineer.Engine
                 _Cameras = value;
             }
         }
-        public Scene()
+        public Scene(string Name)
         {
             this._ActiveCamera = -1;
+            this._Name = Name;
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();
             this._Actors = new List<Actor>();

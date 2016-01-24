@@ -16,6 +16,11 @@ namespace Engineer.Draw
         protected int _TessellationControl_Indexer;
         protected int _TessellationEvaluation_Indexer;
         protected string _ShaderID;
+        private string _VertexShader_Code;
+        private string _FragmentShader_Code;
+        private string _GeometryShader_Code;
+        private string _TessellationControl_Code;
+        private string _TessellationEvaluation_Code;
         protected ShaderUniformPackage _Uniforms;
         protected ShaderAttributePackage _Attributes;
         public bool Compiled
@@ -40,6 +45,66 @@ namespace Engineer.Draw
             set
             {
                 _ShaderID = value;
+            }
+        }
+        public string VertexShader_Code
+        {
+            get
+            {
+                return _VertexShader_Code;
+            }
+
+            set
+            {
+                _VertexShader_Code = value;
+            }
+        }
+        public string FragmentShader_Code
+        {
+            get
+            {
+                return _FragmentShader_Code;
+            }
+
+            set
+            {
+                _FragmentShader_Code = value;
+            }
+        }
+        public string GeometryShader_Code
+        {
+            get
+            {
+                return _GeometryShader_Code;
+            }
+
+            set
+            {
+                _GeometryShader_Code = value;
+            }
+        }
+        public string TessellationControl_Code
+        {
+            get
+            {
+                return _TessellationControl_Code;
+            }
+
+            set
+            {
+                _TessellationControl_Code = value;
+            }
+        }
+        public string TessellationEvaluation_Code
+        {
+            get
+            {
+                return _TessellationEvaluation_Code;
+            }
+
+            set
+            {
+                _TessellationEvaluation_Code = value;
             }
         }
         public ShaderUniformPackage Uniforms
@@ -106,6 +171,18 @@ namespace Engineer.Draw
         public virtual bool Compile(string VertexShaderString, string FragmentShaderString, string GeometryShaderString, string TessellationControlString, string TessellationEvaluationString)
         {
             return false;
+        }
+        public virtual void ReCompile()
+        {
+            this.Compile(this._VertexShader_Code, this._FragmentShader_Code, this._GeometryShader_Code, this._TessellationControl_Code, this._TessellationEvaluation_Code);
+        }
+        protected virtual void SetShaderCode(string VertexShaderString, string FragmentShaderString, string GeometryShaderString, string TessellationControlString, string TessellationEvaluationString)
+        {
+            this._VertexShader_Code = VertexShaderString;
+            this._FragmentShader_Code = FragmentShaderString;
+            this._GeometryShader_Code = GeometryShaderString;
+            this._TessellationControl_Code = TessellationControlString;
+            this._TessellationEvaluation_Code = TessellationEvaluationString;
         }
         public virtual void Draw(GraphicDrawMode DrawMode, int Offset)
         {

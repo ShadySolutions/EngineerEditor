@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace Engineer.Mathematics
@@ -127,6 +128,10 @@ namespace Engineer.Mathematics
             VB.Y *= Divider;
             VB.Z *= Divider;
             return VB;
+        }
+        public static Vertex FromRGB(int R, int G, int B)
+        {
+            return new Vertex((R * 1.0f + 1) / 256, (G * 1.0f + 1) / 256, (B * 1.0f + 1) / 256);
         }
         public static VertexBuilder Cross(VertexBuilder Left, VertexBuilder Right)
         {

@@ -61,13 +61,31 @@ namespace Engineer.Draw
             _Manager.Active.Attributes.SetDefinition("V_Normal", 3 * sizeof(float), "vec3");
             _Manager.Active.Attributes.SetDefinition("V_TextureUV", 2 * sizeof(float), "vec2");
 
+            this._NumLights = 1;
             _Manager.Active.Uniforms.SetDefinition("Lights[0].Color", 12, "vec3");
             _Manager.Active.Uniforms.SetDefinition("Lights[0].Position", 12, "vec3");
             _Manager.Active.Uniforms.SetDefinition("Lights[0].Attenuation", 12, "vec3");
             _Manager.Active.Uniforms.SetDefinition("Lights[0].Intensity", 4, "float");
+
             _Manager.Active.Uniforms.SetDefinition("CameraPosition", 12, "vec3");
 
             _Manager.CompileShader(ID, ShaderCodes[0], ShaderCodes[1], ShaderCodes[2], ShaderCodes[3], ShaderCodes[4]);
+        }
+        protected virtual void RefreshActiveShader(string Name, string OldValue, string NewValue)
+        {
+            string Replaced = OldValue + "/*" + Name + "*/";
+            string ReplaceWith = NewValue + "/*" + Name + "*/";
+            if (_Manager.Active.VertexShader_Code != null)
+                _Manager.Active.VertexShader_Code = _Manager.Active.VertexShader_Code.Replace(Replaced, ReplaceWith);
+            if (_Manager.Active.FragmentShader_Code != null)
+                _Manager.Active.FragmentShader_Code = _Manager.Active.FragmentShader_Code.Replace(Replaced, ReplaceWith);
+            if (_Manager.Active.GeometryShader_Code != null)
+                _Manager.Active.GeometryShader_Code = _Manager.Active.GeometryShader_Code.Replace(Replaced, ReplaceWith);
+            if (_Manager.Active.TessellationControl_Code != null)
+                _Manager.Active.TessellationControl_Code = _Manager.Active.TessellationControl_Code.Replace(Replaced, ReplaceWith);
+            if (_Manager.Active.TessellationEvaluation_Code != null)
+                _Manager.Active.TessellationEvaluation_Code = _Manager.Active.TessellationEvaluation_Code.Replace(Replaced, ReplaceWith);
+            _Manager.Active.ReCompile();
         }
         public override void SetSurface(float[] Color)
         {
@@ -89,6 +107,27 @@ namespace Engineer.Draw
         {
             if (!_Manager.Active.Uniforms.Exists("ModelView")) _Manager.Active.Uniforms.SetDefinition("ModelView", 16 * sizeof(float), "mat4");
             _Manager.Active.Uniforms.SetData("ModelView", ConvertToByteArray(Matrix));
+        }
+        public override void SetCameraPosition(Vertex CameraPosition)
+        {
+            _Manager.Active.Uniforms.SetData("CameraPosition", ConvertToByteArray(new float[3] { CameraPosition.X, CameraPosition.Y, CameraPosition .Z}));
+        }
+        public override void SetViewLight(Vertex[] LightParameters)
+        {
+            while(this._LightCounter >= this._NumLights)
+            {
+                RefreshActiveShader("NumLights", this._NumLights.ToString(), (this._NumLights + 1).ToString());
+                _Manager.Active.Uniforms.SetDefinition("Lights[" + _LightCounter + "].Color", 12, "vec3");
+                _Manager.Active.Uniforms.SetDefinition("Lights[" + _LightCounter + "].Position", 12, "vec3");
+                _Manager.Active.Uniforms.SetDefinition("Lights[" + _LightCounter + "].Attenuation", 12, "vec3");
+                _Manager.Active.Uniforms.SetDefinition("Lights[" + _LightCounter + "].Intensity", 4, "float");
+                this._NumLights++;
+            }
+            _Manager.Active.Uniforms.SetData("Lights[" + _LightCounter + "].Color", ConvertToByteArray(new float[3] { LightParameters[0].X, LightParameters[0].Y, LightParameters[0].Z }));
+            _Manager.Active.Uniforms.SetData("Lights[" + _LightCounter + "].Position", ConvertToByteArray(new float[3] { LightParameters[1].X, LightParameters[1].Y, LightParameters[1].Z }));
+            _Manager.Active.Uniforms.SetData("Lights[" + _LightCounter + "].Attenuation", ConvertToByteArray(new float[3] { LightParameters[2].X, LightParameters[2].Y, LightParameters[2].Z }));
+            _Manager.Active.Uniforms.SetData("Lights[" + _LightCounter + "].Intensity", BitConverter.GetBytes(LightParameters[3].X));
+            this._LightCounter++;
         }
         public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces, bool Update)
         {

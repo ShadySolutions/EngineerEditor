@@ -49,13 +49,6 @@ namespace Engineer.Mathematics
             this._PushedProjectionMatrix = new float[16];
             MTIdentity(ref this._PushedProjectionMatrix);
         }
-        private void MTIdentity(ref float[] Matrix)
-        {
-            Matrix = new float[16] { 1, 0, 0, 0,
-                                     0, 1, 0, 0,
-                                     0, 0, 1, 0,
-                                     0, 0, 0, 1};
-        }
         private void MTFrustum(ref float[] Matrix, float Left, float Right, float Bottom, float Top, float ZNear, float ZFar)
         {
             float A = (Right + Left) / (Right - Left);
@@ -88,7 +81,14 @@ namespace Engineer.Mathematics
             Matrix[3 * 4 + 1] = TY;
             Matrix[3 * 4 + 2] = TZ;
         }
-        private float[] MTTranslate(float X, float Y, float Z)
+        public static void MTIdentity(ref float[] Matrix)
+        {
+            Matrix = new float[16] { 1, 0, 0, 0,
+                                     0, 1, 0, 0,
+                                     0, 0, 1, 0,
+                                     0, 0, 0, 1};
+        }
+        public static float[] MTTranslate(float X, float Y, float Z)
         {
             float[] Matrix = new float[16];
             MTIdentity(ref Matrix);
@@ -97,7 +97,7 @@ namespace Engineer.Mathematics
             Matrix[3 * 4 + 2] = Z;
             return Matrix;
         }
-        private float[] MTScale(float X, float Y, float Z)
+        public static float[] MTScale(float X, float Y, float Z)
         {
             float[] Matrix = new float[16];
             MTIdentity(ref Matrix);
@@ -106,7 +106,7 @@ namespace Engineer.Mathematics
             Matrix[2 * 4 + 2] = Z;
             return Matrix;
         }
-        private float[] MTRotate(int Axis, float Angle)
+        public static float[] MTRotate(int Axis, float Angle)
         {
             float[] Matrix = new float[16];
             float SinTheta, CosTheta;
@@ -145,7 +145,7 @@ namespace Engineer.Mathematics
             }
             return Matrix;
         }
-        private float[] MTMultiply4x4(float[] M1, float[] M2)
+        public static float[] MTMultiply4x4(float[] M1, float[] M2)
         {
             float[] Result = new float[16];
             for (int i = 0; i < 4; ++i)
@@ -263,6 +263,15 @@ namespace Engineer.Mathematics
         public void DefaultView(Vertex Eye, Vertex Target)
         {
             LookAt(Eye.X, Eye.Y, Eye.Z, Target.X, Target.Y, Target.Z, 0, 1, 0);
+        }
+        public static Vertex TransformVertex(float[] Matrix, Vertex ToTransform)
+        {
+            float[] NewVertex = new float[4];
+            NewVertex[0] = Matrix[0 * 4 + 0] * ToTransform.X + Matrix[0 * 4 + 1] * ToTransform.Y + Matrix[0 * 4 + 2] * ToTransform.Z + Matrix[0 * 4 + 3] * 1;
+            NewVertex[1] = Matrix[1 * 4 + 0] * ToTransform.X + Matrix[1 * 4 + 1] * ToTransform.Y + Matrix[1 * 4 + 2] * ToTransform.Z + Matrix[1 * 4 + 3] * 1;
+            NewVertex[2] = Matrix[2 * 4 + 0] * ToTransform.X + Matrix[2 * 4 + 1] * ToTransform.Y + Matrix[2 * 4 + 2] * ToTransform.Z + Matrix[2 * 4 + 3] * 1;
+            NewVertex[3] = Matrix[3 * 4 + 0] * ToTransform.X + Matrix[3 * 4 + 1] * ToTransform.Y + Matrix[3 * 4 + 2] * ToTransform.Z + Matrix[3 * 4 + 3] * 1;
+            return new Vertex(NewVertex[0], NewVertex[1], NewVertex[2]);
         }
     }
 }

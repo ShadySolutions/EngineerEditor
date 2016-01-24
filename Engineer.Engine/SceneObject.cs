@@ -10,6 +10,7 @@ namespace Engineer.Engine
     public class SceneObject
     {
         private bool _Active;
+        private string _Name;
         private Vertex _Translation;
         private Vertex _Scale;
         private Vertex _Rotation;
@@ -23,6 +24,18 @@ namespace Engineer.Engine
             set
             {
                 _Active = value;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+
+            set
+            {
+                _Name = value;
             }
         }
         public Vertex Translation
@@ -61,9 +74,10 @@ namespace Engineer.Engine
                 _Rotation = value;
             }
         }
-        public SceneObject()
+        public SceneObject(string Name)
         {
             this._Active = true;
+            this._Name = Name;
             this._Translation = new Vertex();
             this._Scale = new Vertex(1, 1, 1);
             this._Rotation = new Vertex();

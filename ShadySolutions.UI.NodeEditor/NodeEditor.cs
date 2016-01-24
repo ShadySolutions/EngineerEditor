@@ -120,8 +120,8 @@ namespace ShadySolutions.UI.NodeEditor
         private void DrawConnection(Graphics Draw, Point P0, Point P1)
         {
             List<Point> Points = GenerateCurve(P0, P1);
-            Pen OrangePen = new Pen(Color.Silver, 1);
-            Pen BlackPen = new Pen(Color.Gray, 3);
+            Pen OrangePen = new Pen(Color.Silver);
+            Pen BlackPen = new Pen(Color.Red);
             Points.Insert(0, P0);
             Points.Add(P1);
             for (int i = 0; i < Points.Count - 1; i++)

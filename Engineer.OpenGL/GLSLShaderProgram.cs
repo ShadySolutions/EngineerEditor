@@ -83,6 +83,7 @@ namespace Engineer.Draw.OpenGL.GLSL
                 return false;
             }
             _Compiled = true;
+            SetShaderCode(VertexShaderString, FragmentShaderString, GeometryShaderString, TessellationControlString, TessellationEvaluationString);
             return true;
         }
         public override void Activate()

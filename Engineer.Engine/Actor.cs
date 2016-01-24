@@ -10,6 +10,7 @@ namespace Engineer.Engine
     public class Actor : SceneObject
     {
         private bool _Animated;
+        private List<Geometry> _Geometries;
         public bool Animated
         {
             get
@@ -22,7 +23,6 @@ namespace Engineer.Engine
                 _Animated = value;
             }
         }
-        private List<Geometry> _Geometries;
         public List<Geometry> Geometries
         {
             get
@@ -35,12 +35,12 @@ namespace Engineer.Engine
                 _Geometries = value;
             }
         }
-        public Actor() : base()
+        public Actor(string Name) : base(Name)
         {
             this._Animated = false;
             this.Geometries = new List<Geometry>();
         }
-        public Actor(MeshContainer Mesh) : base()
+        public Actor(MeshContainer Mesh, string Name) : base(Name)
         {
             this._Animated = false;
             this.Geometries = Mesh.Geometries;
