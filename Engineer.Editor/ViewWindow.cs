@@ -53,7 +53,7 @@ namespace Engineer.Editor
             _Engine.CurrentTranslator = Translator;
 
             XmlDocument Document = new XmlDocument();
-            Document.Load("mat.xml");
+            Document.Load("Library/Material/Default.mtx");
             XmlNode Main = Document.FirstChild;
             Material Mat = new Material(Main);
             _Engine.ForceApplyMaterial("DefaultMaterial", Mat);

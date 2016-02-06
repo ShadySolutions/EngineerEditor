@@ -6,7 +6,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,19 +30,40 @@ namespace Engineer.Editor
         public _Parent()
         {
             InitializeComponent();
+            if (!Directory.Exists("Library")) CheckRuntime();
             SetUpScene();
             GenerateLayout();
+        }
+        private void CheckRuntime()
+        {
+            bool PackageWritten = false;
+            Assembly CurrentAssembly = Assembly.GetExecutingAssembly();
+            using (Stream RuntimeStream = new MemoryStream(Engineer.Editor.Properties.Resources.AppRuntime))
+            {
+                if (RuntimeStream == null)
+                {
+                    MessageBox.Show("Fatal Error", "Unable to access Runtime!");
+                    Application.Exit();
+                }
+                else using (Stream Output = File.OpenWrite("Package.zip"))
+                {
+                    RuntimeStream.CopyTo(Output);
+                    PackageWritten = true;
+                }
+            }
+            if (!PackageWritten) return;
+            ZipFile.ExtractToDirectory("Package.zip", ".");
         }
         private void SetUpScene()
         {
             OBJContainer OBJ = new OBJContainer();
-            OBJ.Load("storm.obj", null);
+            OBJ.Load("Library/Mesh/Head.obj", null);
             OBJ.Repack();
             Actor NewActor = new Actor(OBJ, "Stormtrooper");
-            NewActor.Scale = new Vertex(0.20f, 0.20f, 0.20f);
+            NewActor.Scale = new Vertex(0.0030f, 0.0030f, 0.0030f);
             Actor NewActor1 = new Actor(OBJ, "Stormtrooper");
             NewActor1.Translation = new Vertex(1, 0, 0);
-            NewActor1.Scale = new Vertex(0.15f, 0.15f, 0.15f);
+            NewActor1.Scale = new Vertex(0.015f, 0.15f, 0.15f);
             Camera NewCamera = new Camera("Main Camera");
             NewCamera.Translation = new Vertex(0, 1.2f, 1);
             NewCamera.Rotation = new Vertex(40, 0, 0);

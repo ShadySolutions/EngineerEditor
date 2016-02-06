@@ -50,6 +50,7 @@ namespace Engineer.Data
                 }
                 if (Line.StartsWith("v"))
                 {
+                    if (NewGeometry.Vertices == null) NewGeometry.Vertices = new List<Vertex>();
                     NewGeometry.Vertices.Add(new Mathematics.Vertex(Converter.ToSingle(Parts[1]), Converter.ToSingle(Parts[2]), Converter.ToSingle(Parts[3])));
                     continue;
                 }

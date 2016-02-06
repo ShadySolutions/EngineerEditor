@@ -41,6 +41,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -121,6 +123,7 @@
     <EmbeddedResource Include="WorldOptions.resx">
       <DependentUpon>WorldOptions.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="bin\Debug\AppRuntime.zip" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -169,9 +172,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\AppRuntime.zip" />
     <None Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ma.csa" />
     <None Include="Resources\SetAsCurrent.png" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +185,7 @@
   <ItemGroup>
     <None Include="Resources\Properties.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
