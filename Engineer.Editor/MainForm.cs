@@ -57,10 +57,12 @@ namespace Engineer.Editor
         private void SetUpScene()
         {
             OBJContainer OBJ = new OBJContainer();
-            OBJ.Load("Library/Mesh/Head.obj", null);
+            OBJ.Load("Library/Mesh/Model.obj", null);
             OBJ.Repack();
+            OBJ.RecalculateNormals();
+            
             Actor NewActor = new Actor(OBJ, "Stormtrooper");
-            NewActor.Scale = new Vertex(0.0030f, 0.0030f, 0.0030f);
+            NewActor.Scale = new Vertex(0.00010f, 0.00010f, 0.00010f);
             Actor NewActor1 = new Actor(OBJ, "Stormtrooper");
             NewActor1.Translation = new Vertex(1, 0, 0);
             NewActor1.Scale = new Vertex(0.015f, 0.15f, 0.15f);

@@ -137,5 +137,9 @@ namespace Engineer.Data
         {
             this._Geometries = new List<Geometry>();
         }
+        public void RecalculateNormals()
+        {
+            for (int i = 0; i < this._Geometries.Count; i++) this._Geometries[i].RecalculateNormals();
+        }
     }
 }

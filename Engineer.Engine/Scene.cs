@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 namespace Engineer.Engine
 {
-    public enum SceneObjectType
-    {
-        Actor = 0,
-        Camera = 1,
-        Light = 2
-    }
     public class Scene
     {
         private int _ActiveCamera;

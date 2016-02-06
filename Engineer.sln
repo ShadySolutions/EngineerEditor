@@ -37,6 +37,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeOne.WindowSuite", "Take
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Editor", "Engineer.Editor\Engineer.Editor.csproj", "{22AED2A2-1390-4FDE-A3E2-812B5EA95B1A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{E431A47F-FD4C-48D5-9C4B-810114B14DD8}"
+	ProjectSection(SolutionItems) = preProject
+		DLLs\OpenTK.dll = DLLs\OpenTK.dll
+		DLLs\OpenTK.GLControl.dll = DLLs\OpenTK.GLControl.dll
+		DLLs\WeifenLuo.WinFormsUI.Docking.dll = DLLs\WeifenLuo.WinFormsUI.Docking.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

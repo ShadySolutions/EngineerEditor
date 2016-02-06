@@ -82,5 +82,30 @@ namespace Engineer.Data
             this._TexCoords = new List<Vertex>();
             this._Faces = new List<Face>();
         }
+        public void RecalculateNormals()
+        {
+            this._Normals = new List<Vertex>();
+            List<Vertex>[] Normals = new List<Vertex>[_Vertices.Count];
+            for(int i = 0; i < this._Faces.Count; i++)
+            {
+                List<Vertex> Vertices = new List<Vertex>();
+                for(int j = 0; j < this._Faces[i].Vertices.Count; j++)
+                {
+                    Vertices.Add(this._Vertices[Faces[i].Vertices[j]]);
+                }
+                Vertex Normal = VertexTransformer.CalculateNormal(Vertices.ToArray());
+                for (int j = 0; j < this._Faces[i].Vertices.Count; j++)
+                {
+                    if (Normals[Faces[i].Vertices[j]] == null) Normals[Faces[i].Vertices[j]] = new List<Vertex>();
+                    Normals[Faces[i].Vertices[j]].Add(Normal);
+                    Faces[i].Normals.Add(j);
+                }
+            }
+            for(int i = 0; i < _Vertices.Count; i++)
+            {
+                if (Normals[i] == null) this._Normals.Add(new Vertex(0, 1, 0));
+                else this._Normals.Add(VertexTransformer.Average(Normals[i].ToArray()));
+            }
+        }
     }
 }

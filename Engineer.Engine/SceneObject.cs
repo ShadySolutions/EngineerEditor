@@ -7,10 +7,18 @@ using Engineer.Mathematics;
 
 namespace Engineer.Engine
 {
+    public enum SceneObjectType
+    {
+        Undefined = -1,
+        Actor = 0,
+        Camera = 1,
+        Light = 2,
+    }
     public class SceneObject
     {
         private bool _Active;
         private string _Name;
+        private SceneObjectType _Type;
         private Vertex _Translation;
         private Vertex _Scale;
         private Vertex _Rotation;
@@ -36,6 +44,18 @@ namespace Engineer.Engine
             set
             {
                 _Name = value;
+            }
+        }
+        public SceneObjectType Type
+        {
+            get
+            {
+                return _Type;
+            }
+
+            set
+            {
+                _Type = value;
             }
         }
         public Vertex Translation
@@ -78,6 +98,7 @@ namespace Engineer.Engine
         {
             this._Active = true;
             this._Name = Name;
+            this._Type = SceneObjectType.Undefined;
             this._Translation = new Vertex();
             this._Scale = new Vertex(1, 1, 1);
             this._Rotation = new Vertex();
