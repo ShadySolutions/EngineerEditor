@@ -44,6 +44,10 @@ namespace Engineer.Draw
         {
 
         }
+        public virtual bool IsMaterialReady(string ID)
+        {
+            return false;
+        }
         public virtual void SetMaterial(object MaterialData, bool Update)
         {
 
@@ -71,5 +75,13 @@ namespace Engineer.Draw
         {
 
         }  
+        public virtual void PushPreferences()
+        {
+
+        }
+        public virtual void PopPreferences()
+        {
+
+        }
     }
 }

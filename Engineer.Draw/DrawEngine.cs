@@ -42,10 +42,17 @@ namespace Engineer.Draw
         {
             this._Matrix = new MatrixTransformer();
         }
+        public void SetDefaults()
+        {
+            ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
+            if (this.CurrentTranslator.TranslateMaterial(Material.Default))
+            {
+                _CurrentRenderer.SetMaterial(new string[6] { "Default", SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, true);
+            }
+        }
         public virtual void DrawScene(Scene CurrentScene, int Width, int Height)
         {
             if (CurrentScene == null) return;
-            this._CurrentRenderer.SetCameraPosition(CurrentScene.Cameras[CurrentScene.ActiveCamera].Translation);
             for(int i = 0; i < CurrentScene.Lights.Count; i++)
             {
                 Vertex[] LightVertices = new Vertex[4];
@@ -54,7 +61,8 @@ namespace Engineer.Draw
                                                          CurrentScene.Lights[i].Color.B);
                 LightVertices[1] = CurrentScene.Lights[i].Translation;
                 LightVertices[2] = CurrentScene.Lights[i].Attenuation;
-                LightVertices[3] = new Vertex(CurrentScene.Lights[i].Intensity, 0, 0);
+                if (CurrentScene.Lights[i].Active) LightVertices[3] = new Vertex(CurrentScene.Lights[i].Intensity, 0, 0);
+                else LightVertices[3] = new Vertex(0, 0, 0);
                 this._CurrentRenderer.SetViewLight(LightVertices);
             }
             this._CurrentRenderer.SetViewport(Width, Height);
@@ -64,6 +72,7 @@ namespace Engineer.Draw
                                                            (CurrentScene.BackColor.A *1.0f + 1)/256});
             this._CurrentRenderer.Clear();
             this._Matrix.MatrixMode("Projection");
+            this._Matrix.LoadIdentity();
             this._Matrix.DefaultPerspective(Width, Height);
             this._Matrix.MatrixMode("ModelView");
             this._Matrix.LoadIdentity();
@@ -75,13 +84,11 @@ namespace Engineer.Draw
             this._Matrix.Translate(-CurrentScene.Cameras[CurrentScene.ActiveCamera].Translation.X,
                                    -CurrentScene.Cameras[CurrentScene.ActiveCamera].Translation.Y,
                                    -CurrentScene.Cameras[CurrentScene.ActiveCamera].Translation.Z);
-            this._CurrentRenderer.SetProjectionMatrix(_Matrix.ProjectionMatrix);
-            this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
+            this._Matrix.PushMatrix();
             for (int i = 0; i < CurrentScene.Actors.Count; i++)
             {
                 if(CurrentScene.Actors[i].Active)
                 {
-                    this._Matrix.PushMatrix();
                     this._Matrix.Scale(CurrentScene.Actors[i].Scale.X, CurrentScene.Actors[i].Scale.Y, CurrentScene.Actors[i].Scale.Z);
                     this._Matrix.Rotate(CurrentScene.Actors[i].Rotation.X, 1, 0, 0);
                     this._Matrix.Rotate(CurrentScene.Actors[i].Rotation.Y, 0, 1, 0);
@@ -89,16 +96,41 @@ namespace Engineer.Draw
                     this._Matrix.Translate(CurrentScene.Actors[i].Translation.X,
                                            CurrentScene.Actors[i].Translation.Y,
                                            CurrentScene.Actors[i].Translation.Z);
-                    this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
                     for (int j = 0; j < CurrentScene.Actors[i].Geometries.Count; j++)
                     {
+                        if(!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name) || CurrentScene.Actors[i].Animated)
+                        {
+                            ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
+                            if (this.CurrentTranslator.TranslateMaterial(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]]))
+                            {
+                                _CurrentRenderer.SetMaterial(new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, true);
+                            }
+                            else _CurrentRenderer.SetMaterial(new string[6] { "Default", null, null, null, null, null }, false);
+                        }
+                        else _CurrentRenderer.SetMaterial(new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, null, null, null, null, null }, false);
+
+                        /*for (int k = 0; k < CurrentScene.Lights.Count; k++)
+                        {
+                            Vertex[] LightVertices = new Vertex[4];
+                            LightVertices[0] = VertexBuilder.FromRGB(CurrentScene.Lights[k].Color.R,
+                                                                     CurrentScene.Lights[k].Color.G,
+                                                                     CurrentScene.Lights[k].Color.B);
+                            LightVertices[1] = CurrentScene.Lights[k].Translation;
+                            LightVertices[2] = CurrentScene.Lights[k].Attenuation;
+                            if (CurrentScene.Lights[k].Active) LightVertices[3] = new Vertex(CurrentScene.Lights[k].Intensity, 0, 0);
+                            else LightVertices[3] = new Vertex(0, 0, 0);
+                            this._CurrentRenderer.SetViewLight(LightVertices);
+                        }*/
+                        this._CurrentRenderer.SetProjectionMatrix(_Matrix.ProjectionMatrix);
+                        this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
+                        this._CurrentRenderer.SetCameraPosition(CurrentScene.Cameras[CurrentScene.ActiveCamera].Translation);
                         this._CurrentRenderer.RenderGeometry(CurrentScene.Actors[i].Geometries[j].Vertices,
                                                              CurrentScene.Actors[i].Geometries[j].Normals,
                                                              CurrentScene.Actors[i].Geometries[j].TexCoords,
                                                              CurrentScene.Actors[i].Geometries[j].Faces,
                                                              CurrentScene.Actors[i].Animated);
+                        this._Matrix.PopMatrix();
                     }
-                    this._Matrix.PopMatrix();
                 }
             }
             this._CurrentRenderer.ResetLights();

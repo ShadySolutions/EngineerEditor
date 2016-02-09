@@ -56,15 +56,45 @@ namespace Engineer.Data
                 }
                 if (Line.StartsWith("f"))
                 {
-                    Mathematics.Face NewFace = new Mathematics.Face();
-                    for(int i = 1; i < Parts.Length; i++)
+                    if (Parts.Length == 5)
                     {
-                        string[] SubParts = Parts[i].Split('/');
-                        NewFace.Vertices.Add(Math.Abs(Convert.ToInt32(SubParts[0]))-1);
-                        if (SubParts.Length > 1) NewFace.TexCoords.Add(Math.Abs(Convert.ToInt32(SubParts[1]))-1);
-                        if (SubParts.Length > 2) NewFace.Normals.Add(Math.Abs(Convert.ToInt32(SubParts[2])) - 1);
+                        Mathematics.Face NewFace1 = new Mathematics.Face();
+                        Mathematics.Face NewFace2 = new Mathematics.Face();
+                        for (int i = 1; i < Parts.Length; i++)
+                        {
+                            string[] SubParts = Parts[i].Split('/');
+                            if(i == 1 || i == 2 || i == 4) NewFace1.Vertices.Add(Math.Abs(Convert.ToInt32(SubParts[0])) - 1);
+                            if (i == 2 || i == 3 || i == 4) NewFace2.Vertices.Add(Math.Abs(Convert.ToInt32(SubParts[0])) - 1);
+                            if (SubParts.Length > 1 && SubParts[1] != "")
+                            {
+                                if (i == 1 || i == 2 || i == 4) NewFace1.TexCoords.Add(Math.Abs(Convert.ToInt32(SubParts[1])) - 1);
+                                if (i == 2 || i == 3 || i == 4) NewFace2.TexCoords.Add(Math.Abs(Convert.ToInt32(SubParts[1])) - 1);
+                            }
+                            if (SubParts.Length > 2)
+                            {
+                                if (i == 1 || i == 2 || i == 4) NewFace1.Normals.Add(Math.Abs(Convert.ToInt32(SubParts[2])) - 1);
+                                if (i == 2 || i == 3 || i == 4) NewFace2.Normals.Add(Math.Abs(Convert.ToInt32(SubParts[2])) - 1);
+                            }
+                        }
+                        NewGeometry.Faces.Add(NewFace1);
+                        NewGeometry.Faces.Add(NewFace2);
                     }
-                    NewGeometry.Faces.Add(NewFace);
+                    else
+                    {
+                        Mathematics.Face NewFace = new Mathematics.Face();
+                        for (int i = 1; i < Parts.Length; i++)
+                        {
+                            if (Parts.Length > 3)
+                            {
+                                int d = 3;
+                            }
+                            string[] SubParts = Parts[i].Split('/');
+                            NewFace.Vertices.Add(Math.Abs(Convert.ToInt32(SubParts[0])) - 1);
+                            if (SubParts.Length > 1) NewFace.TexCoords.Add(Math.Abs(Convert.ToInt32(SubParts[1])) - 1);
+                            if (SubParts.Length > 2) NewFace.Normals.Add(Math.Abs(Convert.ToInt32(SubParts[2])) - 1);
+                        }
+                        NewGeometry.Faces.Add(NewFace);
+                    }
                     continue;
                 }
             }
@@ -92,6 +122,7 @@ namespace Engineer.Data
                     }
                     for (int k = 0; k < this.Geometries[i].Faces[j].TexCoords.Count; k++)
                     {
+                        if (this.Geometries[i].TexCoords.Count == 0) break;
                         NewTexCoords.Add(this.Geometries[i].TexCoords[this.Geometries[i].Faces[j].TexCoords[k]]);
                         this.Geometries[i].Faces[j].TexCoords[k] = NewTexCoords.Count - 1;
                     }

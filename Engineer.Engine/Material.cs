@@ -9,6 +9,7 @@ namespace Engineer.Engine
 {
     public class Material
     {
+        public static Material Default;
         private string _Name;
         private object _Tags;
         private List<MaterialNode> _Nodes;
@@ -70,6 +71,12 @@ namespace Engineer.Engine
                     this._Nodes.Add(new MaterialNode(XNode.ChildNodes[i], this));
                 }
             }
+        }
+        public Material(string Name, Material OldMaterial)
+        {
+            this._Name = Name;
+            this._Tags = OldMaterial._Tags;
+            this._Nodes = new List<MaterialNode>(OldMaterial.Nodes);
         }
         public bool IsNodeIDFree(string ID)
         {

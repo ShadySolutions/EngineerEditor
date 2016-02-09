@@ -40,6 +40,12 @@ namespace Engineer.Mathematics
             this.Y = Y;
             this.Z = Z;
         }
+        public VertexBuilder(Vertex V)
+        {
+            X = V.X;
+            Y = V.Y;
+            Z = V.Z;
+        }
         public VertexBuilder(VertexBuilder V)
         {
             X = V.X;

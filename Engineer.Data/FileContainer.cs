@@ -141,5 +141,9 @@ namespace Engineer.Data
         {
             for (int i = 0; i < this._Geometries.Count; i++) this._Geometries[i].RecalculateNormals();
         }
+        public void CreaseVerts()
+        {
+            for (int i = 0; i < this._Geometries.Count; i++) this._Geometries[i].CreaseVerts();
+        }
     }
 }

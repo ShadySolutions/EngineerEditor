@@ -15,6 +15,7 @@ namespace Engineer.Editor
     public partial class SceneWindow : ToolForm
     {
         private Scene _CurrentScene;
+        private PropertiesWindow _Properties;
         public SceneWindow()
         {
             InitializeComponent();
@@ -48,7 +49,6 @@ namespace Engineer.Editor
             SceneTree.Nodes.Clear();
             SceneTree.Nodes.Add(SceneNode);
         }
-
         private void SceneTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if(SceneTree.SelectedNode != null)
@@ -71,7 +71,6 @@ namespace Engineer.Editor
                 deleteToolStripMenuItem.Visible = false;
             }
         }
-
         private void SetAsCurrentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (SceneTree.SelectedNode == null) return;
@@ -80,6 +79,21 @@ namespace Engineer.Editor
                 if(SceneTree.SelectedNode.Text == this._CurrentScene.Cameras[i].Name)
                 {
                     this._CurrentScene.ActiveCamera = i;
+                }
+            }
+        }
+        public void SetPropertiesWindow(PropertiesWindow Properties)
+        {
+            this._Properties = Properties;
+        }
+        private void PropertiesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (SceneTree.SelectedNode == null) return;
+            for (int i = 0; i < this._CurrentScene.Objects.Count; i++)
+            {
+                if (SceneTree.SelectedNode.Text == this._CurrentScene.Objects[i].Name)
+                {
+                    this._Properties.SetSceneObject(this._CurrentScene.Objects[i]);
                 }
             }
         }

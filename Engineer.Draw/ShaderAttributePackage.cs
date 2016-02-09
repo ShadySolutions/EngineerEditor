@@ -103,6 +103,21 @@ namespace Engineer.Draw
             _DataChanged = true;
             return true;
         }
+        public virtual bool DeleteDefinition(string ID)
+        {
+            int Index = -1;
+            for (int i = 0; i < _ID.Count; i++)
+            {
+                if (_ID[i] == ID) Index = i;
+            }
+            if (Index == -1) return false;
+            _ID.RemoveAt(Index);
+            _Type.RemoveAt(Index);
+            _Size.RemoveAt(Index);
+            _DataSize.RemoveAt(Index);
+            _Data.RemoveAt(Index);
+            return true;
+        }
         public virtual bool Exists(string ID)
         {
             int Index = -1;

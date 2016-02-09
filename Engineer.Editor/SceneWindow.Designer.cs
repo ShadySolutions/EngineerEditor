@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SceneWindow));
             this.SceneTree = new System.Windows.Forms.TreeView();
-            this.SceneIcons = new System.Windows.Forms.ImageList(this.components);
             this.ContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SetAsCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PropertiesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SceneIcons = new System.Windows.Forms.ImageList(this.components);
             this.ContentPanel.SuspendLayout();
             this.ContextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -59,18 +59,6 @@
             this.SceneTree.Size = new System.Drawing.Size(490, 370);
             this.SceneTree.TabIndex = 1;
             this.SceneTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SceneTree_AfterSelect);
-            // 
-            // SceneIcons
-            // 
-            this.SceneIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("SceneIcons.ImageStream")));
-            this.SceneIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.SceneIcons.Images.SetKeyName(0, "Scene.png");
-            this.SceneIcons.Images.SetKeyName(1, "Actor.png");
-            this.SceneIcons.Images.SetKeyName(2, "Camera.png");
-            this.SceneIcons.Images.SetKeyName(3, "Light.png");
-            this.SceneIcons.Images.SetKeyName(4, "Material.png");
-            this.SceneIcons.Images.SetKeyName(5, "Sound.png");
-            this.SceneIcons.Images.SetKeyName(6, "Timer.png");
             // 
             // ContextMenu
             // 
@@ -96,16 +84,29 @@
             this.PropertiesToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.PropertiesToolStripMenuItem1.Image = global::Engineer.Editor.Properties.Resources.Properties;
             this.PropertiesToolStripMenuItem1.Name = "PropertiesToolStripMenuItem1";
-            this.PropertiesToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.PropertiesToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.PropertiesToolStripMenuItem1.Text = "Properties";
+            this.PropertiesToolStripMenuItem1.Click += new System.EventHandler(this.PropertiesToolStripMenuItem1_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.deleteToolStripMenuItem.Image = global::Engineer.Editor.Properties.Resources.Delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
+            // 
+            // SceneIcons
+            // 
+            this.SceneIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("SceneIcons.ImageStream")));
+            this.SceneIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.SceneIcons.Images.SetKeyName(0, "Scene.png");
+            this.SceneIcons.Images.SetKeyName(1, "Actor.png");
+            this.SceneIcons.Images.SetKeyName(2, "Camera.png");
+            this.SceneIcons.Images.SetKeyName(3, "Light.png");
+            this.SceneIcons.Images.SetKeyName(4, "Material.png");
+            this.SceneIcons.Images.SetKeyName(5, "Sound.png");
+            this.SceneIcons.Images.SetKeyName(6, "Timer.png");
             // 
             // SceneWindow
             // 

@@ -86,14 +86,15 @@ namespace Engineer.Data
         {
             this._Normals = new List<Vertex>();
             List<Vertex>[] Normals = new List<Vertex>[_Vertices.Count];
-            for(int i = 0; i < this._Faces.Count; i++)
+            for (int i = 0; i < this._Faces.Count; i++)
             {
                 List<Vertex> Vertices = new List<Vertex>();
-                for(int j = 0; j < this._Faces[i].Vertices.Count; j++)
+                for (int j = 0; j < this._Faces[i].Vertices.Count; j++)
                 {
                     Vertices.Add(this._Vertices[Faces[i].Vertices[j]]);
                 }
-                Vertex Normal = VertexTransformer.CalculateNormal(Vertices.ToArray());
+                Vertex Normal = (VertexTransformer.Normalize(VertexTransformer.CalculateNormal(Vertices.ToArray()).ToVertex())).ToVertex();
+                Faces[i].Normals.Clear();
                 for (int j = 0; j < this._Faces[i].Vertices.Count; j++)
                 {
                     if (Normals[Faces[i].Vertices[j]] == null) Normals[Faces[i].Vertices[j]] = new List<Vertex>();
@@ -101,10 +102,63 @@ namespace Engineer.Data
                     Faces[i].Normals.Add(j);
                 }
             }
-            for(int i = 0; i < _Vertices.Count; i++)
+            for (int i = 0; i < _Vertices.Count; i++)
             {
-                if (Normals[i] == null) this._Normals.Add(new Vertex(0, 1, 0));
-                else this._Normals.Add(VertexTransformer.Average(Normals[i].ToArray()));
+                if (Normals[i] == null) this._Normals.Add(new Vertex(1, 0, 0));
+                else this._Normals.Add(VertexTransformer.Average(Normals[i].ToArray()).ToVertex());
+            }
+            for (int i = 0; i < this._Faces.Count; i++)
+            {
+                for(int j = 0; j < this._Faces[i].Vertices.Count; j++)
+                {
+                    this._Faces[i].Normals[j] = this._Faces[i].Vertices[j];
+                }
+            }
+        }
+        public void CreaseVerts()
+        {
+            for(int i = 0; i < this._Faces.Count; i++)
+            {
+                for (int j = i+1; j < this._Faces.Count; j++)
+                {
+                    List<int> SameVertices = new List<int>();
+                    List<int> F1Position = new List<int>();
+                    List<int> F2Position = new List<int>();
+                    for (int k = 0; k < this.Faces[i].Vertices.Count; k++)
+                    {
+                        for (int l = 0; l < this.Faces[j].Vertices.Count; l++)
+                        {
+                            if(this.Faces[i].Vertices[k] == this.Faces[j].Vertices[l])
+                            {
+                                SameVertices.Add(this.Faces[i].Vertices[k]);
+                                F1Position.Add(k);
+                                F2Position.Add(l);
+                            }
+                        }
+                    }
+                    if(SameVertices.Count > 1)
+                    {
+                        List<Vertex> Vertices1 = new List<Vertex>();
+                        for (int k = 0; k < this.Faces[i].Vertices.Count; k++) Vertices1.Add(this._Vertices[this.Faces[i].Vertices[k]]);
+                        List<Vertex> Vertices2 = new List<Vertex>();
+                        for (int l = 0; l < this.Faces[j].Vertices.Count; l++) Vertices2.Add(this._Vertices[this.Faces[j].Vertices[l]]);
+                        Vertex Normal1 = VertexTransformer.Normalize(VertexTransformer.CalculateNormal(Vertices1.ToArray()).ToVertex()).ToVertex();
+                        Vertex Normal2 = VertexTransformer.Normalize(VertexTransformer.CalculateNormal(Vertices2.ToArray()).ToVertex()).ToVertex();
+                        float Angle = VertexTransformer.Angle(Normal1, Normal2);
+                        Angle *= (float)(180 / Math.PI);
+                        if(Angle > 15)
+                        {
+                            for (int k = 0; k < SameVertices.Count; k++)
+                            {
+                                int Index = this._Vertices.Count;
+                                this._Vertices.Add(this._Vertices[SameVertices[k]]);
+                                if (this._Normals.Count > 0 && this.Faces[j].Normals.Count > 0) this._Normals.Add(this._Normals[this._Faces[j].Normals[F2Position[k]]]);
+                                this.Faces[j].Vertices[F2Position[k]] = Index;
+                                if (this._Normals.Count > 0 && this.Faces[j].Normals.Count > 0) this.Faces[j].Normals[F2Position[k]] = Index;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

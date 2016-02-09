@@ -51,12 +51,7 @@ namespace Engineer.Editor
             _Engine.CurrentRenderer = Render;
             GLSLShaderMaterialTranslator Translator = new GLSLShaderMaterialTranslator();
             _Engine.CurrentTranslator = Translator;
-
-            XmlDocument Document = new XmlDocument();
-            Document.Load("Library/Material/Default.mtx");
-            XmlNode Main = Document.FirstChild;
-            Material Mat = new Material(Main);
-            _Engine.ForceApplyMaterial("DefaultMaterial", Mat);
+            _Engine.SetDefaults();
         }
         private void GLControl_Paint(object sender, PaintEventArgs e)
         {

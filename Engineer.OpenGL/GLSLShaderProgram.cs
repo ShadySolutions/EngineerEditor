@@ -51,7 +51,10 @@ namespace Engineer.Draw.OpenGL.GLSL
                 GL.ShaderSource(_GeometryShader_Indexer, GeometryShaderString);
                 GL.CompileShader(_GeometryShader_Indexer);
                 GL.GetShader(_GeometryShader_Indexer, ShaderParameter.CompileStatus, out IsCompiled);
-                if (IsCompiled == 0) return false;
+                if (IsCompiled == 0)
+                {
+                    return false;
+                }
             }
             if (TessellationControlString != null)
             {

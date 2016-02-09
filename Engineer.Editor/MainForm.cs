@@ -56,22 +56,31 @@ namespace Engineer.Editor
         }
         private void SetUpScene()
         {
-            OBJContainer OBJ = new OBJContainer();
-            OBJ.Load("Library/Mesh/Model.obj", null);
-            OBJ.Repack();
-            OBJ.RecalculateNormals();
-            
-            Actor NewActor = new Actor(OBJ, "Stormtrooper");
-            NewActor.Scale = new Vertex(0.00010f, 0.00010f, 0.00010f);
-            Actor NewActor1 = new Actor(OBJ, "Stormtrooper");
-            NewActor1.Translation = new Vertex(1, 0, 0);
-            NewActor1.Scale = new Vertex(0.015f, 0.15f, 0.15f);
+            XmlDocument Document = new XmlDocument();
+            Document.Load("Library/Material/Default.mtx");
+            XmlNode Main = Document.FirstChild;
+            Material Mat = new Material(Main);
+            Material.Default = Mat;
+
+            OBJContainer FloorOBJ = new OBJContainer();
+            FloorOBJ.Load("Library/Mesh/Floor.obj", null);
+            if (FloorOBJ.Geometries[0].Normals.Count == 0) FloorOBJ.RecalculateNormals();
+            FloorOBJ.Repack();
+
+            OBJContainer SoldierOBJ = new OBJContainer();
+            SoldierOBJ.Load("Library/Mesh/Soldier.obj", null);
+            if(SoldierOBJ.Geometries[0].Normals.Count == 0) SoldierOBJ.RecalculateNormals();
+            SoldierOBJ.Repack();
+
+            Actor Soldier = new Actor(SoldierOBJ, "Soldier");
+            Soldier.Scale = new Vertex(0.001f, 0.001f, 0.001f);
+            Actor Soldier1 = new Actor(SoldierOBJ, "Soldier");
+            //Soldier1.Scale = new Vertex(0.001f, 0.001f, 0.001f);
+            Actor Floor = new Actor(FloorOBJ, "Floor");
+            Floor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
             Camera NewCamera = new Camera("Main Camera");
-            NewCamera.Translation = new Vertex(0, 1.2f, 1);
-            NewCamera.Rotation = new Vertex(40, 0, 0);
-            Camera NewCamera1 = new Camera("Side Camera");
-            NewCamera1.Translation = new Vertex(0, 1.2f, 1);
-            NewCamera1.Rotation = new Vertex(40, 0, 0);
+            NewCamera.Translation = new Vertex(0, 0.6f, 0.8f);
+            NewCamera.Rotation = new Vertex(30, 0, 0);
             Light MainLight = new Light("Light_01");
             MainLight.Translation = new Vertex(4, -4, -4);
             MainLight.Color = Color.White;
@@ -83,9 +92,11 @@ namespace Engineer.Editor
             SideLight.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
             SideLight.Intensity = 0.3f;
             _CurrentScene = new Scene("Scene_01");
-            _CurrentScene.Actors.Add(NewActor);
+            _CurrentScene.Actors.Add(Floor);
+            _CurrentScene.Actors.Add(Soldier);
+            //_CurrentScene.Actors.Add(Soldier1);
+
             _CurrentScene.Cameras.Add(NewCamera);
-            _CurrentScene.Cameras.Add(NewCamera1);
             _CurrentScene.Lights.Add(MainLight);
             _CurrentScene.Lights.Add(SideLight);
             _CurrentScene.ActiveCamera = 0;
@@ -99,6 +110,7 @@ namespace Engineer.Editor
             this._Library = new ContentLibrary();
             this._Properties = new PropertiesWindow();
             this._Scene = new SceneWindow();
+            this._Scene.SetPropertiesWindow(this._Properties);
             this._World.Show(MainDock, DockState.DockLeft);
             this._Library.Show(this._World.Pane, DockAlignment.Bottom, 1.4 / 2);
             this._Scene.Show(MainDock, DockState.DockRight);

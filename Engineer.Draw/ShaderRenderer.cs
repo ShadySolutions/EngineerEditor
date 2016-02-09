@@ -9,6 +9,7 @@ namespace Engineer.Draw
 {
     public class ShaderRenderer : Renderer
     {
+        private string _PushedID;
         protected ShaderManager _Manager;
         protected ShaderManager Manager
         {
@@ -24,7 +25,7 @@ namespace Engineer.Draw
         }
         public ShaderRenderer() : base()
         {
-            
+            this._PushedID = "";
         }
         public byte[] ConvertToByteArray(float[] Array)
         {
@@ -92,6 +93,10 @@ namespace Engineer.Draw
             if (!_Manager.Active.Uniforms.Exists("Color")) _Manager.Active.Uniforms.SetDefinition("Color", 4 * sizeof(float), "vec4");
             _Manager.Active.Uniforms.SetData("Color", ConvertToByteArray(Color));
         }
+        public override bool IsMaterialReady(string ID)
+        {
+            return this._Manager.ShaderExists(ID);
+        }
         public override void SetMaterial(object MaterialData, bool Update)
         {
             string[] ShaderData = (string[])MaterialData;
@@ -131,11 +136,16 @@ namespace Engineer.Draw
         }
         public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces, bool Update)
         {
+            if((TexCoords == null || TexCoords.Count == 0) && _Manager.Active.Attributes.Exists("V_TextureUV"))
+            {
+                _Manager.Active.Attributes.DeleteDefinition("V_TextureUV");
+                _Manager.Active.ReCompile();
+            }
             if (Update || (!_Manager.Active.Attributes.BufferExists))
             {
                 _Manager.Active.Attributes.SetData("V_Vertex", Vertices.Count * 3 * sizeof(float), ConvertToByteArray(Vertices, 3));
                 _Manager.Active.Attributes.SetData("V_Normal", Vertices.Count * 3 * sizeof(float), ConvertToByteArray(Normals, 3));
-                _Manager.Active.Attributes.SetData("V_TextureUV", Vertices.Count * 2 * sizeof(float), ConvertToByteArray(TexCoords, 2));
+                if(TexCoords != null) _Manager.Active.Attributes.SetData("V_TextureUV", Vertices.Count * 2 * sizeof(float), ConvertToByteArray(TexCoords, 2));
             }
             _Manager.SetDrawMode(GraphicDrawMode.Triangles);
             _Manager.Draw();
@@ -143,6 +153,14 @@ namespace Engineer.Draw
         public virtual ShaderProgram CurrentShader()
         {
             return _Manager.Active;
+        }
+        public override void PushPreferences()
+        {
+            this._PushedID = _Manager.Active.ShaderID;
+        }
+        public override void PopPreferences()
+        {
+            if (this._PushedID != "") _Manager.ActivateShader(this._PushedID);
         }
     }
 }
