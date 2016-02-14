@@ -29,31 +29,37 @@ namespace Engineer.Editor
         }
         private void AssembleTree()
         {
-            if (_CurrentSceneType == SceneType.Scene3D)
+            Scene3D Current3DScene = this._CurrentScene as Scene3D;
+            TreeNode SceneNode = new TreeNode(this._CurrentScene.Name, 0, 0);
+            for (int i = 0; i < _CurrentScene.Objects.Count; i++)
             {
-                /*Scene3D Current3DScene = this._CurrentScene as Scene3D;
-                TreeNode SceneNode = new TreeNode(this._CurrentScene.Name, 0, 0);
-                for (int i = 0; i < Current3DScene.Actors.Count; i++)
+                if(_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Actor)
                 {
-                    TreeNode ActorNode = new TreeNode(Current3DScene.Actors[i].Name, 1, 1);
+                    TreeNode ActorNode = new TreeNode(Current3DScene.Objects[i].Name, 1, 1);
                     ActorNode.Tag = DrawObjectType.Actor;
                     SceneNode.Nodes.Add(ActorNode);
                 }
-                for (int i = 0; i < Current3DScene.Cameras.Count; i++)
+                if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
                 {
-                    TreeNode CameraNode = new TreeNode(Current3DScene.Cameras[i].Name, 2, 2);
+                    TreeNode CameraNode = new TreeNode(Current3DScene.Objects[i].Name, 2, 2);
                     CameraNode.Tag = DrawObjectType.Camera;
                     SceneNode.Nodes.Add(CameraNode);
                 }
-                for (int i = 0; i < Current3DScene.Lights.Count; i++)
+                if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Light)
                 {
-                    TreeNode LightNode = new TreeNode(Current3DScene.Lights[i].Name, 3, 3);
+                    TreeNode LightNode = new TreeNode(Current3DScene.Objects[i].Name, 3, 3);
                     LightNode.Tag = DrawObjectType.Light;
                     SceneNode.Nodes.Add(LightNode);
                 }
-                SceneTree.Nodes.Clear();
-                SceneTree.Nodes.Add(SceneNode);*/
+                if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Background)
+                {
+                    TreeNode BackgroundNode = new TreeNode(Current3DScene.Objects[i].Name, 4, 4);
+                    BackgroundNode.Tag = DrawObjectType.Background;
+                    SceneNode.Nodes.Add(BackgroundNode);
+                }
             }
+            SceneTree.Nodes.Clear();
+            SceneTree.Nodes.Add(SceneNode);
         }
         private void SceneTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -81,15 +87,18 @@ namespace Engineer.Editor
         {
             if (_CurrentSceneType == SceneType.Scene3D)
             {
-                /*Scene3D Current3DScene = this._CurrentScene as Scene3D;
+                Scene3D Current3DScene = this._CurrentScene as Scene3D;
                 if (SceneTree.SelectedNode == null) return;
-                for (int i = 0; i < Current3DScene.Cameras.Count; i++)
+                for (int i = 0; i < Current3DScene.Objects.Count; i++)
                 {
-                    if (SceneTree.SelectedNode.Text == Current3DScene.Cameras[i].Name)
+                    if(Current3DScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(Current3DScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
                     {
-                        Current3DScene.ActiveCamera = i;
+                        if(Current3DScene.Objects[i].Name == SceneTree.SelectedNode.Text)
+                        {
+                            Current3DScene.EditorCamera = new Camera(DrawnSceneObject.Drawn(Current3DScene.Objects[i]).Representation as Camera);
+                        }
                     }
-                }*/
+                }
             }
         }
         public void SetPropertiesWindow(PropertiesWindow Properties)
@@ -98,14 +107,14 @@ namespace Engineer.Editor
         }
         private void PropertiesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            /*if (SceneTree.SelectedNode == null) return;
+            if (SceneTree.SelectedNode == null) return;
             for (int i = 0; i < this._CurrentScene.Objects.Count; i++)
             {
                 if (SceneTree.SelectedNode.Text == this._CurrentScene.Objects[i].Name)
                 {
                     this._Properties.SetDrawObject(this._CurrentScene.Objects[i]);
                 }
-            }*/
+            }
         }
     }
 }

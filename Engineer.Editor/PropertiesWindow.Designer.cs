@@ -28,7 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.ContentPanel.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // ContentPanel
+            // 
+            this.ContentPanel.Controls.Add(this.NameLabel);
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.NameLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameLabel.ForeColor = System.Drawing.Color.White;
+            this.NameLabel.Location = new System.Drawing.Point(0, 0);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.NameLabel.Size = new System.Drawing.Size(490, 41);
+            this.NameLabel.TabIndex = 0;
+            this.NameLabel.Text = "label1";
+            this.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.NameLabel.Visible = false;
             // 
             // PropertiesWindow
             // 
@@ -41,10 +61,13 @@
             this.Name = "PropertiesWindow";
             this.Text = "Properties";
             this.Title = "Properties";
+            this.ContentPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label NameLabel;
     }
 }

@@ -11,11 +11,11 @@ using Engineer.Engine;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_SceneObject : UserControl
+    public partial class Properties_DrawObject : UserControl
     {
         private bool _SkipFlag;
         private DrawObject _CurrentObject;
-        public Properties_SceneObject()
+        public Properties_DrawObject()
         {
             InitializeComponent();
             this.Value_Translation.SetMinMax(-100000, 100000);
@@ -32,16 +32,15 @@ namespace Engineer.Editor
             this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);
         }
 
-        public Properties_SceneObject(DrawObject CurrentObject)
+        public Properties_DrawObject(DrawObject CurrentObject)
         {
-            /*InitializeComponent();
+            InitializeComponent();
             this.Value_Translation.SetMinMax(-100000, 100000);
             this.Value_Rotation.SetMinMax(-100000, 100000);
             this.Value_Scale.SetMinMax((decimal)0.000001, 100000);
 
             this._CurrentObject = CurrentObject;
             this.Value_Active.Checked = CurrentObject.Active;
-            this.Value_Name.Text = CurrentObject.Name;
             this.Value_Translation.X.Value = Convert.ToDecimal(CurrentObject.Translation.X);
             this.Value_Translation.Y.Value = Convert.ToDecimal(CurrentObject.Translation.Y);
             this.Value_Translation.Z.Value = Convert.ToDecimal(CurrentObject.Translation.Z);
@@ -60,12 +59,7 @@ namespace Engineer.Editor
             this.Value_Rotation.Z.ValueChanged += new EventHandler(Value_Rotation_Changed);
             this.Value_Scale.X.ValueChanged += new EventHandler(Value_Scale_Changed);
             this.Value_Scale.Y.ValueChanged += new EventHandler(Value_Scale_Changed);
-            this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);*/
-        }
-
-        private void Value_Name_TextChanged(object sender, EventArgs e)
-        {
-            //this._CurrentObject.Name = Value_Name.Text;
+            this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);
         }
 
         private void Value_Active_CheckedChanged(object sender, EventArgs e)

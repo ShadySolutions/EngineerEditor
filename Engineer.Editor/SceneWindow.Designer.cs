@@ -68,14 +68,14 @@
             this.PropertiesToolStripMenuItem1,
             this.deleteToolStripMenuItem});
             this.ContextMenu.Name = "contextMenuStrip1";
-            this.ContextMenu.Size = new System.Drawing.Size(153, 92);
+            this.ContextMenu.Size = new System.Drawing.Size(148, 70);
             // 
             // SetAsCurrentToolStripMenuItem
             // 
             this.SetAsCurrentToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.SetAsCurrentToolStripMenuItem.Image = global::Engineer.Editor.Properties.Resources.SetAsCurrent;
             this.SetAsCurrentToolStripMenuItem.Name = "SetAsCurrentToolStripMenuItem";
-            this.SetAsCurrentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SetAsCurrentToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.SetAsCurrentToolStripMenuItem.Text = "Set as Current";
             this.SetAsCurrentToolStripMenuItem.Click += new System.EventHandler(this.SetAsCurrentToolStripMenuItem_Click);
             // 
@@ -84,7 +84,7 @@
             this.PropertiesToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.PropertiesToolStripMenuItem1.Image = global::Engineer.Editor.Properties.Resources.Properties;
             this.PropertiesToolStripMenuItem1.Name = "PropertiesToolStripMenuItem1";
-            this.PropertiesToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.PropertiesToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.PropertiesToolStripMenuItem1.Text = "Properties";
             this.PropertiesToolStripMenuItem1.Click += new System.EventHandler(this.PropertiesToolStripMenuItem1_Click);
             // 
@@ -93,7 +93,7 @@
             this.deleteToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.deleteToolStripMenuItem.Image = global::Engineer.Editor.Properties.Resources.Delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // SceneIcons

@@ -14,21 +14,30 @@ namespace Engineer.Editor
 {
     public partial class PropertiesWindow : ToolForm
     {
-        private DrawObject _CurrentObject;
+        private SceneObject _CurrentObject;
         public PropertiesWindow()
         {
             InitializeComponent();
             this.ContentPanel.Padding = new Padding(10);
         }
-        public void SetDrawObject(DrawObject CurrentObject)
+        public void SetDrawObject(SceneObject CurrentObject)
         {
             this._CurrentObject = CurrentObject;
             this.ContentPanel.Controls.Clear();
             if (CurrentObject == null) return;
-            Properties_SceneObject PSO = new Properties_SceneObject(CurrentObject);
-            PSO.Dock = DockStyle.Top;
-            PSO.Height = 160;
-            this.ContentPanel.Controls.Add(PSO);
+            NameLabel.Visible = true;
+            NameLabel.Text = CurrentObject.Name;
+            NameLabel.Dock = DockStyle.Top;
+            this.ContentPanel.Controls.Add(NameLabel);
+            NameLabel.SendToBack();
+            if (CurrentObject.Type == SceneObjectType.DrawnSceneObject)
+            {
+                Properties_DrawObject PDO = new Properties_DrawObject(DrawnSceneObject.Drawn(CurrentObject).Representation);
+                PDO.Dock = DockStyle.Top;
+                PDO.Height = 130;
+                this.ContentPanel.Controls.Add(PDO);
+                PDO.BringToFront();
+            }
         }
     }
 }
