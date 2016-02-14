@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Engineer.Engine
 {
-    public class Light : SceneObject
+    public class Light : DrawObject
     {
         private float _Intensity;
         private Color _Color;
@@ -49,8 +49,9 @@ namespace Engineer.Engine
                 _Attenuation = value;
             }
         }
-        public Light(string Name) : base(Name)
+        public Light() : base()
         {
+            this.Type = DrawObjectType.Light;
             this._Intensity = 1f;
             this._Color = Color.White;
             this._Attenuation = new Vertex(1, 0, 0);

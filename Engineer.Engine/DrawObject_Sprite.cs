@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Engineer.Engine
 {
-    public class Camera : SceneObject
+    public class Sprite : DrawObject
     {
-        public Camera(string Name) : base(Name)
+        public Sprite() : base()
         {
-
+            this.Type = DrawObjectType.Sprite;
         }
     }
 }

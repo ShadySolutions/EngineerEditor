@@ -14,7 +14,7 @@ namespace Engineer.Editor
     public partial class Properties_SceneObject : UserControl
     {
         private bool _SkipFlag;
-        private SceneObject _CurrentObject;
+        private DrawObject _CurrentObject;
         public Properties_SceneObject()
         {
             InitializeComponent();
@@ -32,9 +32,9 @@ namespace Engineer.Editor
             this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);
         }
 
-        public Properties_SceneObject(SceneObject CurrentObject)
+        public Properties_SceneObject(DrawObject CurrentObject)
         {
-            InitializeComponent();
+            /*InitializeComponent();
             this.Value_Translation.SetMinMax(-100000, 100000);
             this.Value_Rotation.SetMinMax(-100000, 100000);
             this.Value_Scale.SetMinMax((decimal)0.000001, 100000);
@@ -60,12 +60,12 @@ namespace Engineer.Editor
             this.Value_Rotation.Z.ValueChanged += new EventHandler(Value_Rotation_Changed);
             this.Value_Scale.X.ValueChanged += new EventHandler(Value_Scale_Changed);
             this.Value_Scale.Y.ValueChanged += new EventHandler(Value_Scale_Changed);
-            this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);
+            this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);*/
         }
 
         private void Value_Name_TextChanged(object sender, EventArgs e)
         {
-            this._CurrentObject.Name = Value_Name.Text;
+            //this._CurrentObject.Name = Value_Name.Text;
         }
 
         private void Value_Active_CheckedChanged(object sender, EventArgs e)

@@ -59,6 +59,20 @@ namespace Engineer.Draw
             if (Index == -1) return false;
             return true;
         }
+        public virtual bool Delete(string ID)
+        {
+            int Index = -1;
+            for (int i = 0; i < _ID.Count; i++)
+            {
+                if (_ID[i] == ID) Index = i;
+            }
+            if (Index == -1) return false;
+            this._ID.RemoveAt(Index);
+            this._Size.RemoveAt(Index);
+            this._Type.RemoveAt(Index);
+            this._Data.RemoveAt(Index);
+            return true;
+        }
         public virtual bool Activate(int Program_Indexer)
         {
             return true;
@@ -68,6 +82,18 @@ namespace Engineer.Draw
             for (int i = 0; i < _ID.Count; i++)
             {
                 _Data[i] = null;
+            }
+        }
+        public virtual void Update(ShaderUniformPackage ShaderUniformPackage)
+        {
+            for(int i = 0; i < ShaderUniformPackage._ID.Count; i++)
+            {
+                if (this.Exists(ShaderUniformPackage._ID[i])) this.SetData(ShaderUniformPackage._ID[i], ShaderUniformPackage._Data[i]);
+                else
+                {
+                    this.SetDefinition(ShaderUniformPackage._ID[i], ShaderUniformPackage._Size[i], ShaderUniformPackage._Type[i]);
+                    this.SetData(ShaderUniformPackage._ID[i], ShaderUniformPackage._Data[i]);
+                }
             }
         }
     }

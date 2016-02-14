@@ -26,12 +26,13 @@ namespace Engineer.Editor
         private SceneWindow _Scene;
         private WorldOptions _World;
         private ViewWindow _View;
+        private SceneType _CurrentSceneType;
         private Scene _CurrentScene;
         public _Parent()
         {
             InitializeComponent();
             if (!Directory.Exists("Library")) CheckRuntime();
-            SetUpScene();
+            SetUp3DScene();
             GenerateLayout();
         }
         private void CheckRuntime()
@@ -54,7 +55,7 @@ namespace Engineer.Editor
             if (!PackageWritten) return;
             ZipFile.ExtractToDirectory("Package.zip", ".");
         }
-        private void SetUpScene()
+        private void SetUp3DScene()
         {
             XmlDocument Document = new XmlDocument();
             Document.Load("Library/Material/Default.mtx");
@@ -62,44 +63,47 @@ namespace Engineer.Editor
             Material Mat = new Material(Main);
             Material.Default = Mat;
 
-            OBJContainer FloorOBJ = new OBJContainer();
-            FloorOBJ.Load("Library/Mesh/Floor.obj", null);
-            if (FloorOBJ.Geometries[0].Normals.Count == 0) FloorOBJ.RecalculateNormals();
-            FloorOBJ.Repack();
+            OBJContainer Floor_OBJ = new OBJContainer();
+            Floor_OBJ.Load("Library/Mesh/Floor.obj", null);
+            if (Floor_OBJ.Geometries[0].Normals.Count == 0) Floor_OBJ.RecalculateNormals();
+            Floor_OBJ.Repack();
 
-            OBJContainer SoldierOBJ = new OBJContainer();
-            SoldierOBJ.Load("Library/Mesh/Soldier.obj", null);
-            if(SoldierOBJ.Geometries[0].Normals.Count == 0) SoldierOBJ.RecalculateNormals();
-            SoldierOBJ.Repack();
+            OBJContainer Soldier_OBJ = new OBJContainer();
+            Soldier_OBJ.Load("Library/Mesh/Soldier.obj", null);
+            if(Soldier_OBJ.Geometries[0].Normals.Count == 0) Soldier_OBJ.RecalculateNormals();
+            Soldier_OBJ.Repack();
 
-            Actor Soldier = new Actor(SoldierOBJ, "Soldier");
-            Soldier.Scale = new Vertex(0.001f, 0.001f, 0.001f);
-            Actor Soldier1 = new Actor(SoldierOBJ, "Soldier");
-            //Soldier1.Scale = new Vertex(0.001f, 0.001f, 0.001f);
-            Actor Floor = new Actor(FloorOBJ, "Floor");
-            Floor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
-            Camera NewCamera = new Camera("Main Camera");
-            NewCamera.Translation = new Vertex(0, 0.6f, 0.8f);
-            NewCamera.Rotation = new Vertex(30, 0, 0);
-            Light MainLight = new Light("Light_01");
-            MainLight.Translation = new Vertex(4, -4, -4);
-            MainLight.Color = Color.White;
-            MainLight.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
-            MainLight.Intensity = 0.3f;
-            Light SideLight = new Light("Light_02");
-            SideLight.Translation = new Vertex(-4, -4, -4);
-            SideLight.Color = Color.White;
-            SideLight.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
-            SideLight.Intensity = 0.3f;
-            _CurrentScene = new Scene("Scene_01");
-            _CurrentScene.Actors.Add(Floor);
-            _CurrentScene.Actors.Add(Soldier);
-            //_CurrentScene.Actors.Add(Soldier1);
+            Actor Soldier_Actor = new Actor(Soldier_OBJ, "Soldier");
+            Soldier_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
 
-            _CurrentScene.Cameras.Add(NewCamera);
-            _CurrentScene.Lights.Add(MainLight);
-            _CurrentScene.Lights.Add(SideLight);
-            _CurrentScene.ActiveCamera = 0;
+            Actor Floor_Actor = new Actor(Floor_OBJ, "Floor");
+            Floor_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
+
+            Camera MainCamera_Camera = new Camera();
+            MainCamera_Camera.Translation = new Vertex(0, 0.6f, 0.8f);
+            MainCamera_Camera.Rotation = new Vertex(30, 0, 0);
+
+            Light Light1_Light = new Light();
+            Light1_Light.Translation = new Vertex(4, -4, -4);
+            Light1_Light.Color = Color.White;
+            Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
+            Light1_Light.Intensity = 0.3f;
+
+            Scene3D NewScene = new Scene3D("Scene_01");
+            DrawnSceneObject Floor_Object = new DrawnSceneObject("Floor", Floor_Actor);
+            NewScene.AddSceneObject(Floor_Object);
+            DrawnSceneObject Soldier_Object = new DrawnSceneObject("Soldier", Soldier_Actor);
+            NewScene.AddSceneObject(Soldier_Object);
+            DrawnSceneObject Camera_Object = new DrawnSceneObject("Camera", MainCamera_Camera);
+            NewScene.AddSceneObject(Camera_Object);
+            DrawnSceneObject Light_Object = new DrawnSceneObject("Light", Light1_Light);
+            NewScene.AddSceneObject(Light_Object);
+
+            NewScene.ActiveCamera = new Camera(MainCamera_Camera);
+            NewScene.EditorCamera = new Camera(MainCamera_Camera);
+
+            this._CurrentSceneType = SceneType.Scene3D;
+            this._CurrentScene = NewScene;
         }
         private void GenerateLayout()
         {
@@ -118,10 +122,10 @@ namespace Engineer.Editor
             this._Library.SetLibraryRoot("Library", 0);
             this._Library.SetLibraryRoot("Project\\Assets", 1);
             this._Library.SetLibraryView(0);
-            this._Scene.SetScene(_CurrentScene);
+            this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
             this._View = new ViewWindow();
             this._View.Show(MainDock, DockState.Document);
-            this._View.SetScene(_CurrentScene);
+            this._View.SetScene(_CurrentSceneType, _CurrentScene);
         }
     }
 }

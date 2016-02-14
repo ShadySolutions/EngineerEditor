@@ -73,7 +73,7 @@ namespace Engineer.Runner
         }
         private void SetUpScene()
         {
-            OBJContainer OBJ = new OBJContainer();
+           /* OBJContainer OBJ = new OBJContainer();
             OBJ.Load("storm.obj", null);
             OBJ.Repack();
             Actor NewActor = new Actor(OBJ, "Stormtrooper");
@@ -81,10 +81,10 @@ namespace Engineer.Runner
             Camera NewCamera = new Camera("Main Camera");
             NewCamera.Translation = new Vertex(0, 1, 1);
             NewCamera.Rotation = new Vertex(45, 0, 0);
-            _Scene = new Scene("Scene_01");
-            _Scene.Actors.Add(NewActor);
+            _Scene = new Scene("Scene_01");*/
+            /*_Scene.Actors.Add(NewActor);
             _Scene.Cameras.Add(NewCamera);
-            _Scene.ActiveCamera = 0;
+            _Scene.ActiveCamera = 0;*/
         }
         protected override void OnResize(EventArgs e)
         {
@@ -97,7 +97,7 @@ namespace Engineer.Runner
             SetExampleShader(S);
             #endif
 
-            _Engine.DrawScene(_Scene, this.ClientRectangle.Width, this.ClientRectangle.Height);
+            //_Engine.Draw3DScene(_Scene, this.ClientRectangle.Width, this.ClientRectangle.Height);
             SwapBuffers();
         }
     }

@@ -7,27 +7,16 @@ using System.Threading.Tasks;
 
 namespace Engineer.Engine
 {
+    public enum SceneType
+    {
+        Scene2D = 0,
+        Scene3D = 1
+    }
     public class Scene
     {
-        private int _ActiveCamera;
-        private string _Name;
-        private Color _BackColor;
-        private List<SceneObject> _Objects;
-        private List<Actor> _Actors;
-        private List<Light> _Lights;
-        private List<Camera> _Cameras;
-        public int ActiveCamera
-        {
-            get
-            {
-                return _ActiveCamera;
-            }
-
-            set
-            {
-                _ActiveCamera = value;
-            }
-        }
+        protected string _Name;
+        protected Color _BackColor;
+        protected List<SceneObject> _Objects;
         public string Name
         {
             get
@@ -56,62 +45,20 @@ namespace Engineer.Engine
         {
             get
             {
-                UpdateObjects();
                 return _Objects;
             }
-        }
-        public List<Actor> Actors
+        }  
+        public virtual bool AddSceneObject(SceneObject Object)
         {
-            get
-            {
-                return _Actors;
-            }
-
-            set
-            {
-                _Actors = value;
-            }
-        }
-        public List<Light> Lights
-        {
-            get
-            {
-                return _Lights;
-            }
-
-            set
-            {
-                _Lights = value;
-            }
-        }
-        public List<Camera> Cameras
-        {
-            get
-            {
-                return _Cameras;
-            }
-
-            set
-            {
-                _Cameras = value;
-            }
+            Object.ParentScene = this;
+            this._Objects.Add(Object);
+            return true;
         }
         public Scene(string Name)
         {
-            this._ActiveCamera = -1;
             this._Name = Name;
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();
-            this._Actors = new List<Actor>();
-            this._Lights = new List<Light>();
-            this._Cameras = new List<Camera>();
-        }
-        private void UpdateObjects()
-        {
-            this._Objects = new List<SceneObject>();
-            for (int i = 0; i < this._Actors.Count; i++) this._Objects.Add(this._Actors[i] as SceneObject);
-            for (int i = 0; i < this._Lights.Count; i++) this._Objects.Add(this._Lights[i] as SceneObject);
-            for (int i = 0; i < this._Cameras.Count; i++) this._Objects.Add(this._Cameras[i] as SceneObject);
         }
     }
 }

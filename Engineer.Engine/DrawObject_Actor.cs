@@ -7,9 +7,10 @@ using Engineer.Data;
 
 namespace Engineer.Engine
 {
-    public class Actor : SceneObject
+    public class Actor : DrawObject
     {
         private bool _Animated;
+        private string _ID;
         private List<int> _GeometryMaterialIndices;
         private List<Material> _Materials;
         private List<Geometry> _Geometries;
@@ -23,6 +24,18 @@ namespace Engineer.Engine
             set
             {
                 _Animated = value;
+            }
+        }
+        public string ID
+        {
+            get
+            {
+                return _ID;
+            }
+
+            set
+            {
+                _ID = value;
             }
         }
         public List<int> GeometryMaterialIndices
@@ -60,22 +73,28 @@ namespace Engineer.Engine
             {
                 _Geometries = value;
             }
-        }       
-        public Actor(string Name) : base(Name)
+        }
+        public Actor() : base()
         {
             this._Animated = false;
+            this.Type = DrawObjectType.Actor;
             this.GeometryMaterialIndices = new List<int>();
             this._Geometries = new List<Geometry>();
             this.Materials = new List<Material>();
+            if (_UsedIDs == null) _UsedIDs = new List<string>();
+            _UsedIDs.Add(ID);
         }
-        public Actor(MeshContainer Mesh, string Name) : base(Name)
+        public Actor(MeshContainer Mesh, string ID) : base()
         {
+            this._ID = ID;
             this._Animated = false;
+            this.Type = DrawObjectType.Actor;
             this.GeometryMaterialIndices = new List<int>();
             this._Geometries = Mesh.Geometries;
             this.Materials = new List<Material>();
-            this.Materials.Add(new Material(Name + "_01", Material.Default));
+            this.Materials.Add(new Material(ID + "_01", Material.Default));
             for(int i = 0; i < this._Geometries.Count; i++) this.GeometryMaterialIndices.Add(0);
         }
+        private static List<string> _UsedIDs;
     }
 }

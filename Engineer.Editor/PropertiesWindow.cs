@@ -14,13 +14,13 @@ namespace Engineer.Editor
 {
     public partial class PropertiesWindow : ToolForm
     {
-        private SceneObject _CurrentObject;
+        private DrawObject _CurrentObject;
         public PropertiesWindow()
         {
             InitializeComponent();
             this.ContentPanel.Padding = new Padding(10);
         }
-        public void SetSceneObject(SceneObject CurrentObject)
+        public void SetDrawObject(DrawObject CurrentObject)
         {
             this._CurrentObject = CurrentObject;
             this.ContentPanel.Controls.Clear();

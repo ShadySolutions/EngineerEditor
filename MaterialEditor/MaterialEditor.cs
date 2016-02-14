@@ -78,11 +78,7 @@ namespace MaterialEditor
             NewCamera.Translation = new Vertex(0, 1.2f, 1);
             NewCamera.Rotation = new Vertex(40, 0, 0);
             _Scene = new Scene("Stagodf");
-            _Scene.Actors.Add(NewActor);
-            _Scene.Cameras.Add(NewCamera);
-            _Scene.ActiveCamera = 0;
         }
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog Dialog = new OpenFileDialog();
@@ -123,7 +119,7 @@ namespace MaterialEditor
             GLSLShaderProgram S = SR.CurrentShader() as GLSLShaderProgram;
             SetExampleShader(S);
 
-            _Engine.DrawScene(_Scene, this.GLControl.Width, this.GLControl.Height);
+            //_Engine.Draw3DScene(_Scene, this.GLControl.Width, this.GLControl.Height);
             GLControl.SwapBuffers();
         }
 
