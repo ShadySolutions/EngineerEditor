@@ -10,11 +10,12 @@ namespace Engineer.Draw
 {
     public class ShaderMaterialTranslator : MaterialTranslator
     {
+        public static ShaderMaterialTranslator Translator;
         private string _MaterialTranslatorType;
         private string _VertexShaderOutput;
         private string _FragmentShaderOutput;
         private List<ShaderMaterialTranslatorEntry> _Entries;
-        protected List<ShaderMaterialTranslatorEntry> Entries
+        public List<ShaderMaterialTranslatorEntry> Entries
         {
             get
             {
@@ -55,12 +56,14 @@ namespace Engineer.Draw
             this._MaterialTranslatorType = "Shader";
             this._Entries = new List<ShaderMaterialTranslatorEntry>();
             LoadEntries();
+            Translator = this;
         }
         public ShaderMaterialTranslator(string Type)
         {
             this._MaterialTranslatorType = Type;
             this._Entries = new List<ShaderMaterialTranslatorEntry>();
             LoadEntries();
+            Translator = this;
         } 
         public override bool TranslateMaterial(Material AppliedMaterial)
         {

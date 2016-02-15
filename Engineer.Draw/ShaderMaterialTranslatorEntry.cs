@@ -21,7 +21,7 @@ namespace Engineer.Draw
     {
         private string _Name;
         private MaterialValueType _Type;
-        private MaterialNodeValue _DefaultValue;
+        private MaterialValueHolder _DefaultValue;
         public string Name
         {
             get
@@ -46,7 +46,7 @@ namespace Engineer.Draw
                 _Type = value;
             }
         }
-        public MaterialNodeValue DefaultValue
+        public MaterialValueHolder DefaultValue
         {
             get
             {
@@ -63,6 +63,14 @@ namespace Engineer.Draw
             this._Name = "";
             this._Type = MaterialValueType.VertexValue;
             this._DefaultValue = null;
+        }
+        public MaterialNodeValue ToMaterialNodeValue()
+        {
+            MaterialNodeValue NewValue = new MaterialNodeValue(this._Name, null);
+            if (_DefaultValue == null) NewValue.Value = new MaterialValueHolder();
+            else NewValue.Value = new MaterialValueHolder(_DefaultValue.X, _DefaultValue.Y, _DefaultValue.Z, _DefaultValue.W);
+            NewValue.Value.Type = _Type;
+            return NewValue;
         }
     }
     public class ShaderMaterialTranslatorEntryOutput
@@ -83,6 +91,13 @@ namespace Engineer.Draw
         public ShaderMaterialTranslatorEntryOutput()
         {
             this._Name = "";
+        }
+        public MaterialNodeValue ToMaterialNodeValue()
+        {
+            MaterialNodeValue NewValue = new MaterialNodeValue(this._Name, null);
+            NewValue.Value = new MaterialValueHolder();
+            NewValue.Value.Type = MaterialValueType.Output;
+            return NewValue;
         }
     }
     public class ShaderMaterialTranslatorEntry
@@ -221,9 +236,49 @@ namespace Engineer.Draw
                         }
                         else if (Main.ChildNodes[i].ChildNodes[j].Name == "Value")
                         {
-                            NewInput.DefaultValue = new MaterialNodeValue(null, Main.ChildNodes[i].ChildNodes[j], NewInput.Type);
+                            NewInput.DefaultValue = new MaterialValueHolder();
+                            for (int k = 0; k < Main.ChildNodes[i].ChildNodes[j].ChildNodes.Count; k++)
+                            {
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "R")
+                                {
+                                    NewInput.DefaultValue.X = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "G")
+                                {
+                                    NewInput.DefaultValue.Y = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "B")
+                                {
+                                    NewInput.DefaultValue.Z = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "A")
+                                {
+                                    NewInput.DefaultValue.W = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "X")
+                                {
+                                    NewInput.DefaultValue.X = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "Y")
+                                {
+                                    NewInput.DefaultValue.Y = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "Z")
+                                {
+                                    NewInput.DefaultValue.Z = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "W")
+                                {
+                                    NewInput.DefaultValue.W = Convert.ToInt32(Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText);
+                                }
+                                if (Main.ChildNodes[i].ChildNodes[j].Name == "Value")
+                                {
+                                    NewInput.DefaultValue.Value = Main.ChildNodes[i].ChildNodes[j].ChildNodes[k].InnerText;
+                                }
+                            }    
                         }
                     }
+                    this.Inputs.Add(NewInput);
                 }
                 else if (Main.ChildNodes[i].Name == "Output")
                 {
@@ -235,12 +290,31 @@ namespace Engineer.Draw
                             NewOutput.Name = Main.ChildNodes[i].ChildNodes[j].InnerText;
                         }
                     }
+                    this.Outputs.Add(NewOutput);
                 }
                 else if (Main.ChildNodes[i].Name == "Function")
                 {
                     this._FunctionCode = File.ReadAllText(Type + "\\" + Main.ChildNodes[i].InnerText);
                 }
             }
+        }
+        public MaterialNode ToMaterialNode(Material Holder)
+        {
+            MaterialNode NewNode = new MaterialNode(this.ID, Holder);
+            NewNode.FunctionID = this.ID;
+            for(int i = 0; i < this.Inputs.Count; i++)
+            {
+                MaterialNodeValue Value = this.Inputs[i].ToMaterialNodeValue();
+                Value.Parent = NewNode;
+                NewNode.Inputs.Add(Value);
+            }
+            for (int i = 0; i < this.Outputs.Count; i++)
+            {
+                MaterialNodeValue Value = this.Outputs[i].ToMaterialNodeValue();
+                Value.Parent = NewNode;
+                NewNode.Outputs.Add(Value);
+            }
+            return NewNode;
         }
     }
 }

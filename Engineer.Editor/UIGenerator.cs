@@ -19,7 +19,7 @@ namespace Engineer.Editor
                 MaterialNodeToUI(Mat, Mat.Nodes[i], Editor);
             }
         }
-        private static Node MaterialNodeToUI(Material Mat, MaterialNode MatNode, NodeEditor Editor)
+        public static Node MaterialNodeToUI(Material Mat, MaterialNode MatNode, NodeEditor Editor)
         {
             Node NewNode = new Node(MatNode.Name);
             NewNode.ID = MatNode.ID;

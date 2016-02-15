@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Editor = new ShadySolutions.UI.NodeEditor.NodeEditor();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Editor = new ShadySolutions.UI.NodeEditor.NodeEditor();
+            this.genericToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.surfaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -41,21 +43,13 @@
             this.ContentPanel.Controls.Add(this.menuStrip1);
             this.ContentPanel.Size = new System.Drawing.Size(592, 538);
             // 
-            // Editor
-            // 
-            this.Editor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.Editor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Editor.Location = new System.Drawing.Point(0, 24);
-            this.Editor.Name = "Editor";
-            this.Editor.Size = new System.Drawing.Size(592, 514);
-            this.Editor.TabIndex = 0;
-            this.Editor.NodeUpdate += new ShadySolutions.UI.NodeEditor.NodeUpdateEventHandler(this.Editor_NodeUpdate);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateToolStripMenuItem});
+            this.updateToolStripMenuItem,
+            this.genericToolStripMenuItem,
+            this.surfaceToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(592, 24);
@@ -69,6 +63,30 @@
             this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.updateToolStripMenuItem.Text = "Update";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+            // 
+            // Editor
+            // 
+            this.Editor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.Editor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Editor.Location = new System.Drawing.Point(0, 24);
+            this.Editor.Name = "Editor";
+            this.Editor.Size = new System.Drawing.Size(592, 514);
+            this.Editor.TabIndex = 0;
+            this.Editor.NodeUpdate += new ShadySolutions.UI.NodeEditor.NodeUpdateEventHandler(this.Editor_NodeUpdate);
+            // 
+            // genericToolStripMenuItem
+            // 
+            this.genericToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.genericToolStripMenuItem.Name = "genericToolStripMenuItem";
+            this.genericToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.genericToolStripMenuItem.Text = "Generic";
+            // 
+            // surfaceToolStripMenuItem
+            // 
+            this.surfaceToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.surfaceToolStripMenuItem.Name = "surfaceToolStripMenuItem";
+            this.surfaceToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.surfaceToolStripMenuItem.Text = "Surface";
             // 
             // MaterialEditor
             // 
@@ -96,5 +114,7 @@
         private ShadySolutions.UI.NodeEditor.NodeEditor Editor;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem genericToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem surfaceToolStripMenuItem;
     }
 }

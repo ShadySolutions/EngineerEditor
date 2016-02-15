@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Engineer.Engine;
 using TakeOne.WindowSuite;
+using Engineer.Draw;
 
 namespace Engineer.Editor
 {
@@ -26,6 +27,22 @@ namespace Engineer.Editor
             this.Title = CurrentMaterial.Name + " - Material";
             UIGenerator.MaterialToUI(CurrentMaterial, this.Editor);
             this._CurrentMaterial = CurrentMaterial;
+            for(int i = 0; i < ShaderMaterialTranslator.Translator.Entries.Count; i++)
+            {
+                ToolStripMenuItem NewItem = new ToolStripMenuItem(ShaderMaterialTranslator.Translator.Entries[i].ID);
+                NewItem.Tag = i;
+                NewItem.ForeColor = Color.White;
+                NewItem.BackColor = Color.FromArgb(30,30,30);
+                NewItem.Click += new EventHandler(AddMaterialNode);
+                if(ShaderMaterialTranslator.Translator.Entries[i].Type == ShaderMaterialTranslatorEntryType.Generic)
+                {
+                    genericToolStripMenuItem.DropDownItems.Add(NewItem);
+                }
+                if (ShaderMaterialTranslator.Translator.Entries[i].Type == ShaderMaterialTranslatorEntryType.Surface)
+                {
+                    surfaceToolStripMenuItem.DropDownItems.Add(NewItem);
+                }
+            }
         }
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -51,6 +68,15 @@ namespace Engineer.Editor
             {
                 Source.InputTarget = (MaterialNodeValue)sender.Input.Source;
             }
+        }
+
+        private void AddMaterialNode(object sender, EventArgs e)
+        {
+            ToolStripMenuItem Item = sender as ToolStripMenuItem;
+            int Index = Convert.ToInt32(Item.Tag);
+            MaterialNode NewNode = ShaderMaterialTranslator.Translator.Entries[Index].ToMaterialNode(_CurrentMaterial);
+            _CurrentMaterial.Nodes.Add(NewNode);
+            UIGenerator.MaterialNodeToUI(_CurrentMaterial, NewNode, this.Editor);
         }
     }
 }
