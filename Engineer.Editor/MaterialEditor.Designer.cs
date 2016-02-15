@@ -33,6 +33,7 @@
             this.Editor = new ShadySolutions.UI.NodeEditor.NodeEditor();
             this.genericToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.surfaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +50,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateToolStripMenuItem,
             this.genericToolStripMenuItem,
-            this.surfaceToolStripMenuItem});
+            this.surfaceToolStripMenuItem,
+            this.textureToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(592, 24);
@@ -88,6 +90,13 @@
             this.surfaceToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.surfaceToolStripMenuItem.Text = "Surface";
             // 
+            // textureToolStripMenuItem
+            // 
+            this.textureToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.textureToolStripMenuItem.Name = "textureToolStripMenuItem";
+            this.textureToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.textureToolStripMenuItem.Text = "Texture";
+            // 
             // MaterialEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,5 +125,6 @@
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem genericToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem surfaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem textureToolStripMenuItem;
     }
 }

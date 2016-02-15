@@ -15,7 +15,8 @@ namespace Engineer.Draw
         Vertex = 1,
         Displacement = 2,
         Surface = 3,
-        Postprocess = 4,
+        Texture = 4,
+        Postprocess = 5
     }
     public class ShaderMaterialTranslatorEntryInput
     {
@@ -202,6 +203,7 @@ namespace Engineer.Draw
                     if (Main.ChildNodes[i].InnerText == "Vertex") this._Type = ShaderMaterialTranslatorEntryType.Vertex;
                     else if (Main.ChildNodes[i].InnerText == "Displacement") this._Type = ShaderMaterialTranslatorEntryType.Displacement;
                     else if (Main.ChildNodes[i].InnerText == "Surface") this._Type = ShaderMaterialTranslatorEntryType.Surface;
+                    else if (Main.ChildNodes[i].InnerText == "Texture") this._Type = ShaderMaterialTranslatorEntryType.Texture;
                     else if (Main.ChildNodes[i].InnerText == "Postprocess") this._Type = ShaderMaterialTranslatorEntryType.Postprocess;
                     else this._Type = ShaderMaterialTranslatorEntryType.Generic;
                 }
@@ -233,6 +235,7 @@ namespace Engineer.Draw
                             else if (Main.ChildNodes[i].ChildNodes[j].InnerText == "Float") NewInput.Type = MaterialValueType.FloatValue;
                             else if (Main.ChildNodes[i].ChildNodes[j].InnerText == "Vertex") NewInput.Type = MaterialValueType.VertexValue;
                             else if (Main.ChildNodes[i].ChildNodes[j].InnerText == "Color") NewInput.Type = MaterialValueType.ColorValue;
+                            else if (Main.ChildNodes[i].ChildNodes[j].InnerText == "Image") NewInput.Type = MaterialValueType.TextureValue;
                         }
                         else if (Main.ChildNodes[i].ChildNodes[j].Name == "Value")
                         {

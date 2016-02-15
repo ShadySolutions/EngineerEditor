@@ -42,6 +42,10 @@ namespace Engineer.Editor
                 {
                     surfaceToolStripMenuItem.DropDownItems.Add(NewItem);
                 }
+                if (ShaderMaterialTranslator.Translator.Entries[i].Type == ShaderMaterialTranslatorEntryType.Texture)
+                {
+                    textureToolStripMenuItem.DropDownItems.Add(NewItem);
+                }
             }
         }
 
