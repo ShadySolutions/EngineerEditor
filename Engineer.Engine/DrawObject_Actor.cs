@@ -9,21 +9,21 @@ namespace Engineer.Engine
 {
     public class Actor : DrawObject
     {
-        private bool _Animated;
+        private bool _Modified;
         private string _ID;
         private List<int> _GeometryMaterialIndices;
         private List<Material> _Materials;
         private List<Geometry> _Geometries;
-        public bool Animated
+        public bool Modified
         {
             get
             {
-                return _Animated;
+                return _Modified;
             }
 
             set
             {
-                _Animated = value;
+                _Modified = value;
             }
         }
         public string ID
@@ -76,7 +76,7 @@ namespace Engineer.Engine
         }
         public Actor() : base()
         {
-            this._Animated = false;
+            this._Modified = false;
             this.Type = DrawObjectType.Actor;
             this.GeometryMaterialIndices = new List<int>();
             this._Geometries = new List<Geometry>();
@@ -87,7 +87,7 @@ namespace Engineer.Engine
         public Actor(MeshContainer Mesh, string ID) : base()
         {
             this._ID = ID;
-            this._Animated = false;
+            this._Modified = false;
             this.Type = DrawObjectType.Actor;
             this.GeometryMaterialIndices = new List<int>();
             this._Geometries = Mesh.Geometries;

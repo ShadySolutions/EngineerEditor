@@ -11,6 +11,7 @@ namespace Engineer.Draw
 {
     public class DrawEngine
     {
+        private bool KURAC = false;
         private MatrixTransformer _Matrix;
         private Renderer _CurrentRenderer;
         private MaterialTranslator _CurrentTranslator;
@@ -92,7 +93,7 @@ namespace Engineer.Draw
             this._Matrix.PushMatrix();
             
 
-            for (int i = 0; i < CurrentScene.Actors.Count; i++)//CurrentScene.Actors.Count
+            for (int i = 0; i < CurrentScene.Actors.Count; i++)
             {
                 if(CurrentScene.Actors[i].Active)
                 {
@@ -107,7 +108,7 @@ namespace Engineer.Draw
                     this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
                     for (int j = 0; j < CurrentScene.Actors[i].Geometries.Count; j++)
                     {
-                        if(!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name) || CurrentScene.Actors[i].Animated)
+                        if(!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name) || CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified)
                         {
                             ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
                             if (this.CurrentTranslator.TranslateMaterial(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]]))
@@ -115,6 +116,7 @@ namespace Engineer.Draw
                                 _CurrentRenderer.SetMaterial(new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, true);
                             }
                             else _CurrentRenderer.SetMaterial(new string[6] { "Default", null, null, null, null, null }, false);
+                            CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified = false;
                         }
                         else _CurrentRenderer.SetMaterial(new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, null, null, null, null, null }, false);
 
@@ -123,7 +125,7 @@ namespace Engineer.Draw
                                                              CurrentScene.Actors[i].Geometries[j].Normals,
                                                              CurrentScene.Actors[i].Geometries[j].TexCoords,
                                                              CurrentScene.Actors[i].Geometries[j].Faces,
-                                                             CurrentScene.Actors[i].Animated);
+                                                             CurrentScene.Actors[i].Modified);
                         this._Matrix.PopMatrix();
                     }
                 }

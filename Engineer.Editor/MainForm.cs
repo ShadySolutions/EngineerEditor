@@ -91,7 +91,7 @@ namespace Engineer.Editor
 
             Scene3D NewScene = new Scene3D("Scene_01");
             DrawnSceneObject Floor_Object = new DrawnSceneObject("Floor", Floor_Actor);
-            NewScene.AddSceneObject(Floor_Object);
+            //NewScene.AddSceneObject(Floor_Object);
             DrawnSceneObject Soldier_Object = new DrawnSceneObject("Soldier", Soldier_Actor);
             NewScene.AddSceneObject(Soldier_Object);
             DrawnSceneObject Camera_Object = new DrawnSceneObject("Camera", MainCamera_Camera);
@@ -112,7 +112,7 @@ namespace Engineer.Editor
             MainDock.DockLeftPortion = 310;
             this._World = new WorldOptions();
             this._Library = new ContentLibrary();
-            this._Properties = new PropertiesWindow();
+            this._Properties = new PropertiesWindow(MainDock);
             this._Scene = new SceneWindow();
             this._Scene.SetPropertiesWindow(this._Properties);
             this._World.Show(MainDock, DockState.DockLeft);

@@ -10,9 +10,22 @@ namespace Engineer.Engine
     public class Material
     {
         public static Material Default;
+        private bool _Modified;
         private string _Name;
         private object _Tags;
         private List<MaterialNode> _Nodes;
+        public bool Modified
+        {
+            get
+            {
+                return _Modified;
+            }
+
+            set
+            {
+                _Modified = value;
+            }
+        }
         public string Name
         {
             get
@@ -51,12 +64,14 @@ namespace Engineer.Engine
         }
         public Material(string Name)
         {
+            this._Modified = true;
             this._Name = Name;
             this._Tags = null;
             this._Nodes = new List<MaterialNode>();
         }
         public Material(XmlNode XNode)
         {
+            this._Modified = true;
             this._Name = Guid.NewGuid().ToString();
             this._Tags = null;
             this._Nodes = new List<MaterialNode>();
@@ -74,6 +89,7 @@ namespace Engineer.Engine
         }
         public Material(string Name, Material OldMaterial)
         {
+            this._Modified = true;
             this._Name = Name;
             this._Tags = OldMaterial._Tags;
             this._Nodes = new List<MaterialNode>(OldMaterial.Nodes);

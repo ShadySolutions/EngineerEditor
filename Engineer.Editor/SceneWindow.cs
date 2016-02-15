@@ -60,6 +60,7 @@ namespace Engineer.Editor
             }
             SceneTree.Nodes.Clear();
             SceneTree.Nodes.Add(SceneNode);
+            SceneTree.ExpandAll();
         }
         private void SceneTree_AfterSelect(object sender, TreeViewEventArgs e)
         {

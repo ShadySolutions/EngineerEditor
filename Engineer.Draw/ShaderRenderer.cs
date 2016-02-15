@@ -28,7 +28,7 @@ namespace Engineer.Draw
         {
             this._PushedID = "";
             this._Globals = new ShaderUniformPackage();
-            _Globals.SetDefinition("CameraPosition", 12, "vec3");
+            _Globals.SetDefinition("CameraPosition", 3 * sizeof(float), "vec3");
             _Globals.SetDefinition("Projection", 16 * sizeof(float), "mat4");
             _Globals.SetDefinition("ModelView", 16 * sizeof(float), "mat4");
         }
