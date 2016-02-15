@@ -57,7 +57,10 @@ namespace Engineer.Editor
         private void Editor_NodeUpdate(ShadySolutions.UI.NodeEditor.NodeValue sender)
         {
             MaterialNodeValue Source = (MaterialNodeValue)sender.Source;
-            Source.Value = new MaterialValueHolder(sender.Value.X, sender.Value.Y, sender.Value.Z, sender.Value.W);
+            MaterialValueHolder NewValueHolder = new MaterialValueHolder(sender.Value.X, sender.Value.Y, sender.Value.Z, sender.Value.W);
+            NewValueHolder.Type = Source.Value.Type;
+            NewValueHolder.Value = sender.Value.Value;
+            Source.Value = NewValueHolder;
             if (Source.InputTarget != null && sender.Input == null)
             {
                 Source.InputTarget.OutputTargets.Remove(Source);

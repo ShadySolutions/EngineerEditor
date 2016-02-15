@@ -48,7 +48,7 @@ namespace Engineer.Draw
             ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
             if (this.CurrentTranslator.TranslateMaterial(Material.Default))
             {
-                _CurrentRenderer.SetMaterial(new string[6] { "Default", SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, true);
+                _CurrentRenderer.SetMaterial(new object[3] { new string[6] { "Default", SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, null, null }, true);
             }
         }
         public virtual void Draw3DScene(Scene3D CurrentScene, int Width, int Height)
@@ -113,12 +113,12 @@ namespace Engineer.Draw
                             ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
                             if (this.CurrentTranslator.TranslateMaterial(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]]))
                             {
-                                _CurrentRenderer.SetMaterial(new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, true);
+                                _CurrentRenderer.SetMaterial(new object[3] { new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, SMT.TexturesNumber, SMT.Textures }, true);
                             }
-                            else _CurrentRenderer.SetMaterial(new string[6] { "Default", null, null, null, null, null }, false);
+                            else _CurrentRenderer.SetMaterial(new object[3] { new string[6] { "Default", null, null, null, null, null }, null, null }, false);
                             CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified = false;
                         }
-                        else _CurrentRenderer.SetMaterial(new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, null, null, null, null, null }, false);
+                        else _CurrentRenderer.SetMaterial(new object[3] { new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, null, null, null, null, null }, null, null }, false);
 
                         this._CurrentRenderer.UpdateMaterial();
                         this._CurrentRenderer.RenderGeometry(CurrentScene.Actors[i].Geometries[j].Vertices,

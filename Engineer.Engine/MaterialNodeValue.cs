@@ -186,6 +186,7 @@ namespace Engineer.Engine
                     else if (XNode.ChildNodes[i].InnerText == "Float") this._Value.Type = MaterialValueType.FloatValue;
                     else if (XNode.ChildNodes[i].InnerText == "Vertex") this._Value.Type = MaterialValueType.VertexValue;
                     else if (XNode.ChildNodes[i].InnerText == "Color") this._Value.Type = MaterialValueType.ColorValue;
+                    else if (XNode.ChildNodes[i].InnerText == "Image") this._Value.Type = MaterialValueType.TextureValue;
                 }
                 if (XNode.ChildNodes[i].Name == "Value")
                 {

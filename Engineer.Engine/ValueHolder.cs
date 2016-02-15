@@ -130,5 +130,14 @@ namespace Engineer.Engine
             this._W = (A * 1.0 + 1) / 256;
             this._Type = MaterialValueType.ColorValue;
         }
+        public MaterialValueHolder(string Value)
+        {
+            this._X = 0;
+            this._Y = 0;
+            this._Z = 0;
+            this._W = 0;
+            this._Value = Value;
+            this._Type = MaterialValueType.TextureValue;
+        }
     }
 }

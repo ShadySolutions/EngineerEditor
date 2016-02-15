@@ -47,7 +47,7 @@ namespace Engineer.Draw
         {
             return false;
         }
-        public virtual void SetMaterial(object MaterialData, bool Update)
+        public virtual void SetMaterial(object[] MaterialData, bool Update)
         {
 
         }

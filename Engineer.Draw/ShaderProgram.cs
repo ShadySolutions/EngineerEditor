@@ -23,6 +23,7 @@ namespace Engineer.Draw
         private string _TessellationEvaluation_Code;
         protected ShaderUniformPackage _Uniforms;
         protected ShaderAttributePackage _Attributes;
+        protected ShaderTexturePackage _Textures;
         public bool Compiled
         {
             get
@@ -129,6 +130,18 @@ namespace Engineer.Draw
             set
             {
                 _Attributes = value;
+            }
+        }
+        public ShaderTexturePackage Textures
+        {
+            get
+            {
+                return _Textures;
+            }
+
+            set
+            {
+                _Textures = value;
             }
         }
         public ShaderProgram()

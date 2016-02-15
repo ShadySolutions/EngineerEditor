@@ -5,15 +5,21 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using Engineer.Engine;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace Engineer.Draw
 {
     public class ShaderMaterialTranslator : MaterialTranslator
     {
         public static ShaderMaterialTranslator Translator;
+        private int _TexturesNumber;
         private string _MaterialTranslatorType;
         private string _VertexShaderOutput;
         private string _FragmentShaderOutput;
+        private byte[] _Textures;
+        private List<Bitmap> _TextureBitmaps;
         private List<ShaderMaterialTranslatorEntry> _Entries;
         public List<ShaderMaterialTranslatorEntry> Entries
         {
@@ -25,6 +31,18 @@ namespace Engineer.Draw
             set
             {
                 _Entries = value;
+            }
+        }
+        public int TexturesNumber
+        {
+            get
+            {
+                return _TexturesNumber;
+            }
+
+            set
+            {
+                _TexturesNumber = value;
             }
         }
         public string VertexShaderOutput
@@ -51,8 +69,22 @@ namespace Engineer.Draw
                 _FragmentShaderOutput = value;
             }
         }
+        public byte[] Textures
+        {
+            get
+            {
+                return _Textures;
+            }
+
+            set
+            {
+                _Textures = value;
+            }
+        }
         public ShaderMaterialTranslator()
         {
+            this.TexturesNumber = 0;
+            this._TextureBitmaps = new List<Bitmap>();
             this._MaterialTranslatorType = "Shader";
             this._Entries = new List<ShaderMaterialTranslatorEntry>();
             LoadEntries();
@@ -60,6 +92,8 @@ namespace Engineer.Draw
         }
         public ShaderMaterialTranslator(string Type)
         {
+            this.TexturesNumber = 0;
+            this._TextureBitmaps = new List<Bitmap>();
             this._MaterialTranslatorType = Type;
             this._Entries = new List<ShaderMaterialTranslatorEntry>();
             LoadEntries();
@@ -68,6 +102,9 @@ namespace Engineer.Draw
         public override bool TranslateMaterial(Material AppliedMaterial)
         {
             MaterialNode Output = null;
+            this._TextureBitmaps = new List<Bitmap>();
+            this._TexturesNumber = 0;
+            this._Textures = null;
             for(int i = 0; i < AppliedMaterial.Nodes.Count; i++)
             {
                 if (AppliedMaterial.Nodes[i].ID == "Output") Output = AppliedMaterial.Nodes[i];
@@ -77,15 +114,22 @@ namespace Engineer.Draw
             if (Fragment == "") return false;
             this._FragmentShaderOutput = Fragment;
             this._VertexShaderOutput = File.ReadAllText(this._MaterialTranslatorType + "\\Generator\\Vertex.shader");
+            if (_TexturesNumber > 0)
+            {
+                List<byte> Textures = new List<byte>();
+                for (int i = 0; i < TexturesNumber; i++)
+                {
+                    _TextureBitmaps[i] = new Bitmap(_TextureBitmaps[i], new Size(256, 256));
+                    Textures.AddRange(ShaderMaterialTranslator.ImageToByte(_TextureBitmaps[i]));
+                }
+                this._Textures = Textures.ToArray();
+            }
             return true;
         }
         protected virtual string GenerateFragment(MaterialNode Out)
         {
             string FragmentCode = "";
-            string FragmentHeader = File.ReadAllText(this._MaterialTranslatorType + "\\Generator\\FragmentHeader.shader") + "\n";
-            if (FragmentHeader == "") return "";
-            FragmentCode += FragmentHeader;
-            FragmentCode += "\n";
+            string FragmentHeader;
             List<string> UsedFunctions = new List<string>();
             List<string> FunctionCalls = new List<string>();
             MaterialNodeValue Surface = Out.Inputs[0];
@@ -99,7 +143,12 @@ namespace Engineer.Draw
             {
                 FunctionCalls.Add(GenerateFragmentFinalizer(false, ""));
             }
-            for(int i = 0; i < UsedFunctions.Count; i++)
+            if (_TexturesNumber > 0) FragmentHeader = File.ReadAllText(this._MaterialTranslatorType + "\\Generator\\FragmentTexturedHeader.shader") + "\n";
+            else FragmentHeader = File.ReadAllText(this._MaterialTranslatorType + "\\Generator\\FragmentHeader.shader") + "\n";
+            if (FragmentHeader == "") return "";
+            FragmentCode += FragmentHeader;
+            FragmentCode += "\n";
+            for (int i = 0; i < UsedFunctions.Count; i++)
             {
                 bool Found = false;
                 for(int j = 0; j < this._Entries.Count; j++)
@@ -118,6 +167,29 @@ namespace Engineer.Draw
             File.WriteAllText(this._MaterialTranslatorType + "\\Generator\\Out.shader", FragmentCode);
             return FragmentCode;
         }
+        public static byte[] ImageToByte(Bitmap bitmap)
+        {
+
+            BitmapData bmpdata = null;
+
+            try
+            {
+                bmpdata = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+                int numbytes = bmpdata.Stride * bitmap.Height;
+                byte[] bytedata = new byte[numbytes];
+                IntPtr ptr = bmpdata.Scan0;
+
+                Marshal.Copy(ptr, bytedata, 0, numbytes);
+
+                return bytedata;
+            }
+            finally
+            {
+                if (bmpdata != null)
+                    bitmap.UnlockBits(bmpdata);
+            }
+
+        }
         private bool ProcessCurrentNode(MaterialNode CurNode, List<string> UsedFunctions, List<string> FunctionCalls)
         {
             List<string> ArgumentTexts = new List<string>();
@@ -135,8 +207,22 @@ namespace Engineer.Draw
             }
             for(int i = 0; i < CurNode.Inputs.Count; i++)
             {
-                if (CurNode.Inputs[i].InputTarget != null) ArgumentTexts.Add(CurNode.Inputs[i].InputTarget.Parent.ID + "_" + CurNode.Inputs[i].InputTarget.Name);
-                else ArgumentTexts.Add(GenerateArgumentFromValue(CurNode.Inputs[i].Value));
+                if (CurNode.Inputs[i].Value.Type == MaterialValueType.TextureValue)
+                {
+                    if(CurNode.Inputs[i].Value.Value != "" && File.Exists(CurNode.Inputs[i].Value.Value))
+                    {
+                        ArgumentTexts.Add(TexturesNumber.ToString());
+                        Bitmap Img = new Bitmap(Image.FromFile(CurNode.Inputs[i].Value.Value));
+                        this._TextureBitmaps.Add(Img);
+                        this.TexturesNumber++;
+                    }
+                    else ArgumentTexts.Add("-1");
+                }
+                else
+                {
+                    if (CurNode.Inputs[i].InputTarget != null) ArgumentTexts.Add(CurNode.Inputs[i].InputTarget.Parent.ID + "_" + CurNode.Inputs[i].InputTarget.Name);
+                    else ArgumentTexts.Add(GenerateArgumentFromValue(CurNode.Inputs[i].Value));
+                }
             }
             for (int i = 0; i < CurNode.Outputs.Count; i++)
             {

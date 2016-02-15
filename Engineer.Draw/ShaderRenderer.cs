@@ -98,11 +98,17 @@ namespace Engineer.Draw
         {
             return this._Manager.ShaderExists(ID);
         }
-        public override void SetMaterial(object MaterialData, bool Update)
+        public override void SetMaterial(object[] MaterialData, bool Update)
         {
-            string[] ShaderData = (string[])MaterialData;
+            string[] ShaderData = (string[])MaterialData[0];
             if (!_Manager.ShaderExists(ShaderData[0]) || Update) SetUpShader(ShaderData[0], new string[5] { ShaderData[1], ShaderData[2], ShaderData[3], ShaderData[4], ShaderData[5] });
             _Manager.ActivateShader(ShaderData[0]);
+            if(MaterialData[2] != null)
+            {
+                int TextureNumber = (int)MaterialData[1];
+                byte[] Textures = (byte[])MaterialData[2];
+                _Manager.Active.Textures.SetData(TextureNumber, Textures);
+            }
         }
         public override void UpdateMaterial()
         {

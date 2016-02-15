@@ -15,16 +15,19 @@ namespace Engineer.Draw.OpenGL.GLSL
         {
             this._Uniforms = new GLSLShaderUniformPackage();
             this._Attributes = new GLSLShaderAttributePackage();
+            this._Textures = new GLSLShaderTexturePackage();
         }
         public GLSLShaderProgram(string ID) : base(ID)
         {
             this._Uniforms = new GLSLShaderUniformPackage();
             this._Attributes = new GLSLShaderAttributePackage();
+            this._Textures = new GLSLShaderTexturePackage();
         }
         public GLSLShaderProgram(GLSLShaderProgram GLSLShaderProgram) : base (GLSLShaderProgram)
         {
             this._Uniforms = new GLSLShaderUniformPackage(GLSLShaderProgram._Uniforms);
             this._Attributes = new GLSLShaderAttributePackage(GLSLShaderProgram._Attributes);
+            this._Textures = new GLSLShaderTexturePackage(GLSLShaderProgram._Textures);
         }
         public override bool Compile(string VertexShaderString, string FragmentShaderString, string GeometryShaderString, string TessellationControlString, string TessellationEvaluationString)
         {
@@ -103,6 +106,7 @@ namespace Engineer.Draw.OpenGL.GLSL
                 GL.UseProgram(_Program_Indexer);
                 if (!_Uniforms.Activate(_Program_Indexer)) return;
                 if (!_Attributes.Activate(_Program_Indexer)) return;
+                if (!_Textures.Activate()) return;
                 GL.DrawArrays((PrimitiveType)DrawMode, Offset, _Attributes.BufferLines);
                 GL.UseProgram(0);
             }

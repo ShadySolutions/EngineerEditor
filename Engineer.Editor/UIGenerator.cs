@@ -69,6 +69,12 @@ namespace Engineer.Editor
                 NewNodeValue = new NodeValueColor(MatNodeVal.Name);
                 NewNodeValue.Value = new ValueVector(MatNodeVal.Value.X, MatNodeVal.Value.Y, MatNodeVal.Value.Z, MatNodeVal.Value.W);
             }
+            else if (MatNodeVal.Value.Type == MaterialValueType.TextureValue)
+            {
+                NewNodeValue = new NodeValueImage(MatNodeVal.Name);
+                NewNodeValue.Value = new ValueVector(MatNodeVal.Value.X, MatNodeVal.Value.Y, MatNodeVal.Value.Z, MatNodeVal.Value.W);
+                NewNodeValue.Value.Value = MatNodeVal.Value.Value;
+            }
             else
             {
                 NewNodeValue = new NodeValue(MatNodeVal.Name);

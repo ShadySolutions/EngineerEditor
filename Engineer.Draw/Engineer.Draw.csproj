@@ -51,6 +51,7 @@
     <Compile Include="ShaderMaterialTranslatorEntry.cs" />
     <Compile Include="ShaderProgram.cs" />
     <Compile Include="ShaderRenderer.cs" />
+    <Compile Include="ShaderTexturePackage.cs" />
     <Compile Include="ShaderUniformPackage.cs" />
   </ItemGroup>
   <ItemGroup>
