@@ -63,6 +63,12 @@
     <Compile Include="ContentLibrary.Designer.cs">
       <DependentUpon>ContentLibrary.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameWindow.Designer.cs">
+      <DependentUpon>GameWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </Compile>
     <EmbeddedResource Include="ContentLibrary.resx">
       <DependentUpon>ContentLibrary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameWindow.resx">
+      <DependentUpon>GameWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -226,7 +235,18 @@
   <ItemGroup>
     <None Include="Resources\Properties.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Icon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Splash2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

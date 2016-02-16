@@ -115,8 +115,8 @@ namespace Engineer.Engine
         }
         public MaterialNode(string Name, Material Holder)
         {
-            SetID(Name, Holder);
             this._Name = Name;
+            this._ID = Guid.NewGuid().ToString();
             this._Holder = Holder;
             this._Values = new List<MaterialNodeValue>();
             this._Inputs = new List<MaterialNodeValue>();
@@ -124,7 +124,7 @@ namespace Engineer.Engine
         }
         public MaterialNode(XmlNode XNode, Material Holder)
         {
-            this._ID = "";
+            this._ID = Guid.NewGuid().ToString();
             this._Holder = Holder;
             this._Values = new List<MaterialNodeValue>();
             this._Inputs = new List<MaterialNodeValue>();
@@ -138,7 +138,6 @@ namespace Engineer.Engine
                 else if (XNode.ChildNodes[i].Name == "Name")
                 {
                     this._Name = XNode.ChildNodes[i].InnerText;
-                    if (this._ID == "") SetID(this._Name, Holder);
                 }
                 else if (XNode.ChildNodes[i].Name == "Function")
                 {
@@ -159,16 +158,19 @@ namespace Engineer.Engine
                 }
             }
         }
-        private void SetID(string Name, Material Holder)
+        public MaterialNode(MaterialNode Node, Material Holder)
         {
-            for (int i = 0; true; i++)
-            {
-                if (Holder.IsNodeIDFree(Name + "_" + i))
-                {
-                    this._ID = Name + "_" + i;
-                    break;
-                }
-            }
+            this._Name = Node.Name;
+            this._ID = Guid.NewGuid().ToString();
+            this._FunctionID = Node._FunctionID;
+            if (Node.ID == "Output") this._ID = "Output";
+            this._Holder = Holder;
+            this._Values = new List<MaterialNodeValue>();
+            for (int i = 0; i < Node.Values.Count; i++) this._Values.Add(new MaterialNodeValue(Node._Values[i], this));
+            this._Inputs = new List<MaterialNodeValue>();
+            for (int i = 0; i < Node.Inputs.Count; i++) this._Inputs.Add(new MaterialNodeValue(Node._Inputs[i], this));
+            this._Outputs = new List<MaterialNodeValue>();
+            for (int i = 0; i < Node.Outputs.Count; i++) this._Outputs.Add(new MaterialNodeValue(Node._Outputs[i], this));
         }
     }
 }

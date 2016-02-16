@@ -59,6 +59,7 @@ namespace Engineer.Editor
         {
             int Index = Convert.ToInt32((sender as Button).Tag);
             MaterialEditor Editor = new MaterialEditor(_CurrentActor.Materials[Index]);
+            _Parent.OpenForms.Add(Editor);
             Editor.Title = _CurrentActor.Materials[Index].Name + " - Material Editor";
             Editor.Show(_Dock, DockState.Document);
         }

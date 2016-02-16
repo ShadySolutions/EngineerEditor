@@ -10,7 +10,6 @@ namespace Engineer.Engine
     public class Actor : DrawObject
     {
         private bool _Modified;
-        private string _ID;
         private List<int> _GeometryMaterialIndices;
         private List<Material> _Materials;
         private List<Geometry> _Geometries;
@@ -24,18 +23,6 @@ namespace Engineer.Engine
             set
             {
                 _Modified = value;
-            }
-        }
-        public string ID
-        {
-            get
-            {
-                return _ID;
-            }
-
-            set
-            {
-                _ID = value;
             }
         }
         public List<int> GeometryMaterialIndices
@@ -77,6 +64,7 @@ namespace Engineer.Engine
         public Actor() : base()
         {
             this._Modified = false;
+            this.Name = this.ID = Guid.NewGuid().ToString();
             this.Type = DrawObjectType.Actor;
             this.GeometryMaterialIndices = new List<int>();
             this._Geometries = new List<Geometry>();
@@ -84,9 +72,10 @@ namespace Engineer.Engine
             if (_UsedIDs == null) _UsedIDs = new List<string>();
             _UsedIDs.Add(ID);
         }
-        public Actor(MeshContainer Mesh, string ID) : base()
+        public Actor(MeshContainer Mesh, string Name) : base()
         {
-            this._ID = ID;
+            this.ID = Guid.NewGuid().ToString();
+            this.Name = Name;
             this._Modified = false;
             this.Type = DrawObjectType.Actor;
             this.GeometryMaterialIndices = new List<int>();

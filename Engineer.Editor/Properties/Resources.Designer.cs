@@ -93,6 +93,26 @@ namespace Engineer.Editor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Icon1 {
+            get {
+                object obj = ResourceManager.GetObject("Icon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Icon2 {
+            get {
+                object obj = ResourceManager.GetObject("Icon2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Properties {
             get {
                 object obj = ResourceManager.GetObject("Properties", resourceCulture);
@@ -106,6 +126,26 @@ namespace Engineer.Editor.Properties {
         internal static System.Drawing.Bitmap SetAsCurrent {
             get {
                 object obj = ResourceManager.GetObject("SetAsCurrent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Splash {
+            get {
+                object obj = ResourceManager.GetObject("Splash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Splash2 {
+            get {
+                object obj = ResourceManager.GetObject("Splash2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

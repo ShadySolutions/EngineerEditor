@@ -36,25 +36,25 @@ namespace Engineer.Editor
                 if(_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Actor)
                 {
                     TreeNode ActorNode = new TreeNode(Current3DScene.Objects[i].Name, 1, 1);
-                    ActorNode.Tag = DrawObjectType.Actor;
+                    ActorNode.Tag = new object[2] { DrawObjectType.Actor, Current3DScene.Objects[i].ID };
                     SceneNode.Nodes.Add(ActorNode);
                 }
                 if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
                 {
                     TreeNode CameraNode = new TreeNode(Current3DScene.Objects[i].Name, 2, 2);
-                    CameraNode.Tag = DrawObjectType.Camera;
+                    CameraNode.Tag = new object[2] { DrawObjectType.Camera, Current3DScene.Objects[i].ID };
                     SceneNode.Nodes.Add(CameraNode);
                 }
                 if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Light)
                 {
                     TreeNode LightNode = new TreeNode(Current3DScene.Objects[i].Name, 3, 3);
-                    LightNode.Tag = DrawObjectType.Light;
+                    LightNode.Tag = new object[2] { DrawObjectType.Light, Current3DScene.Objects[i].ID };
                     SceneNode.Nodes.Add(LightNode);
                 }
                 if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Background)
                 {
                     TreeNode BackgroundNode = new TreeNode(Current3DScene.Objects[i].Name, 4, 4);
-                    BackgroundNode.Tag = DrawObjectType.Background;
+                    BackgroundNode.Tag = new object[2] { DrawObjectType.Background, Current3DScene.Objects[i].ID };
                     SceneNode.Nodes.Add(BackgroundNode);
                 }
             }
@@ -68,7 +68,7 @@ namespace Engineer.Editor
             {
                 if (SceneTree.SelectedNode.Tag != null)
                 {
-                    DrawObjectType Type = (DrawObjectType)SceneTree.SelectedNode.Tag;
+                    DrawObjectType Type = (DrawObjectType)((object[])SceneTree.SelectedNode.Tag)[0];
                     deleteToolStripMenuItem.Visible = true;
                     SetAsCurrentToolStripMenuItem.Visible = Type == DrawObjectType.Camera;
                 }
@@ -94,7 +94,7 @@ namespace Engineer.Editor
                 {
                     if(Current3DScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(Current3DScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
                     {
-                        if(Current3DScene.Objects[i].Name == SceneTree.SelectedNode.Text)
+                        if(Current3DScene.Objects[i].ID == ((object[])SceneTree.SelectedNode.Tag)[1].ToString())
                         {
                             Current3DScene.EditorCamera = new Camera(DrawnSceneObject.Drawn(Current3DScene.Objects[i]).Representation as Camera);
                         }
@@ -111,7 +111,7 @@ namespace Engineer.Editor
             if (SceneTree.SelectedNode == null) return;
             for (int i = 0; i < this._CurrentScene.Objects.Count; i++)
             {
-                if (SceneTree.SelectedNode.Text == this._CurrentScene.Objects[i].Name)
+                if (((object[])SceneTree.SelectedNode.Tag)[1].ToString() == this._CurrentScene.Objects[i].ID)
                 {
                     this._Properties.SetDrawObject(this._CurrentScene.Objects[i]);
                 }

@@ -12,6 +12,7 @@ namespace Engineer.Engine
         public static Material Default;
         private bool _Modified;
         private string _Name;
+        private string _ID;
         private object _Tags;
         private List<MaterialNode> _Nodes;
         public bool Modified
@@ -36,6 +37,18 @@ namespace Engineer.Engine
             set
             {
                 _Name = value;
+            }
+        }
+        public string ID
+        {
+            get
+            {
+                return _ID;
+            }
+
+            set
+            {
+                _ID = value;
             }
         }
         public object Tags
@@ -66,6 +79,7 @@ namespace Engineer.Engine
         {
             this._Modified = true;
             this._Name = Name;
+            this._ID = Guid.NewGuid().ToString();
             this._Tags = null;
             this._Nodes = new List<MaterialNode>();
         }
@@ -73,6 +87,7 @@ namespace Engineer.Engine
         {
             this._Modified = true;
             this._Name = Guid.NewGuid().ToString();
+            this._ID = Guid.NewGuid().ToString();
             this._Tags = null;
             this._Nodes = new List<MaterialNode>();
             for(int i = 0; i < XNode.ChildNodes.Count; i++)
@@ -91,8 +106,10 @@ namespace Engineer.Engine
         {
             this._Modified = true;
             this._Name = Name;
+            this._ID = Guid.NewGuid().ToString();
             this._Tags = OldMaterial._Tags;
-            this._Nodes = new List<MaterialNode>(OldMaterial.Nodes);
+            this._Nodes = new List<MaterialNode>(OldMaterial.Nodes.Count);
+            for (int i = 0; i < OldMaterial.Nodes.Count; i++) this._Nodes.Add(new MaterialNode(OldMaterial.Nodes[i], this));
         }
         public bool IsNodeIDFree(string ID)
         {

@@ -14,6 +14,7 @@ namespace Engineer.Engine
     public class SceneObject
     {
         private string _Name;
+        private string _ID;
         private SceneObjectType _Type;
         private Scene _ParentScene;
         public string Name
@@ -26,6 +27,18 @@ namespace Engineer.Engine
             set
             {
                 _Name = value;
+            }
+        }
+        public string ID
+        {
+            get
+            {
+                return _ID;
+            }
+
+            set
+            {
+                _ID = value;
             }
         }
         public SceneObjectType Type
@@ -55,6 +68,7 @@ namespace Engineer.Engine
         public SceneObject(string Name)
         {
             this._Name = Name;
+            this._ID = Guid.NewGuid().ToString();
             this._Type = SceneObjectType.Undefined;
         }
     }

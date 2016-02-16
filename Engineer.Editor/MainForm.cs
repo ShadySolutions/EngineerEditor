@@ -21,18 +21,74 @@ namespace Engineer.Editor
 {
     public partial class _Parent : TakeOne.WindowSuite.MainForm
     {
+        public static List<ToolForm> OpenForms;
+
+        private GameWindow _GameW;
         private ContentLibrary _Library;
         private PropertiesWindow _Properties;
         private SceneWindow _Scene;
         private WorldOptions _World;
         private ViewWindow _View;
-        private SceneType _CurrentSceneType;
+
+        private Game _Game;
         private Scene _CurrentScene;
+        private SceneType _CurrentSceneType;
+        private List<OBJContainer> _Scene3DContainers;
+
         public _Parent()
         {
             InitializeComponent();
+            if (OpenForms == null) OpenForms = new List<ToolForm>();
             if (!Directory.Exists("Library")) CheckRuntime();
-            SetUp3DScene();
+            AcquireData();
+            this._Game = new Game();
+            this._Game.Name = "New Project";
+            this._GameW = new GameWindow(this._Game);
+            this._GameW.Show(MainDock, DockState.Document);
+            this._GameW.EntrySelection += new Editor.SceneSelection(SceneSelection);
+        }
+        private void AcquireData()
+        {
+            this._Scene3DContainers = new List<OBJContainer>();
+
+            OBJContainer Floor_OBJ = new OBJContainer();
+            Floor_OBJ.Load("Library/Mesh/Floor.obj", null);
+            if (Floor_OBJ.Geometries[0].Normals.Count == 0) Floor_OBJ.RecalculateNormals();
+            Floor_OBJ.Repack();
+            _Scene3DContainers.Add(Floor_OBJ);
+
+            OBJContainer Cube_OBJ = new OBJContainer();
+            Cube_OBJ.Load("Library/Mesh/Cube.obj", null);
+            if (Cube_OBJ.Geometries[0].Normals.Count == 0) Cube_OBJ.RecalculateNormals();
+            Cube_OBJ.Repack();
+            _Scene3DContainers.Add(Cube_OBJ);
+
+            OBJContainer Soldier_OBJ = new OBJContainer();
+            Soldier_OBJ.Load("Library/Mesh/Soldier.obj", null);
+            if (Soldier_OBJ.Geometries[0].Normals.Count == 0) Soldier_OBJ.RecalculateNormals();
+            Soldier_OBJ.Repack();
+            _Scene3DContainers.Add(Soldier_OBJ);
+
+            XmlDocument Document = new XmlDocument();
+            Document.Load("Library/Material/Default.mtx");
+            XmlNode Main = Document.FirstChild;
+            Material Mat = new Material(Main);
+            Material.Default = Mat;
+        }
+        private void SceneSelection(int Index)
+        {
+            if(Index == -1)
+            {
+
+            }
+            if (Index == -2)
+            {
+                SetUp3DScene();
+            }
+            else
+            {
+                this._CurrentScene = this._Game.Scenes[Index];
+            }
             GenerateLayout();
         }
         private void CheckRuntime()
@@ -57,26 +113,7 @@ namespace Engineer.Editor
         }
         private void SetUp3DScene()
         {
-            XmlDocument Document = new XmlDocument();
-            Document.Load("Library/Material/Default.mtx");
-            XmlNode Main = Document.FirstChild;
-            Material Mat = new Material(Main);
-            Material.Default = Mat;
-
-            OBJContainer Floor_OBJ = new OBJContainer();
-            Floor_OBJ.Load("Library/Mesh/Floor.obj", null);
-            if (Floor_OBJ.Geometries[0].Normals.Count == 0) Floor_OBJ.RecalculateNormals();
-            Floor_OBJ.Repack();
-
-            OBJContainer Soldier_OBJ = new OBJContainer();
-            Soldier_OBJ.Load("Library/Mesh/Soldier.obj", null);
-            if(Soldier_OBJ.Geometries[0].Normals.Count == 0) Soldier_OBJ.RecalculateNormals();
-            Soldier_OBJ.Repack();
-
-            Actor Soldier_Actor = new Actor(Soldier_OBJ, "Soldier");
-            Soldier_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
-
-            Actor Floor_Actor = new Actor(Floor_OBJ, "Floor");
+            Actor Floor_Actor = new Actor(_Scene3DContainers[0], "Floor");
             Floor_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
 
             Camera MainCamera_Camera = new Camera();
@@ -89,11 +126,9 @@ namespace Engineer.Editor
             Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
             Light1_Light.Intensity = 0.3f;
 
-            Scene3D NewScene = new Scene3D("Scene_01");
+            Scene3D NewScene = new Scene3D("Scene_1");
             DrawnSceneObject Floor_Object = new DrawnSceneObject("Floor", Floor_Actor);
-            //NewScene.AddSceneObject(Floor_Object);
-            DrawnSceneObject Soldier_Object = new DrawnSceneObject("Soldier", Soldier_Actor);
-            NewScene.AddSceneObject(Soldier_Object);
+            NewScene.AddSceneObject(Floor_Object);
             DrawnSceneObject Camera_Object = new DrawnSceneObject("Camera", MainCamera_Camera);
             NewScene.AddSceneObject(Camera_Object);
             DrawnSceneObject Light_Object = new DrawnSceneObject("Light", Light1_Light);
@@ -104,9 +139,11 @@ namespace Engineer.Editor
 
             this._CurrentSceneType = SceneType.Scene3D;
             this._CurrentScene = NewScene;
+            this._Game.Scenes.Add(NewScene);
         }
         private void GenerateLayout()
         {
+            this._GameW.Hide();
             MainDock.BringToFront();
             MainDock.DockRightPortion = 310;
             MainDock.DockLeftPortion = 310;
@@ -126,6 +163,33 @@ namespace Engineer.Editor
             this._View = new ViewWindow();
             this._View.Show(MainDock, DockState.Document);
             this._View.SetScene(_CurrentSceneType, _CurrentScene);
+            this._World.AddItem += new AddToSceeneEventHandler(AddSceneItem);
+        }
+        private void AddSceneItem(int Index)
+        {
+            if (this._CurrentSceneType == SceneType.Scene3D)
+            {
+                if (Index < 3)
+                {
+                    Actor New_Actor = new Actor(_Scene3DContainers[Index], _Scene3DContainers[Index].Geometries[0].Name);
+                    New_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
+                    DrawnSceneObject New_Object = new DrawnSceneObject(_Scene3DContainers[Index].Geometries[0].Name, New_Actor);
+                    this._CurrentScene.AddSceneObject(New_Object);
+                }
+                this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
+            }
+        }
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this._World.Close();
+            this._Library.Close();
+            this._Properties.Close();
+            this._Scene.Close();
+            this._View.Close();
+            for (int i = 0; i < OpenForms.Count; i++) OpenForms[i].Close();
+            OpenForms.Clear();
+            this._GameW.GenerateEntries();
+            this._GameW.Show(MainDock, DockState.Document);
         }
     }
 }

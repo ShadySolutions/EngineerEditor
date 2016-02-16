@@ -108,17 +108,17 @@ namespace Engineer.Draw
                     this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
                     for (int j = 0; j < CurrentScene.Actors[i].Geometries.Count; j++)
                     {
-                        if(!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name) || CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified)
+                        if(!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].ID) || CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified)
                         {
                             ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
                             if (this.CurrentTranslator.TranslateMaterial(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]]))
                             {
-                                _CurrentRenderer.SetMaterial(new object[3] { new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, SMT.TexturesNumber, SMT.Textures }, true);
+                                _CurrentRenderer.SetMaterial(new object[3] { new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].ID, SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, SMT.TexturesNumber, SMT.Textures }, true);
                             }
                             else _CurrentRenderer.SetMaterial(new object[3] { new string[6] { "Default", null, null, null, null, null }, null, null }, false);
                             CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified = false;
                         }
-                        else _CurrentRenderer.SetMaterial(new object[3] { new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Name, null, null, null, null, null }, null, null }, false);
+                        else _CurrentRenderer.SetMaterial(new object[3] { new string[6] { CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].ID, null, null, null, null, null }, null, null }, false);
 
                         this._CurrentRenderer.UpdateMaterial();
                         this._CurrentRenderer.RenderGeometry(CurrentScene.Actors[i].Geometries[j].Vertices,
@@ -129,14 +129,6 @@ namespace Engineer.Draw
                         this._Matrix.PopMatrix();
                     }
                 }
-            }
-        }
-        public virtual void ForceApplyMaterial(string ID, Material AppliedMaterial)
-        {
-            ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
-            if(this.CurrentTranslator.TranslateMaterial(AppliedMaterial))
-            {
-                _CurrentRenderer.SetMaterial(new string[6] { "Generated", SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, true);
             }
         }
     }

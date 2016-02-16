@@ -84,6 +84,16 @@ namespace Engineer.Engine
             this.Parent = Parent;
             this._OutputTargets = new List<MaterialNodeValue>();
         }
+        public MaterialNodeValue(MaterialNodeValue Value, MaterialNode Parent)
+        {
+            this._Name = Value.Name;
+            this._Value = new MaterialValueHolder(Value._Value.X, Value._Value.Y, Value._Value.Z, Value._Value.W);
+            this._Value.Type = Value._Value.Type;
+            this._Value.Value = Value._Value.Value;
+            this._Parent = Parent;
+            this._InputTarget = null;
+            this._OutputTargets = new List<MaterialNodeValue>();
+        }
         private void SetValue(XmlNode XNode)
         {
             if (this._Value.Type == MaterialValueType.BoolValue)

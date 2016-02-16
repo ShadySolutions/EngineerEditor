@@ -15,6 +15,7 @@ namespace Engineer.Engine
     public class Scene
     {
         protected string _Name;
+        protected SceneType _Type;
         protected Color _BackColor;
         protected List<SceneObject> _Objects;
         public string Name
@@ -27,6 +28,18 @@ namespace Engineer.Engine
             set
             {
                 _Name = value;
+            }
+        }
+        public SceneType Type
+        {
+            get
+            {
+                return _Type;
+            }
+
+            set
+            {
+                _Type = value;
             }
         }
         public Color BackColor
@@ -47,7 +60,7 @@ namespace Engineer.Engine
             {
                 return _Objects;
             }
-        }  
+        }
         public virtual bool AddSceneObject(SceneObject Object)
         {
             Object.ParentScene = this;
