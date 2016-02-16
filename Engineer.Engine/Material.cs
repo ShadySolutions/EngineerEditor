@@ -106,10 +106,10 @@ namespace Engineer.Engine
         {
             this._Modified = true;
             this._Name = Name;
-            this._ID = Guid.NewGuid().ToString();
+            this._ID = OldMaterial._ID;// Guid.NewGuid().ToString();
             this._Tags = OldMaterial._Tags;
-            this._Nodes = new List<MaterialNode>(OldMaterial.Nodes.Count);
-            for (int i = 0; i < OldMaterial.Nodes.Count; i++) this._Nodes.Add(new MaterialNode(OldMaterial.Nodes[i], this));
+            this._Nodes = new List<MaterialNode>(OldMaterial.Nodes);//.Count);
+            //for (int i = 0; i < OldMaterial.Nodes.Count; i++) this._Nodes.Add(new MaterialNode(OldMaterial.Nodes[i], this));
         }
         public bool IsNodeIDFree(string ID)
         {

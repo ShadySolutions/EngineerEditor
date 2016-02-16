@@ -11,7 +11,6 @@ namespace Engineer.Draw
 {
     public class DrawEngine
     {
-        private bool KURAC = false;
         private MatrixTransformer _Matrix;
         private Renderer _CurrentRenderer;
         private MaterialTranslator _CurrentTranslator;
