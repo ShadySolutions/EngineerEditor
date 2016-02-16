@@ -9,6 +9,7 @@ namespace Engineer.Engine
 {
     public class MaterialNode
     {
+        private int _Index;
         private string _ID;
         private string _Name;
         private string _FunctionID;
@@ -17,6 +18,18 @@ namespace Engineer.Engine
         private List<MaterialNodeValue> _Values;
         private List<MaterialNodeValue> _Inputs;
         private List<MaterialNodeValue> _Outputs;
+        public int Index
+        {
+            get
+            {
+                return _Index;
+            }
+
+            set
+            {
+                _Index = value;
+            }
+        }
         public string ID
         {
             get
@@ -116,6 +129,7 @@ namespace Engineer.Engine
         public MaterialNode(string Name, Material Holder)
         {
             this._Name = Name;
+            this._Index = Holder.Nodes.Count;
             this._ID = Guid.NewGuid().ToString();
             this._Holder = Holder;
             this._Values = new List<MaterialNodeValue>();
@@ -125,6 +139,7 @@ namespace Engineer.Engine
         public MaterialNode(XmlNode XNode, Material Holder)
         {
             this._ID = Guid.NewGuid().ToString();
+            this._Index = Holder.Nodes.Count;
             this._Holder = Holder;
             this._Values = new List<MaterialNodeValue>();
             this._Inputs = new List<MaterialNodeValue>();
@@ -161,6 +176,7 @@ namespace Engineer.Engine
         public MaterialNode(MaterialNode Node, Material Holder)
         {
             this._Name = Node.Name;
+            this._Index = Holder.Nodes.Count;
             this._ID = Guid.NewGuid().ToString();
             this._FunctionID = Node._FunctionID;
             if (Node.ID == "Output") this._ID = "Output";

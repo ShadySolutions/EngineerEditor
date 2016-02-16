@@ -66,9 +66,9 @@ namespace Engineer.Draw
         public virtual void SetCameraPosition(Vertex CameraPosition)
         {
         }
-        public virtual void SetViewLight(int Index, Vertex[] LightParameters)
+        public virtual bool SetViewLight(int Index, Vertex[] LightParameters)
         {
-            
+            return false;
         }
         public virtual void ResetLights()
         {

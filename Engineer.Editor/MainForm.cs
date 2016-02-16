@@ -10,6 +10,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -81,7 +82,7 @@ namespace Engineer.Editor
             {
 
             }
-            if (Index == -2)
+            else if (Index == -2)
             {
                 SetUp3DScene();
             }
@@ -190,6 +191,12 @@ namespace Engineer.Editor
             OpenForms.Clear();
             this._GameW.GenerateEntries();
             this._GameW.Show(MainDock, DockState.Document);
+        }
+
+        private void MemoryTime_Tick(object sender, EventArgs e)
+        {
+            GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+            System.GC.Collect();
         }
     }
 }

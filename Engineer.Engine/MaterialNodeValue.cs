@@ -93,6 +93,46 @@ namespace Engineer.Engine
             this._Parent = Parent;
             this._InputTarget = null;
             this._OutputTargets = new List<MaterialNodeValue>();
+            if (Value.InputTarget != null)
+            {
+                int InputTargetNodeIndex = Value.InputTarget.Parent.Index;
+                if (Parent.Holder.Nodes.Count > InputTargetNodeIndex)
+                {
+                    MaterialNode Target = Parent.Holder.Nodes[InputTargetNodeIndex];
+                    int Index = -1;
+                    for (int i = 0; i < Target.Outputs.Count; i++)
+                    {
+                        if (Target.Outputs[i].Name == Value.InputTarget.Name)
+                        {
+                            Index = i;
+                        }
+                        if (Index != -1)
+                        {
+                            this._InputTarget = Target.Outputs[Index];
+                        }
+                    }
+                }
+            }
+            for(int i = 0; i < Value.OutputTargets.Count; i++)
+            {
+                int OutputtTargetNodeIndex = Value.OutputTargets[i].Parent.Index;
+                if (Parent.Holder.Nodes.Count > OutputtTargetNodeIndex)
+                {
+                    MaterialNode Target = Parent.Holder.Nodes[OutputtTargetNodeIndex];
+                    int Index = -1;
+                    for (int j = 0; j < Target.Inputs.Count; j++)
+                    {
+                        if (Target.Inputs[j].Name == Value.OutputTargets[i].Name)
+                        {
+                            Index = j;
+                        }
+                        if (Index != -1)
+                        {
+                            this._OutputTargets.Add(Target.Inputs[Index]);
+                        }
+                    }
+                }
+            }
         }
         private void SetValue(XmlNode XNode)
         {

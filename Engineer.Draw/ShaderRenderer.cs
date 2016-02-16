@@ -134,21 +134,24 @@ namespace Engineer.Draw
         {
             _Globals.SetData("CameraPosition", ConvertToByteArray(new float[3] { CameraPosition.X, CameraPosition.Y, CameraPosition .Z}));
         }
-        public override void SetViewLight(int Index, Vertex[] LightParameters)
+        public override bool SetViewLight(int Index, Vertex[] LightParameters)
         {
             while(Index >= this._NumLights)
             {
-                RefreshActiveShader("NumLights", this._NumLights.ToString(), (this._NumLights + 1).ToString());
                 _Globals.SetDefinition("Lights[" + Index + "].Color", 12, "vec3");
                 _Globals.SetDefinition("Lights[" + Index + "].Position", 12, "vec3");
                 _Globals.SetDefinition("Lights[" + Index + "].Attenuation", 12, "vec3");
                 _Globals.SetDefinition("Lights[" + Index + "].Intensity", 4, "float");
                 this._NumLights++;
+                //UpdateMaterial();
+                //_Manager.Active.ReCompile();
+                return true;
             }
             _Globals.SetData("Lights[" + Index + "].Color", ConvertToByteArray(new float[3] { LightParameters[0].X, LightParameters[0].Y, LightParameters[0].Z }));
             _Globals.SetData("Lights[" + Index + "].Position", ConvertToByteArray(new float[3] { LightParameters[1].X, LightParameters[1].Y, LightParameters[1].Z }));
             _Globals.SetData("Lights[" + Index + "].Attenuation", ConvertToByteArray(new float[3] { LightParameters[2].X, LightParameters[2].Y, LightParameters[2].Z }));
             _Globals.SetData("Lights[" + Index + "].Intensity", BitConverter.GetBytes(LightParameters[3].X));
+            return false;
         }
         public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces, bool Update)
         {

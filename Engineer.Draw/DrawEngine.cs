@@ -52,6 +52,7 @@ namespace Engineer.Draw
         }
         public virtual void Draw3DScene(Scene3D CurrentScene, int Width, int Height)
         {
+            bool GlobalUpdate = false;
             List<Light> Lights = CurrentScene.Lights;
             List<Actor> Actors = CurrentScene.Actors;
             if (CurrentScene == null) return;
@@ -72,7 +73,7 @@ namespace Engineer.Draw
                 LightVertices[2] = CurrentScene.Lights[k].Attenuation;
                 if (CurrentScene.Lights[k].Active) LightVertices[3] = new Vertex(CurrentScene.Lights[k].Intensity, 0, 0);
                 else LightVertices[3] = new Vertex(0, 0, 0);
-                this._CurrentRenderer.SetViewLight(k, LightVertices);
+                GlobalUpdate = GlobalUpdate || this._CurrentRenderer.SetViewLight(k, LightVertices);
             }
             this._CurrentRenderer.Clear();
             this._Matrix.MatrixMode("Projection");
@@ -88,9 +89,10 @@ namespace Engineer.Draw
             this._Matrix.Rotate(CurrentScene.EditorCamera.Rotation.Z, 0, 0, 1);
             this._Matrix.Translate(-CurrentScene.EditorCamera.Translation.X,
                                    -CurrentScene.EditorCamera.Translation.Y,
-                                   -CurrentScene.EditorCamera.Translation.Z); 
+                                   -CurrentScene.EditorCamera.Translation.Z);
             this._Matrix.PushMatrix();
-            
+            this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
+            this._CurrentRenderer.UpdateMaterial();
 
             for (int i = 0; i < CurrentScene.Actors.Count; i++)
             {
@@ -107,7 +109,7 @@ namespace Engineer.Draw
                     this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
                     for (int j = 0; j < CurrentScene.Actors[i].Geometries.Count; j++)
                     {
-                        if(!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].ID) || CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified)
+                        if (!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].ID) || CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified)
                         {
                             ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
                             if (this.CurrentTranslator.TranslateMaterial(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]]))
@@ -125,8 +127,9 @@ namespace Engineer.Draw
                                                              CurrentScene.Actors[i].Geometries[j].TexCoords,
                                                              CurrentScene.Actors[i].Geometries[j].Faces,
                                                              CurrentScene.Actors[i].Modified);
-                        this._Matrix.PopMatrix();
+                        
                     }
+                    this._Matrix.PopMatrix();
                 }
             }
         }

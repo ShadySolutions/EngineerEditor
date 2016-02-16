@@ -135,7 +135,7 @@ namespace Engineer.Draw
             MaterialNodeValue Surface = Out.Inputs[0];
             if (Surface.InputTarget != null)
             {
-                FunctionCalls.Add("\t" + GenerateFragmentFinalizer(true, Surface.InputTarget.Parent.ID + "_" + Surface.InputTarget.Name));
+                FunctionCalls.Add("\t" + GenerateFragmentFinalizer(true, Surface.InputTarget.Parent.Name + "_" + Surface.InputTarget.Name));
                 UsedFunctions.Add(Surface.InputTarget.Parent.FunctionID);
                 ProcessCurrentNode(Surface.InputTarget.Parent, UsedFunctions, FunctionCalls);
             }
@@ -169,7 +169,6 @@ namespace Engineer.Draw
         }
         public static byte[] ImageToByte(Bitmap bitmap)
         {
-
             BitmapData bmpdata = null;
 
             try
@@ -178,17 +177,11 @@ namespace Engineer.Draw
                 int numbytes = bmpdata.Stride * bitmap.Height;
                 byte[] bytedata = new byte[numbytes];
                 IntPtr ptr = bmpdata.Scan0;
-
                 Marshal.Copy(ptr, bytedata, 0, numbytes);
-
+                bitmap.UnlockBits(bmpdata);
                 return bytedata;
             }
-            finally
-            {
-                if (bmpdata != null)
-                    bitmap.UnlockBits(bmpdata);
-            }
-
+            catch { return null; }
         }
         private bool ProcessCurrentNode(MaterialNode CurNode, List<string> UsedFunctions, List<string> FunctionCalls)
         {
@@ -220,13 +213,13 @@ namespace Engineer.Draw
                 }
                 else
                 {
-                    if (CurNode.Inputs[i].InputTarget != null) ArgumentTexts.Add(CurNode.Inputs[i].InputTarget.Parent.ID + "_" + CurNode.Inputs[i].InputTarget.Name);
+                    if (CurNode.Inputs[i].InputTarget != null) ArgumentTexts.Add(CurNode.Inputs[i].InputTarget.Parent.Name + "_" + CurNode.Inputs[i].InputTarget.Name);
                     else ArgumentTexts.Add(GenerateArgumentFromValue(CurNode.Inputs[i].Value));
                 }
             }
             for (int i = 0; i < CurNode.Outputs.Count; i++)
             {
-                OutputNames.Add(CurNode.ID + "_" + CurNode.Outputs[i].Name);
+                OutputNames.Add(CurNode.Name + "_" + CurNode.Outputs[i].Name);
             }
             FunctionCalls.Insert(0,GenerateFunctionCall(CurNode.FunctionID, ArgumentTexts.ToArray(), OutputNames.ToArray()));
             for (int i = 0; i < CurNode.Inputs.Count; i++)

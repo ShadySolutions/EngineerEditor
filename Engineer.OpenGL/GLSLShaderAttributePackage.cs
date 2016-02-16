@@ -71,7 +71,12 @@ namespace Engineer.Draw.OpenGL.GLSL
         }
         public override bool Activate(int Program_Indexer)
         {
-            if (!_DataChanged) return true;
+            if (!_DataChanged)
+            {
+                GL.BindVertexArray(_VertexArray_Indexer);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, _VertexBuffer_Indexer);
+                return true;
+            }
             GL.DeleteBuffers(1, ref _VertexBuffer_Indexer);
             GL.DeleteVertexArrays(1, ref _VertexArray_Indexer);
             if (_ManualBufferLines > 0) return ActivateAttributesWithManualBuffer(Program_Indexer);
