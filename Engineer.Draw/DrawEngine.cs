@@ -91,8 +91,7 @@ namespace Engineer.Draw
                                    -CurrentScene.EditorCamera.Translation.Y,
                                    -CurrentScene.EditorCamera.Translation.Z);
             this._Matrix.PushMatrix();
-            this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
-            this._CurrentRenderer.UpdateMaterial();
+            this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix); 
 
             for (int i = 0; i < CurrentScene.Actors.Count; i++)
             {
@@ -109,8 +108,9 @@ namespace Engineer.Draw
                     this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
                     for (int j = 0; j < CurrentScene.Actors[i].Geometries.Count; j++)
                     {
-                        if (!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].ID) || CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified)
+                        if (!this._CurrentRenderer.IsMaterialReady(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].ID) || CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]].Modified || GlobalUpdate)
                         {
+                            this._CurrentRenderer.UpdateMaterial();
                             ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;
                             if (this.CurrentTranslator.TranslateMaterial(CurrentScene.Actors[i].Materials[CurrentScene.Actors[i].GeometryMaterialIndices[j]]))
                             {

@@ -182,11 +182,13 @@ namespace Engineer.Editor
         }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (this._CurrentScene == null) return;
             this._World.Close();
             this._Library.Close();
             this._Properties.Close();
             this._Scene.Close();
             this._View.Close();
+            this._CurrentScene = null;
             for (int i = 0; i < OpenForms.Count; i++) OpenForms[i].Close();
             OpenForms.Clear();
             this._GameW.GenerateEntries();

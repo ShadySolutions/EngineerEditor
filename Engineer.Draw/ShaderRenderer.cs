@@ -136,22 +136,22 @@ namespace Engineer.Draw
         }
         public override bool SetViewLight(int Index, Vertex[] LightParameters)
         {
+            bool Update = false;
             while(Index >= this._NumLights)
             {
                 _Globals.SetDefinition("Lights[" + Index + "].Color", 12, "vec3");
                 _Globals.SetDefinition("Lights[" + Index + "].Position", 12, "vec3");
                 _Globals.SetDefinition("Lights[" + Index + "].Attenuation", 12, "vec3");
                 _Globals.SetDefinition("Lights[" + Index + "].Intensity", 4, "float");
+                RefreshActiveShader("NumLights", this._NumLights.ToString(), (this._NumLights + 1).ToString());
                 this._NumLights++;
-                //UpdateMaterial();
-                //_Manager.Active.ReCompile();
-                return true;
+                Update = true;
             }
             _Globals.SetData("Lights[" + Index + "].Color", ConvertToByteArray(new float[3] { LightParameters[0].X, LightParameters[0].Y, LightParameters[0].Z }));
             _Globals.SetData("Lights[" + Index + "].Position", ConvertToByteArray(new float[3] { LightParameters[1].X, LightParameters[1].Y, LightParameters[1].Z }));
             _Globals.SetData("Lights[" + Index + "].Attenuation", ConvertToByteArray(new float[3] { LightParameters[2].X, LightParameters[2].Y, LightParameters[2].Z }));
             _Globals.SetData("Lights[" + Index + "].Intensity", BitConverter.GetBytes(LightParameters[3].X));
-            return false;
+            return Update;
         }
         public override void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces, bool Update)
         {

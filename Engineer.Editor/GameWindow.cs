@@ -50,7 +50,6 @@ namespace Engineer.Editor
                 Entries.Controls.Add(NewButton);
                 NewButton.BringToFront();
             }
-            Random Rand = new Random();
             Button New2DButton = new Button();
             New2DButton.Text = "New 2D Scene";
             New2DButton.TextAlign = ContentAlignment.MiddleCenter;
@@ -59,7 +58,7 @@ namespace Engineer.Editor
             New2DButton.FlatAppearance.BorderSize = 0;
             New2DButton.FlatStyle = FlatStyle.Flat;
             New2DButton.BackColor = Color.FromArgb(20, 20, 20);
-            New2DButton.ForeColor = Color.FromArgb(Rand.Next(0, 255), Rand.Next(0, 255), Rand.Next(0, 255));
+            New2DButton.ForeColor = Color.OrangeRed;
             New2DButton.Click += new EventHandler(EntryClick);
             Entries.Controls.Add(New2DButton);
             New2DButton.BringToFront();
@@ -71,7 +70,7 @@ namespace Engineer.Editor
             New3DButton.FlatAppearance.BorderSize = 0;
             New3DButton.FlatStyle = FlatStyle.Flat;
             New3DButton.BackColor = Color.FromArgb(20, 20, 20);
-            New3DButton.ForeColor = Color.FromArgb(Rand.Next(0, 255), Rand.Next(0, 255), Rand.Next(0, 255));
+            New3DButton.ForeColor = Color.CadetBlue;
             New3DButton.Click += new EventHandler(EntryClick);
             Entries.Controls.Add(New3DButton);
             New3DButton.BringToFront();
