@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Engineer.Engine;
 using Engineer.Mathematics;
+using System.IO;
 
 namespace Engineer.Draw
 {
@@ -50,12 +51,54 @@ namespace Engineer.Draw
                 _CurrentRenderer.SetMaterial(new object[3] { new string[6] { "Default", SMT.VertexShaderOutput, SMT.FragmentShaderOutput, null, null, null }, null, null }, true);
             }
         }
+        public virtual void Draw2DScene(Scene2D CurrentScene, int Width, int Height)
+        {
+            if (CurrentScene == null) return;
+            if (!this._CurrentRenderer.IsMaterialReady("2D"))
+            {
+                string Vertex2D = File.ReadAllText("GLSL\\Generator\\Vertex2D.shader");
+                string Fragment2D = File.ReadAllText("GLSL\\Generator\\Fragment2D.shader");
+                this._CurrentRenderer.SetMaterial(new object[3] { new string[6] { "2D", Vertex2D, Fragment2D, null, null, null }, null, null }, true);
+            }
+
+            this._CurrentRenderer.SetViewport(Width, Height);
+            this._CurrentRenderer.ClearColor(new float[4] {(CurrentScene.BackColor.R *1.0f + 1)/256,
+                                                           (CurrentScene.BackColor.G *1.0f + 1)/256,
+                                                           (CurrentScene.BackColor.B *1.0f + 1)/256,
+                                                           (CurrentScene.BackColor.A *1.0f + 1)/256});
+            this._CurrentRenderer.Clear();
+            this._Matrix.MatrixMode("Projection");
+            this._Matrix.LoadIdentity();
+            this._Matrix.Ortho2D(0, Width, Height, 0);
+            this._Matrix.MatrixMode("ModelView");
+            this._Matrix.LoadIdentity();
+            this._Matrix.Translate(CurrentScene.Transformation.Translation.X, CurrentScene.Transformation.Translation.Y, CurrentScene.Transformation.Translation.Z);
+            this._CurrentRenderer.SetProjectionMatrix(_Matrix.ProjectionMatrix);
+            this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
+            this._CurrentRenderer.UpdateMaterial();
+            this._CurrentRenderer.Render2DGrid();
+
+            this._Matrix.PushMatrix();
+            for(int i = 0; i < CurrentScene.Sprites.Count; i++)
+            {
+                this._Matrix.Translate(CurrentScene.Sprites[i].Scale.X, CurrentScene.Sprites[i].Scale.Y, CurrentScene.Sprites[i].Scale.Z);
+                this._Matrix.Translate(CurrentScene.Sprites[i].Translation.X, CurrentScene.Sprites[i].Translation.Y, CurrentScene.Sprites[i].Translation.Z);
+                this._Matrix.Translate(CurrentScene.Sprites[i].Rotation.X, CurrentScene.Sprites[i].Rotation.Y, CurrentScene.Sprites[i].Rotation.Z);
+                this._CurrentRenderer.SetProjectionMatrix(_Matrix.ProjectionMatrix);
+                this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
+                this._CurrentRenderer.UpdateMaterial();
+
+                this._CurrentRenderer.RenderSprite(CurrentScene.Sprites[i].ID, CurrentScene.Sprites[i].CollectiveLists(), 0, CurrentScene.Sprites[i].Modified);
+                CurrentScene.Sprites[i].Modified = false;
+
+                this._Matrix.PopMatrix();
+            }
+        }
         public virtual void Draw3DScene(Scene3D CurrentScene, int Width, int Height)
         {
             bool GlobalUpdate = false;
             List<Light> Lights = CurrentScene.Lights;
             List<Actor> Actors = CurrentScene.Actors;
-            if (CurrentScene == null) return;
             this._CurrentRenderer.SetViewport(Width, Height);
             this._CurrentRenderer.ClearColor(new float[4] {(CurrentScene.BackColor.R *1.0f + 1)/256,
                                                            (CurrentScene.BackColor.G *1.0f + 1)/256,

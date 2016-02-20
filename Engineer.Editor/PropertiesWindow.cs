@@ -52,6 +52,13 @@ namespace Engineer.Editor
                     this.ContentPanel.Controls.Add(ActorProperties);
                     ActorProperties.BringToFront();
                 }
+                if (DrawnSceneObject.Drawn(CurrentObject).Representation.Type == DrawObjectType.Sprite)
+                {
+                    Properties_Sprite ActorProperties = new Properties_Sprite(DrawnSceneObject.Drawn(CurrentObject).Representation as Sprite, _Dock);
+                    ActorProperties.Dock = DockStyle.Top;
+                    this.ContentPanel.Controls.Add(ActorProperties);
+                    ActorProperties.BringToFront();
+                }
             }
         }
     }

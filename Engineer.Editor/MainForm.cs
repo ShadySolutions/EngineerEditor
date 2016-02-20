@@ -75,12 +75,14 @@ namespace Engineer.Editor
             XmlNode Main = Document.FirstChild;
             Material Mat = new Material(Main);
             Material.Default = Mat;
+
+
         }
         private void SceneSelection(int Index)
         {
             if(Index == -1)
             {
-
+                SetUp2DScene();
             }
             else if (Index == -2)
             {
@@ -127,7 +129,10 @@ namespace Engineer.Editor
             Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
             Light1_Light.Intensity = 0.3f;
 
-            Scene3D NewScene = new Scene3D("Scene_1");
+            Scene3D NewScene = new Scene3D("Scene_" + (_Game.Scenes.Count + 1).ToString("000"));
+            NewScene.BackColor = Color.FromArgb(40, 40, 40);
+            NewScene.Type = SceneType.Scene3D;
+
             DrawnSceneObject Floor_Object = new DrawnSceneObject("Floor", Floor_Actor);
             NewScene.AddSceneObject(Floor_Object);
             DrawnSceneObject Camera_Object = new DrawnSceneObject("Camera", MainCamera_Camera);
@@ -139,6 +144,29 @@ namespace Engineer.Editor
             NewScene.EditorCamera = new Camera(MainCamera_Camera);
 
             this._CurrentSceneType = SceneType.Scene3D;
+            this._CurrentScene = NewScene;
+            this._Game.Scenes.Add(NewScene);
+        }
+        private void SetUp2DScene()
+        {
+            Actor Floor_Actor = new Actor(_Scene3DContainers[0], "Floor");
+            Floor_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
+
+            Camera MainCamera_Camera = new Camera();
+            MainCamera_Camera.Translation = new Vertex(0, 0.6f, 0.8f);
+            MainCamera_Camera.Rotation = new Vertex(30, 0, 0);
+
+            Light Light1_Light = new Light();
+            Light1_Light.Translation = new Vertex(4, -4, -4);
+            Light1_Light.Color = Color.White;
+            Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
+            Light1_Light.Intensity = 0.3f;
+
+            Scene2D NewScene = new Scene2D("Scene_" + (_Game.Scenes.Count + 1).ToString("000"));
+            NewScene.BackColor = Color.FromArgb(40,40,40);
+            NewScene.Type = SceneType.Scene2D;
+
+            this._CurrentSceneType = SceneType.Scene2D;
             this._CurrentScene = NewScene;
             this._Game.Scenes.Add(NewScene);
         }
@@ -165,10 +193,21 @@ namespace Engineer.Editor
             this._View.Show(MainDock, DockState.Document);
             this._View.SetScene(_CurrentSceneType, _CurrentScene);
             this._World.AddItem += new AddToSceeneEventHandler(AddSceneItem);
+            this._World.UpdateSceneType(_CurrentSceneType);
         }
         private void AddSceneItem(int Index)
         {
-            if (this._CurrentSceneType == SceneType.Scene3D)
+            if (this._CurrentSceneType == SceneType.Scene2D)
+            {
+                if (Index == 5)
+                {
+                    Sprite NewSprite = new Sprite();
+                    DrawnSceneObject New_Object = new DrawnSceneObject("New Sprite", NewSprite);
+                    this._CurrentScene.AddSceneObject(New_Object);
+                }
+                this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
+            }
+            else if (this._CurrentSceneType == SceneType.Scene3D)
             {
                 if (Index < 3)
                 {

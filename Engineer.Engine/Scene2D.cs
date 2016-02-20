@@ -23,6 +23,19 @@ namespace Engineer.Engine
                 _Transformation = value;
             }
         }
+        public List<Sprite> Sprites
+        {
+            get
+            {
+                List<Sprite> NewList = new List<Sprite>();
+                for (int i = 0; i < Objects.Count; i++)
+                {
+                    if (Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(Objects[i]).Representation.Type == DrawObjectType.Sprite)
+                        NewList.Add(DrawnSceneObject.Drawn(Objects[i]).Representation as Sprite);
+                }
+                return NewList;
+            }
+        }
         public override bool AddSceneObject(SceneObject Object)
         {
             if (Object.Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(Object).Representation.Type == DrawObjectType.Actor) return false;

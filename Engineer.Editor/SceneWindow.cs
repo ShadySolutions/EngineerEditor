@@ -29,33 +29,39 @@ namespace Engineer.Editor
         }
         private void AssembleTree()
         {
-            Scene3D Current3DScene = this._CurrentScene as Scene3D;
+            Scene CurrentScene = this._CurrentScene as Scene;
             TreeNode SceneNode = new TreeNode(this._CurrentScene.Name, 0, 0);
             for (int i = 0; i < _CurrentScene.Objects.Count; i++)
             {
                 if(_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Actor)
                 {
-                    TreeNode ActorNode = new TreeNode(Current3DScene.Objects[i].Name, 1, 1);
-                    ActorNode.Tag = new object[2] { DrawObjectType.Actor, Current3DScene.Objects[i].ID };
+                    TreeNode ActorNode = new TreeNode(CurrentScene.Objects[i].Name, 1, 1);
+                    ActorNode.Tag = new object[2] { DrawObjectType.Actor, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(ActorNode);
                 }
-                if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
+                else if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
                 {
-                    TreeNode CameraNode = new TreeNode(Current3DScene.Objects[i].Name, 2, 2);
-                    CameraNode.Tag = new object[2] { DrawObjectType.Camera, Current3DScene.Objects[i].ID };
+                    TreeNode CameraNode = new TreeNode(CurrentScene.Objects[i].Name, 3, 3);
+                    CameraNode.Tag = new object[2] { DrawObjectType.Camera, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(CameraNode);
                 }
-                if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Light)
+                else if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Light)
                 {
-                    TreeNode LightNode = new TreeNode(Current3DScene.Objects[i].Name, 3, 3);
-                    LightNode.Tag = new object[2] { DrawObjectType.Light, Current3DScene.Objects[i].ID };
+                    TreeNode LightNode = new TreeNode(CurrentScene.Objects[i].Name, 4, 4);
+                    LightNode.Tag = new object[2] { DrawObjectType.Light, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(LightNode);
                 }
-                if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Background)
+                else if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Background)
                 {
-                    TreeNode BackgroundNode = new TreeNode(Current3DScene.Objects[i].Name, 4, 4);
-                    BackgroundNode.Tag = new object[2] { DrawObjectType.Background, Current3DScene.Objects[i].ID };
+                    TreeNode BackgroundNode = new TreeNode(CurrentScene.Objects[i].Name, 5, 5);
+                    BackgroundNode.Tag = new object[2] { DrawObjectType.Background, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(BackgroundNode);
+                }
+                else if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Sprite)
+                {
+                    TreeNode SpriteNode = new TreeNode(CurrentScene.Objects[i].Name, 6, 6);
+                    SpriteNode.Tag = new object[2] { DrawObjectType.Sprite, CurrentScene.Objects[i].ID };
+                    SceneNode.Nodes.Add(SpriteNode);
                 }
             }
             SceneTree.Nodes.Clear();

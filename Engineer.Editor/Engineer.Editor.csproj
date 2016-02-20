@@ -101,11 +101,29 @@
     <Compile Include="Properties_DrawObject.Designer.cs">
       <DependentUpon>Properties_DrawObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties_Sprite.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Properties_Sprite.Designer.cs">
+      <DependentUpon>Properties_Sprite.cs</DependentUpon>
+    </Compile>
     <Compile Include="SceneWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SceneWindow.Designer.cs">
       <DependentUpon>SceneWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpriteSetEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SpriteSetEditor.Designer.cs">
+      <DependentUpon>SpriteSetEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpriteSetEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpriteSetEntry.Designer.cs">
+      <DependentUpon>SpriteSetEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="UIGenerator.cs" />
     <Compile Include="VertexControl.cs">
@@ -157,8 +175,17 @@
     <EmbeddedResource Include="Properties_DrawObject.resx">
       <DependentUpon>Properties_DrawObject.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties_Sprite.resx">
+      <DependentUpon>Properties_Sprite.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SceneWindow.resx">
       <DependentUpon>SceneWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpriteSetEditor.resx">
+      <DependentUpon>SpriteSetEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpriteSetEntry.resx">
+      <DependentUpon>SpriteSetEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VertexControl.resx">
       <DependentUpon>VertexControl.cs</DependentUpon>
@@ -246,6 +273,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Splash2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Floor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,6 +17,8 @@ namespace Engineer.Draw.OpenGL.GLSL
         {
             _Manager = new GLSLShaderManager();
             GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             SetUpShader("Default", new string[5] { global::Engineer.Draw.OpenGL.Shaders.Example_Vertex, global::Engineer.Draw.OpenGL.Shaders.Partial_Fragment, null, null, null });
         }
         public override void SetViewport(int Width, int Height)

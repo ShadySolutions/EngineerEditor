@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Engineer.Mathematics;
 using Engineer.Engine;
+using System.Drawing;
 
 namespace Engineer.Draw
 {
@@ -73,6 +74,14 @@ namespace Engineer.Draw
         public virtual void ResetLights()
         {
             this._NumLights = 0;
+        }
+        public virtual void Render2DGrid()
+        {
+
+        }
+        public virtual void RenderSprite(string ID, List<Bitmap> Textures, int CurrentIndex, bool Update)
+        {
+
         }
         public virtual void RenderGeometry(List<Vertex> Vertices, List<Vertex> Normals, List<Vertex> TexCoords, List<Face> Faces, bool Update)
         {
