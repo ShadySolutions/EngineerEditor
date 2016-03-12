@@ -220,10 +220,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj">
-      <Project>{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}</Project>
-      <Name>ShadySolutions.UI.NodeEditor</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ConsoleApplication1\Engineer.Runner.csproj">
       <Project>{938502d1-1b08-480a-b631-bcab1e67a298}</Project>
       <Name>Engineer.Runner</Name>
@@ -255,6 +251,10 @@
     <ProjectReference Include="..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditor.csproj">
       <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>
       <Name>ICSharpCode.TextEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj">
+      <Project>{2d0c6c3b-a3c9-42c1-b1be-6db132a6b931}</Project>
+      <Name>ShadySolutions.UI.NodeEditor</Name>
     </ProjectReference>
     <ProjectReference Include="..\TakeOne.WindowSuite\TakeOne.WindowSuite.csproj">
       <Project>{71b96b53-64e9-4ec0-8f02-5342df2ab856}</Project>

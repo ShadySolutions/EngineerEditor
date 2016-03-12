@@ -44,18 +44,14 @@
             this.Primitives = new System.Windows.Forms.Button();
             this.All = new System.Windows.Forms.Button();
             this.Floor = new System.Windows.Forms.Button();
-            this.OnSceneLoad = new System.Windows.Forms.Button();
-            this.OnClick = new System.Windows.Forms.Button();
-            this.OnButtonPress = new System.Windows.Forms.Button();
+            this.Event = new System.Windows.Forms.Button();
             this.ContentPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ContentPanel
             // 
-            this.ContentPanel.Controls.Add(this.OnButtonPress);
-            this.ContentPanel.Controls.Add(this.OnClick);
-            this.ContentPanel.Controls.Add(this.OnSceneLoad);
+            this.ContentPanel.Controls.Add(this.Event);
             this.ContentPanel.Controls.Add(this.Sprite);
             this.ContentPanel.Controls.Add(this.Camera);
             this.ContentPanel.Controls.Add(this.Light);
@@ -332,65 +328,25 @@
             this.Floor.MouseEnter += new System.EventHandler(this.Floor_MouseEnter);
             this.Floor.MouseLeave += new System.EventHandler(this.Floor_MouseLeave);
             // 
-            // OnSceneLoad
+            // Event
             // 
-            this.OnSceneLoad.Dock = System.Windows.Forms.DockStyle.Top;
-            this.OnSceneLoad.FlatAppearance.BorderSize = 0;
-            this.OnSceneLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OnSceneLoad.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OnSceneLoad.ForeColor = System.Drawing.Color.White;
-            this.OnSceneLoad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OnSceneLoad.ImageIndex = 4;
-            this.OnSceneLoad.ImageList = this.GlobalItemsIcons;
-            this.OnSceneLoad.Location = new System.Drawing.Point(131, 300);
-            this.OnSceneLoad.Name = "OnSceneLoad";
-            this.OnSceneLoad.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
-            this.OnSceneLoad.Size = new System.Drawing.Size(359, 50);
-            this.OnSceneLoad.TabIndex = 7;
-            this.OnSceneLoad.Tag = "6";
-            this.OnSceneLoad.Text = "SceneLoad";
-            this.OnSceneLoad.UseVisualStyleBackColor = true;
-            this.OnSceneLoad.Click += new System.EventHandler(this.Floor_Click);
-            // 
-            // OnClick
-            // 
-            this.OnClick.Dock = System.Windows.Forms.DockStyle.Top;
-            this.OnClick.FlatAppearance.BorderSize = 0;
-            this.OnClick.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OnClick.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OnClick.ForeColor = System.Drawing.Color.White;
-            this.OnClick.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OnClick.ImageIndex = 4;
-            this.OnClick.ImageList = this.GlobalItemsIcons;
-            this.OnClick.Location = new System.Drawing.Point(131, 350);
-            this.OnClick.Name = "OnClick";
-            this.OnClick.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
-            this.OnClick.Size = new System.Drawing.Size(359, 50);
-            this.OnClick.TabIndex = 8;
-            this.OnClick.Tag = "7";
-            this.OnClick.Text = "Click";
-            this.OnClick.UseVisualStyleBackColor = true;
-            this.OnClick.Click += new System.EventHandler(this.Floor_Click);
-            // 
-            // OnButtonPress
-            // 
-            this.OnButtonPress.Dock = System.Windows.Forms.DockStyle.Top;
-            this.OnButtonPress.FlatAppearance.BorderSize = 0;
-            this.OnButtonPress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OnButtonPress.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OnButtonPress.ForeColor = System.Drawing.Color.White;
-            this.OnButtonPress.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OnButtonPress.ImageIndex = 4;
-            this.OnButtonPress.ImageList = this.GlobalItemsIcons;
-            this.OnButtonPress.Location = new System.Drawing.Point(131, 400);
-            this.OnButtonPress.Name = "OnButtonPress";
-            this.OnButtonPress.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
-            this.OnButtonPress.Size = new System.Drawing.Size(359, 50);
-            this.OnButtonPress.TabIndex = 9;
-            this.OnButtonPress.Tag = "8";
-            this.OnButtonPress.Text = "ButtonPress";
-            this.OnButtonPress.UseVisualStyleBackColor = true;
-            this.OnButtonPress.Click += new System.EventHandler(this.Floor_Click);
+            this.Event.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Event.FlatAppearance.BorderSize = 0;
+            this.Event.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Event.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Event.ForeColor = System.Drawing.Color.White;
+            this.Event.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Event.ImageIndex = 4;
+            this.Event.ImageList = this.GlobalItemsIcons;
+            this.Event.Location = new System.Drawing.Point(131, 300);
+            this.Event.Name = "Event";
+            this.Event.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.Event.Size = new System.Drawing.Size(359, 50);
+            this.Event.TabIndex = 7;
+            this.Event.Tag = "6";
+            this.Event.Text = "Event";
+            this.Event.UseVisualStyleBackColor = true;
+            this.Event.Click += new System.EventHandler(this.Floor_Click);
             // 
             // WorldOptions
             // 
@@ -425,8 +381,6 @@
         private System.Windows.Forms.Button Primitives;
         private System.Windows.Forms.ImageList GlobalItemsIcons;
         private System.Windows.Forms.Button All;
-        private System.Windows.Forms.Button OnButtonPress;
-        private System.Windows.Forms.Button OnClick;
-        private System.Windows.Forms.Button OnSceneLoad;
+        private System.Windows.Forms.Button Event;
     }
 }

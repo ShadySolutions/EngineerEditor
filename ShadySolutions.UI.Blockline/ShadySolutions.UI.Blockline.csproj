@@ -56,7 +56,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj">
+    <ProjectReference Include="..\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj">
       <Project>{2d0c6c3b-a3c9-42c1-b1be-6db132a6b931}</Project>
       <Name>ShadySolutions.UI.NodeEditor</Name>
     </ProjectReference>

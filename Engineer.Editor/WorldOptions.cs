@@ -75,9 +75,7 @@ namespace Engineer.Editor
             Light.Visible = false;
             Camera.Visible = false;
             Sprite.Visible = false;
-            OnSceneLoad.Visible = false;
-            OnClick.Visible = false;
-            OnButtonPress.Visible = false;
+            Event.Visible = false;
             if (this._Type == SceneType.Scene3D)
             {
                 Cameras.Visible = true;
@@ -89,9 +87,7 @@ namespace Engineer.Editor
                     Soldier.Visible = true;
                     Light.Visible = true;
                     Camera.Visible = true;
-                    OnSceneLoad.Visible = true;
-                    OnClick.Visible = true;
-                    OnButtonPress.Visible = true;
+                    Event.Visible = true;
                 }
                 else if (_FilterType == 1)
                 {
@@ -112,9 +108,7 @@ namespace Engineer.Editor
                 }
                 else if (_FilterType == 5)
                 {
-                    OnSceneLoad.Visible = true;
-                    OnClick.Visible = true;
-                    OnButtonPress.Visible = true;
+                    Event.Visible = true;
                 }
             }
             else if (this._Type == SceneType.Scene2D)
@@ -124,9 +118,7 @@ namespace Engineer.Editor
                 if (_FilterType == 0)
                 {
                     Sprite.Visible = true;
-                    OnSceneLoad.Visible = true;
-                    OnClick.Visible = true;
-                    OnButtonPress.Visible = true;
+                    Event.Visible = true;
                 }
                 else if (_FilterType == 1)
                 {
@@ -137,9 +129,7 @@ namespace Engineer.Editor
                 }
                 else if (_FilterType == 5)
                 {
-                    OnSceneLoad.Visible = true;
-                    OnClick.Visible = true;
-                    OnButtonPress.Visible = true;
+                    Event.Visible = true;
                 }
             }
         }

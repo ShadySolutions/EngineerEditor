@@ -62,7 +62,7 @@ namespace Engineer.Editor
             New2DButton.Click += new EventHandler(EntryClick);
             Entries.Controls.Add(New2DButton);
             New2DButton.BringToFront();
-           /* Button New3DButton = new Button();
+            Button New3DButton = new Button();
             New3DButton.Text = "New 3D Scene";
             New3DButton.TextAlign = ContentAlignment.MiddleCenter;
             New3DButton.Tag = -2;
@@ -73,7 +73,7 @@ namespace Engineer.Editor
             New3DButton.ForeColor = Color.CadetBlue;
             New3DButton.Click += new EventHandler(EntryClick);
             Entries.Controls.Add(New3DButton);
-            New3DButton.BringToFront();*/
+            New3DButton.BringToFront();
         }
         private void EntryClick(object sender, EventArgs e)
         {

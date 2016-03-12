@@ -220,19 +220,7 @@ namespace Engineer.Editor
             }
             if (Index == 6)
             {
-                ScriptSceneObject New_Object = new ScriptSceneObject("OnSceneLoad");
-                this._CurrentScene.AddSceneObject(New_Object);
-                this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
-            }
-            if (Index == 7)
-            {
-                ScriptSceneObject New_Object = new ScriptSceneObject("OnClick");
-                this._CurrentScene.AddSceneObject(New_Object);
-                this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
-            }
-            if (Index == 8)
-            {
-                ScriptSceneObject New_Object = new ScriptSceneObject("OnButtonPress");
+                ScriptSceneObject New_Object = new ScriptSceneObject("New Event");
                 this._CurrentScene.AddSceneObject(New_Object);
                 this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
             }

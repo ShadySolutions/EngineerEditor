@@ -36,6 +36,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CSSCodeProvider.v3.5">
+      <HintPath>..\DLLs\CSSCodeProvider.v3.5.dll</HintPath>
+    </Reference>
+    <Reference Include="CSScriptLibrary">
+      <HintPath>..\DLLs\CSScriptLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="opentk, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLLs\opentk.dll</HintPath>

@@ -14,6 +14,8 @@ using Engineer.Draw.OpenGL;
 using Engineer.Draw.OpenGL.FixedGL;
 using Engineer.Draw.OpenGL.GLSL;
 using Engineer.Engine;
+using CSScriptLibrary;
+using OpenTK.Input;
 
 namespace Engineer.Runner
 {
@@ -52,6 +54,58 @@ namespace Engineer.Runner
                 _Engine.Draw3DScene((Scene3D)_Scene, this.ClientRectangle.Width, this.ClientRectangle.Height);
             }
             SwapBuffers();
+        }
+        private void Event_Closing(object sender, EventArgs e)
+        {
+            for(int i = 0; i < _Scene.Events.Closing.Count; i++)
+            {
+                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.Closing[i].Script);
+
+            }
+        }
+        private void Event_KeyDown(object sender, EventArgs e)
+        {
+
+        }
+        private void Event_KeyUp(object sender, EventArgs e)
+        {
+
+        }
+        private void Event_KeyPress(object sender, EventArgs e)
+        {
+
+        }
+        private void Event_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void Event_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Event_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Event_MouseClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Event_MouseMove(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Event_MouseWheel(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        private void Event_RenderFrame(object sender, EventArgs e)
+        {
+
+        }
+        private void Event_EverySecond(object sender, EventArgs e)
+        {
+
         }
     }
 }

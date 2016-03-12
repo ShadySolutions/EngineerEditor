@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Runner", "ConsoleApplication1\Engineer.Runner.csproj", "{938502D1-1B08-480A-B631-BCAB1E67A298}"
 EndProject
@@ -29,8 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Draw.OpenGL", "Eng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Engine", "Engineer.Engine\Engineer.Engine.csproj", "{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadySolutions.UI.NodeEditor", "..\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj", "{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeOne.WindowSuite", "TakeOne.WindowSuite\TakeOne.WindowSuite.csproj", "{71B96B53-64E9-4EC0-8F02-5342DF2AB856}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Editor", "Engineer.Editor\Engineer.Editor.csproj", "{22AED2A2-1390-4FDE-A3E2-812B5EA95B1A}"
@@ -47,6 +45,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlocklineExample", "BlocklineExample\BlocklineExample.csproj", "{DB24666C-C2BF-4EB4-BA08-E45442721B74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.TextEditor", "ICSharpCode.TextEditor\Project\ICSharpCode.TextEditor.csproj", "{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadySolutions.UI.NodeEditor", "ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj", "{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,10 +82,6 @@ Global
 		{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFB51F33-46A8-4367-A8A3-9E647CA6BBE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71B96B53-64E9-4EC0-8F02-5342DF2AB856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71B96B53-64E9-4EC0-8F02-5342DF2AB856}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71B96B53-64E9-4EC0-8F02-5342DF2AB856}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -106,6 +102,10 @@ Global
 		{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D18BE89-D210-49EB-A9DD-2246FBB3DF6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
