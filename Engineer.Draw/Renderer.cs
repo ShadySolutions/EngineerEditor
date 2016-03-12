@@ -9,8 +9,14 @@ using System.Drawing;
 
 namespace Engineer.Draw
 {
+    public enum RenderTargetType
+    {
+        Runner = 0,
+        Editor = 1
+    }
     public class Renderer
     {
+        private RenderTargetType _TargetType;
         private object _RenderDestination;
         protected int _NumLights;
         public object RenderDestination
@@ -19,10 +25,21 @@ namespace Engineer.Draw
             {
                 return _RenderDestination;
             }
-
             set
             {
                 _RenderDestination = value;
+            }
+        }
+        public RenderTargetType TargetType
+        {
+            get
+            {
+                return _TargetType;
+            }
+
+            set
+            {
+                _TargetType = value;
             }
         }
         public Renderer()

@@ -70,27 +70,26 @@ namespace Engineer.Draw
             this._Matrix.MatrixMode("Projection");
             this._Matrix.LoadIdentity();
             this._Matrix.Ortho2D(0, Width, Height, 0);
+            this._CurrentRenderer.SetProjectionMatrix(_Matrix.ProjectionMatrix);
             this._Matrix.MatrixMode("ModelView");
             this._Matrix.LoadIdentity();
             this._Matrix.Translate(CurrentScene.Transformation.Translation.X, CurrentScene.Transformation.Translation.Y, CurrentScene.Transformation.Translation.Z);
-            this._CurrentRenderer.SetProjectionMatrix(_Matrix.ProjectionMatrix);
-            this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
-            this._CurrentRenderer.UpdateMaterial();
-            this._CurrentRenderer.Render2DGrid();
 
             this._Matrix.PushMatrix();
+            this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
+            if(this._CurrentRenderer.TargetType == RenderTargetType.Editor) this._CurrentRenderer.Render2DGrid();
+
             for(int i = 0; i < CurrentScene.Sprites.Count; i++)
             {
-                this._Matrix.Translate(CurrentScene.Sprites[i].Scale.X, CurrentScene.Sprites[i].Scale.Y, CurrentScene.Sprites[i].Scale.Z);
+                this._Matrix.Scale(CurrentScene.Sprites[i].Scale.X, CurrentScene.Sprites[i].Scale.Y, CurrentScene.Sprites[i].Scale.Z);
                 this._Matrix.Translate(CurrentScene.Sprites[i].Translation.X, CurrentScene.Sprites[i].Translation.Y, CurrentScene.Sprites[i].Translation.Z);
-                this._Matrix.Translate(CurrentScene.Sprites[i].Rotation.X, CurrentScene.Sprites[i].Rotation.Y, CurrentScene.Sprites[i].Rotation.Z);
-                this._CurrentRenderer.SetProjectionMatrix(_Matrix.ProjectionMatrix);
+                this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.X, 1, 0, 0);
+                this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.Y, 0, 1, 0);
+                this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.Z, 0, 0, 1);
                 this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
-                this._CurrentRenderer.UpdateMaterial();
 
-                this._CurrentRenderer.RenderSprite(CurrentScene.Sprites[i].ID, CurrentScene.Sprites[i].CollectiveLists(), 0, CurrentScene.Sprites[i].Modified);
+                this._CurrentRenderer.RenderSprite(CurrentScene.Sprites[i].ID, CurrentScene.Sprites[i].CollectiveLists(), (CurrentScene.Sprites[i].CollectiveLists().Count > 0)?0:-1, CurrentScene.Sprites[i].Modified);
                 CurrentScene.Sprites[i].Modified = false;
-
                 this._Matrix.PopMatrix();
             }
         }

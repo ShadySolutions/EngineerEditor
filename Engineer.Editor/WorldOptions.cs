@@ -69,101 +69,77 @@ namespace Engineer.Editor
         }
         private void UpdateVisibleOptions()
         {
-
-            if(this._Type == SceneType.Scene3D)
+            Floor.Visible = false;
+            Cube.Visible = false;
+            Soldier.Visible = false;
+            Light.Visible = false;
+            Camera.Visible = false;
+            Sprite.Visible = false;
+            OnSceneLoad.Visible = false;
+            OnClick.Visible = false;
+            OnButtonPress.Visible = false;
+            if (this._Type == SceneType.Scene3D)
             {
-                if(_FilterType == 0)
+                Cameras.Visible = true;
+                Lights.Visible = true;
+                if (_FilterType == 0)
                 {
                     Floor.Visible = true;
                     Cube.Visible = true;
                     Soldier.Visible = true;
                     Light.Visible = true;
                     Camera.Visible = true;
-                    Sprite.Visible = false;
+                    OnSceneLoad.Visible = true;
+                    OnClick.Visible = true;
+                    OnButtonPress.Visible = true;
                 }
                 else if (_FilterType == 1)
                 {
                     Floor.Visible = true;
                     Cube.Visible = true;
-                    Soldier.Visible = false;
-                    Light.Visible = false;
-                    Camera.Visible = false;
-                    Sprite.Visible = false;
                 }
                 else if (_FilterType == 2)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
                     Soldier.Visible = true;
-                    Light.Visible = false;
-                    Camera.Visible = false;
-                    Sprite.Visible = false;
                 }
                 else if (_FilterType == 3)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
-                    Soldier.Visible = false;
-                    Light.Visible = false;
                     Camera.Visible = true;
-                    Sprite.Visible = false;
                 }
                 else if (_FilterType == 4)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
-                    Soldier.Visible = false;
                     Light.Visible = true;
-                    Camera.Visible = false;
-                    Sprite.Visible = false;
                 }
                 else if (_FilterType == 5)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
-                    Soldier.Visible = false;
-                    Light.Visible = false;
-                    Camera.Visible = false;
-                    Sprite.Visible = false;
+                    OnSceneLoad.Visible = true;
+                    OnClick.Visible = true;
+                    OnButtonPress.Visible = true;
                 }
             }
             else if (this._Type == SceneType.Scene2D)
             {
+                Cameras.Visible = false;
+                Lights.Visible = false;
                 if (_FilterType == 0)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
-                    Soldier.Visible = false;
-                    Light.Visible = false;
-                    Camera.Visible = false;
                     Sprite.Visible = true;
+                    OnSceneLoad.Visible = true;
+                    OnClick.Visible = true;
+                    OnButtonPress.Visible = true;
                 }
                 else if (_FilterType == 1)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
-                    Soldier.Visible = false;
-                    Light.Visible = false;
-                    Camera.Visible = false;
                     Sprite.Visible = true;
                 }
                 else if (_FilterType == 2)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
-                    Soldier.Visible = false;
-                    Light.Visible = false;
-                    Camera.Visible = false;
-                    Sprite.Visible = false;
                 }
                 else if (_FilterType == 5)
                 {
-                    Floor.Visible = false;
-                    Cube.Visible = false;
-                    Soldier.Visible = false;
-                    Light.Visible = false;
-                    Camera.Visible = false;
-                    Sprite.Visible = false;
+                    OnSceneLoad.Visible = true;
+                    OnClick.Visible = true;
+                    OnButtonPress.Visible = true;
                 }
             }
         }

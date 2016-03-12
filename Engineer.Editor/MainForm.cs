@@ -218,6 +218,24 @@ namespace Engineer.Editor
                 }
                 this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
             }
+            if (Index == 6)
+            {
+                ScriptSceneObject New_Object = new ScriptSceneObject("OnSceneLoad");
+                this._CurrentScene.AddSceneObject(New_Object);
+                this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
+            }
+            if (Index == 7)
+            {
+                ScriptSceneObject New_Object = new ScriptSceneObject("OnClick");
+                this._CurrentScene.AddSceneObject(New_Object);
+                this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
+            }
+            if (Index == 8)
+            {
+                ScriptSceneObject New_Object = new ScriptSceneObject("OnButtonPress");
+                this._CurrentScene.AddSceneObject(New_Object);
+                this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
+            }
         }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -238,6 +256,13 @@ namespace Engineer.Editor
         {
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             System.GC.Collect();
+        }
+
+        private void runToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Runner.Runner Run = new Runner.Runner(800, 600, OpenTK.Graphics.GraphicsMode.Default, _Game.Name);
+            Run.Init(_CurrentScene, _View.Engine);
+            Run.Run();
         }
     }
 }

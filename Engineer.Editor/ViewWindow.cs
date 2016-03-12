@@ -23,12 +23,25 @@ namespace Engineer.Editor
     {
         private bool _MouseDown;
         private bool _GLControlLoaded;
+        private object _MouseMoved;
         private Point _OriginalPoint;
         private Point _CurrentPoint;
         private Vertex _OriginalTranslation;
         private Vertex _OriginalRotation;
         private Scene _CurrentScene;
         private DrawEngine _Engine;
+        public DrawEngine Engine
+        {
+            get
+            {
+                return _Engine;
+            }
+
+            set
+            {
+                _Engine = value;
+            }
+        }
         public ViewWindow()
         {
             InitializeComponent();
@@ -46,13 +59,14 @@ namespace Engineer.Editor
         {
             this._GLControlLoaded = true;
             GLControl.MakeCurrent();
-            _Engine = new DrawEngine();
+            Engine = new DrawEngine();
             GLSLShaderRenderer Render = new GLSLShaderRenderer();
             Render.RenderDestination = this.GLControl;
-            _Engine.CurrentRenderer = Render;
+            Render.TargetType = RenderTargetType.Editor;
+            Engine.CurrentRenderer = Render;
             GLSLShaderMaterialTranslator Translator = new GLSLShaderMaterialTranslator();
-            _Engine.CurrentTranslator = Translator;
-            _Engine.SetDefaults();
+            Engine.CurrentTranslator = Translator;
+            Engine.SetDefaults();
         }
         private void GLControl_Paint(object sender, PaintEventArgs e)
         {
@@ -60,12 +74,12 @@ namespace Engineer.Editor
             if (_CurrentScene == null) return;
             if (_CurrentScene.Type == SceneType.Scene3D)
             {
-                _Engine.Draw3DScene((_CurrentScene as Scene3D), this.GLControl.Width, this.GLControl.Height);
+                Engine.Draw3DScene((_CurrentScene as Scene3D), this.GLControl.Width, this.GLControl.Height);
                 GLControl.SwapBuffers();
             }
             else if (_CurrentScene.Type == SceneType.Scene2D)
             {
-                _Engine.Draw2DScene((_CurrentScene as Scene2D), this.GLControl.Width, this.GLControl.Height);
+                Engine.Draw2DScene((_CurrentScene as Scene2D), this.GLControl.Width, this.GLControl.Height);
                 GLControl.SwapBuffers();
             }
         }
@@ -79,7 +93,23 @@ namespace Engineer.Editor
             {
                 this._MouseDown = true;
                 this._OriginalPoint = e.Location;
-                this._OriginalTranslation = (this._CurrentScene as Scene2D).Transformation.Translation;
+                Vertex Translation = (this._CurrentScene as Scene2D).Transformation.Translation;
+                this._OriginalTranslation = new Vertex(Translation.X, Translation.Y, Translation.Z);
+                List<Sprite> Sprites = (this._CurrentScene as Scene2D).Sprites;
+                _MouseMoved = null;
+                for (int i = Sprites.Count - 1; i >= 0; i--)
+                {
+                    bool InX = false;
+                    bool InY = false;
+                    if (e.X > Translation.X + Sprites[i].Translation.X && e.X < Translation.X + Sprites[i].Translation.X + Sprites[i].Scale.X * 100) InX = true;
+                    if (e.Y > Translation.Y + Sprites[i].Translation.Y && e.Y < Translation.Y + Sprites[i].Translation.Y + Sprites[i].Scale.Y * 100) InY = true;
+                    if(InX && InY)
+                    {
+                        this._OriginalTranslation = new Vertex(Sprites[i].Translation.X, Sprites[i].Translation.Y, Sprites[i].Translation.Z);
+                        _MouseMoved = Sprites[i];
+                        break;
+                    }
+                }
             }
             else if (_CurrentScene.Type == SceneType.Scene3D)
             {
@@ -87,6 +117,7 @@ namespace Engineer.Editor
                 this._OriginalPoint = e.Location;
                 this._OriginalTranslation = (_CurrentScene as Scene3D).EditorCamera.Translation;
                 this._OriginalRotation = (_CurrentScene as Scene3D).EditorCamera.Rotation;
+                _MouseMoved = null;
             }
         }
         private void GLControl_MouseMove(object sender, MouseEventArgs e)
@@ -98,7 +129,15 @@ namespace Engineer.Editor
                     this._CurrentPoint = e.Location;
                     float XIntensity = this._CurrentPoint.X - this._OriginalPoint.X;
                     float YIntensity = this._CurrentPoint.Y - this._OriginalPoint.Y;
-                    (this._CurrentScene as Scene2D).Transformation.Translation = new Vertex(this._OriginalTranslation.X + XIntensity, this._OriginalTranslation.Y + YIntensity, 0);
+                    if (_MouseMoved == null)
+                    {
+                        (this._CurrentScene as Scene2D).Transformation.Translation = new Vertex(this._OriginalTranslation.X + XIntensity, this._OriginalTranslation.Y + YIntensity, 0);
+                    }
+                    else
+                    {
+                        Sprite CurrentSprite = _MouseMoved as Sprite;
+                        CurrentSprite.Translation = new Vertex(this._OriginalTranslation.X + XIntensity, this._OriginalTranslation.Y + YIntensity, this._OriginalTranslation.Z);
+                    }
                 }
             }
             else if (_CurrentScene.Type == SceneType.Scene3D)

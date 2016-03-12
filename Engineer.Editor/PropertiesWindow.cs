@@ -61,5 +61,19 @@ namespace Engineer.Editor
                 }
             }
         }
+        public void SetScriptObject(SceneObject CurrentObject)
+        {
+            this._CurrentObject = CurrentObject;
+            this.ContentPanel.Controls.Clear();
+            NameLabel.Visible = true;
+            NameLabel.Text = CurrentObject.Name;
+            NameLabel.Dock = DockStyle.Top;
+            this.ContentPanel.Controls.Add(NameLabel);
+            NameLabel.SendToBack();
+            ScriptEditor Editor = new ScriptEditor();
+            Editor.Text = CurrentObject.Name + " - Script Editor";
+            Editor.Title = CurrentObject.Name + " - Script Editor";
+            Editor.Show(_Dock, DockState.Document);
+        }
     }
 }

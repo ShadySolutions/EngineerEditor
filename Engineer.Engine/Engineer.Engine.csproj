@@ -58,6 +58,7 @@
     <Compile Include="Scene3D.cs" />
     <Compile Include="DrawObject.cs" />
     <Compile Include="DrawObject_Sprite.cs" />
+    <Compile Include="SceneObject_Script.cs" />
     <Compile Include="ValueHolder.cs" />
   </ItemGroup>
   <ItemGroup>

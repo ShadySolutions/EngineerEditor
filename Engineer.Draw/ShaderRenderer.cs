@@ -185,6 +185,7 @@ namespace Engineer.Draw
                 this.SetMaterial(new object[3] { new string[6] { "Grid2D", Vertex2D, Fragment2D, null, null, null }, null, null }, true);
             }
             else this.SetMaterial(new object[3] { new string[6] { "Grid2D", null, null, null, null, null }, null, null }, false);
+            UpdateMaterial();
 
             int GridWidth= 100;
             if (_GridSize == -1)
@@ -230,6 +231,8 @@ namespace Engineer.Draw
                 this.SetMaterial(new object[3] { new string[6] { ID, this._Manager.Active.VertexShader_Code, this._Manager.Active.FragmentShader_Code, null, null, null }, Textures.Count, PackTextures(Textures) }, true);
             }
             else this.SetMaterial(new object[3] { new string[6] { ID, null, null, null, null, null }, null, null }, false);
+
+            UpdateMaterial();
 
             if (_SpriteVertices == null)
             {

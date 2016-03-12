@@ -9,7 +9,8 @@ namespace Engineer.Engine
     public enum SceneObjectType
     {
         Undefined = 0,
-        DrawnSceneObject = 1
+        DrawnSceneObject = 1,
+        ScriptSceneObject = 2
     }
     public class SceneObject
     {

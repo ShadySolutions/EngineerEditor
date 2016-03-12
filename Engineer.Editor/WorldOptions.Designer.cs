@@ -31,25 +31,31 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorldOptions));
             this.Cube = new System.Windows.Forms.Button();
+            this.GlobalItemsIcons = new System.Windows.Forms.ImageList(this.components);
             this.Soldier = new System.Windows.Forms.Button();
             this.Light = new System.Windows.Forms.Button();
             this.Camera = new System.Windows.Forms.Button();
             this.Sprite = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Primitives = new System.Windows.Forms.Button();
-            this.Characters = new System.Windows.Forms.Button();
-            this.Cameras = new System.Windows.Forms.Button();
-            this.Lights = new System.Windows.Forms.Button();
             this.Events = new System.Windows.Forms.Button();
-            this.Floor = new System.Windows.Forms.Button();
-            this.GlobalItemsIcons = new System.Windows.Forms.ImageList(this.components);
+            this.Lights = new System.Windows.Forms.Button();
+            this.Cameras = new System.Windows.Forms.Button();
+            this.Characters = new System.Windows.Forms.Button();
+            this.Primitives = new System.Windows.Forms.Button();
             this.All = new System.Windows.Forms.Button();
+            this.Floor = new System.Windows.Forms.Button();
+            this.OnSceneLoad = new System.Windows.Forms.Button();
+            this.OnClick = new System.Windows.Forms.Button();
+            this.OnButtonPress = new System.Windows.Forms.Button();
             this.ContentPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ContentPanel
             // 
+            this.ContentPanel.Controls.Add(this.OnButtonPress);
+            this.ContentPanel.Controls.Add(this.OnClick);
+            this.ContentPanel.Controls.Add(this.OnSceneLoad);
             this.ContentPanel.Controls.Add(this.Sprite);
             this.ContentPanel.Controls.Add(this.Camera);
             this.ContentPanel.Controls.Add(this.Light);
@@ -79,6 +85,19 @@
             this.Cube.Click += new System.EventHandler(this.Floor_Click);
             this.Cube.MouseEnter += new System.EventHandler(this.Floor_MouseEnter);
             this.Cube.MouseLeave += new System.EventHandler(this.Floor_MouseLeave);
+            // 
+            // GlobalItemsIcons
+            // 
+            this.GlobalItemsIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("GlobalItemsIcons.ImageStream")));
+            this.GlobalItemsIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.GlobalItemsIcons.Images.SetKeyName(0, "Primitive.png");
+            this.GlobalItemsIcons.Images.SetKeyName(1, "Object.png");
+            this.GlobalItemsIcons.Images.SetKeyName(2, "Actor.png");
+            this.GlobalItemsIcons.Images.SetKeyName(3, "Camera.png");
+            this.GlobalItemsIcons.Images.SetKeyName(4, "Event.png");
+            this.GlobalItemsIcons.Images.SetKeyName(5, "Sound.png");
+            this.GlobalItemsIcons.Images.SetKeyName(6, "Light.png");
+            this.GlobalItemsIcons.Images.SetKeyName(7, "Sprite.png");
             // 
             // Soldier
             // 
@@ -181,59 +200,23 @@
             this.panel1.Size = new System.Drawing.Size(131, 370);
             this.panel1.TabIndex = 6;
             // 
-            // Primitives
+            // Events
             // 
-            this.Primitives.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Primitives.FlatAppearance.BorderSize = 0;
-            this.Primitives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Primitives.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Primitives.ForeColor = System.Drawing.Color.White;
-            this.Primitives.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Primitives.Location = new System.Drawing.Point(0, 30);
-            this.Primitives.Name = "Primitives";
-            this.Primitives.Size = new System.Drawing.Size(131, 30);
-            this.Primitives.TabIndex = 1;
-            this.Primitives.Tag = "1";
-            this.Primitives.Text = "Primitives";
-            this.Primitives.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Primitives.UseVisualStyleBackColor = true;
-            this.Primitives.Click += new System.EventHandler(this.All_Click);
-            // 
-            // Characters
-            // 
-            this.Characters.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Characters.FlatAppearance.BorderSize = 0;
-            this.Characters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Characters.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Characters.ForeColor = System.Drawing.Color.White;
-            this.Characters.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Characters.Location = new System.Drawing.Point(0, 60);
-            this.Characters.Name = "Characters";
-            this.Characters.Size = new System.Drawing.Size(131, 30);
-            this.Characters.TabIndex = 2;
-            this.Characters.Tag = "2";
-            this.Characters.Text = "Characters";
-            this.Characters.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Characters.UseVisualStyleBackColor = true;
-            this.Characters.Click += new System.EventHandler(this.All_Click);
-            // 
-            // Cameras
-            // 
-            this.Cameras.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Cameras.FlatAppearance.BorderSize = 0;
-            this.Cameras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cameras.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Cameras.ForeColor = System.Drawing.Color.White;
-            this.Cameras.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Cameras.Location = new System.Drawing.Point(0, 90);
-            this.Cameras.Name = "Cameras";
-            this.Cameras.Size = new System.Drawing.Size(131, 30);
-            this.Cameras.TabIndex = 3;
-            this.Cameras.Tag = "3";
-            this.Cameras.Text = "Cameras";
-            this.Cameras.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Cameras.UseVisualStyleBackColor = true;
-            this.Cameras.Click += new System.EventHandler(this.All_Click);
+            this.Events.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Events.FlatAppearance.BorderSize = 0;
+            this.Events.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Events.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Events.ForeColor = System.Drawing.Color.White;
+            this.Events.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Events.Location = new System.Drawing.Point(0, 150);
+            this.Events.Name = "Events";
+            this.Events.Size = new System.Drawing.Size(131, 30);
+            this.Events.TabIndex = 5;
+            this.Events.Tag = "5";
+            this.Events.Text = "Scripts";
+            this.Events.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Events.UseVisualStyleBackColor = true;
+            this.Events.Click += new System.EventHandler(this.All_Click);
             // 
             // Lights
             // 
@@ -253,23 +236,78 @@
             this.Lights.UseVisualStyleBackColor = true;
             this.Lights.Click += new System.EventHandler(this.All_Click);
             // 
-            // Events
+            // Cameras
             // 
-            this.Events.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Events.FlatAppearance.BorderSize = 0;
-            this.Events.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Events.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Events.ForeColor = System.Drawing.Color.White;
-            this.Events.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Events.Location = new System.Drawing.Point(0, 150);
-            this.Events.Name = "Events";
-            this.Events.Size = new System.Drawing.Size(131, 30);
-            this.Events.TabIndex = 5;
-            this.Events.Tag = "5";
-            this.Events.Text = "Events";
-            this.Events.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Events.UseVisualStyleBackColor = true;
-            this.Events.Click += new System.EventHandler(this.All_Click);
+            this.Cameras.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Cameras.FlatAppearance.BorderSize = 0;
+            this.Cameras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Cameras.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Cameras.ForeColor = System.Drawing.Color.White;
+            this.Cameras.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Cameras.Location = new System.Drawing.Point(0, 90);
+            this.Cameras.Name = "Cameras";
+            this.Cameras.Size = new System.Drawing.Size(131, 30);
+            this.Cameras.TabIndex = 3;
+            this.Cameras.Tag = "3";
+            this.Cameras.Text = "Cameras";
+            this.Cameras.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Cameras.UseVisualStyleBackColor = true;
+            this.Cameras.Click += new System.EventHandler(this.All_Click);
+            // 
+            // Characters
+            // 
+            this.Characters.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Characters.FlatAppearance.BorderSize = 0;
+            this.Characters.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Characters.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Characters.ForeColor = System.Drawing.Color.White;
+            this.Characters.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Characters.Location = new System.Drawing.Point(0, 60);
+            this.Characters.Name = "Characters";
+            this.Characters.Size = new System.Drawing.Size(131, 30);
+            this.Characters.TabIndex = 2;
+            this.Characters.Tag = "2";
+            this.Characters.Text = "Characters";
+            this.Characters.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Characters.UseVisualStyleBackColor = true;
+            this.Characters.Click += new System.EventHandler(this.All_Click);
+            // 
+            // Primitives
+            // 
+            this.Primitives.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Primitives.FlatAppearance.BorderSize = 0;
+            this.Primitives.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Primitives.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Primitives.ForeColor = System.Drawing.Color.White;
+            this.Primitives.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Primitives.Location = new System.Drawing.Point(0, 30);
+            this.Primitives.Name = "Primitives";
+            this.Primitives.Size = new System.Drawing.Size(131, 30);
+            this.Primitives.TabIndex = 1;
+            this.Primitives.Tag = "1";
+            this.Primitives.Text = "Primitives";
+            this.Primitives.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Primitives.UseVisualStyleBackColor = true;
+            this.Primitives.Click += new System.EventHandler(this.All_Click);
+            // 
+            // All
+            // 
+            this.All.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.All.Dock = System.Windows.Forms.DockStyle.Top;
+            this.All.FlatAppearance.BorderSize = 0;
+            this.All.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.All.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.All.ForeColor = System.Drawing.Color.White;
+            this.All.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.All.Location = new System.Drawing.Point(0, 0);
+            this.All.Name = "All";
+            this.All.Size = new System.Drawing.Size(131, 30);
+            this.All.TabIndex = 6;
+            this.All.Tag = "0";
+            this.All.Text = "All";
+            this.All.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.All.UseVisualStyleBackColor = false;
+            this.All.Click += new System.EventHandler(this.All_Click);
             // 
             // Floor
             // 
@@ -294,37 +332,65 @@
             this.Floor.MouseEnter += new System.EventHandler(this.Floor_MouseEnter);
             this.Floor.MouseLeave += new System.EventHandler(this.Floor_MouseLeave);
             // 
-            // GlobalItemsIcons
+            // OnSceneLoad
             // 
-            this.GlobalItemsIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("GlobalItemsIcons.ImageStream")));
-            this.GlobalItemsIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.GlobalItemsIcons.Images.SetKeyName(0, "Primitive.png");
-            this.GlobalItemsIcons.Images.SetKeyName(1, "Object.png");
-            this.GlobalItemsIcons.Images.SetKeyName(2, "Actor.png");
-            this.GlobalItemsIcons.Images.SetKeyName(3, "Camera.png");
-            this.GlobalItemsIcons.Images.SetKeyName(4, "Event.png");
-            this.GlobalItemsIcons.Images.SetKeyName(5, "Sound.png");
-            this.GlobalItemsIcons.Images.SetKeyName(6, "Light.png");
-            this.GlobalItemsIcons.Images.SetKeyName(7, "Sprite.png");
+            this.OnSceneLoad.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OnSceneLoad.FlatAppearance.BorderSize = 0;
+            this.OnSceneLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OnSceneLoad.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OnSceneLoad.ForeColor = System.Drawing.Color.White;
+            this.OnSceneLoad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OnSceneLoad.ImageIndex = 4;
+            this.OnSceneLoad.ImageList = this.GlobalItemsIcons;
+            this.OnSceneLoad.Location = new System.Drawing.Point(131, 300);
+            this.OnSceneLoad.Name = "OnSceneLoad";
+            this.OnSceneLoad.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.OnSceneLoad.Size = new System.Drawing.Size(359, 50);
+            this.OnSceneLoad.TabIndex = 7;
+            this.OnSceneLoad.Tag = "6";
+            this.OnSceneLoad.Text = "SceneLoad";
+            this.OnSceneLoad.UseVisualStyleBackColor = true;
+            this.OnSceneLoad.Click += new System.EventHandler(this.Floor_Click);
             // 
-            // All
+            // OnClick
             // 
-            this.All.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.All.Dock = System.Windows.Forms.DockStyle.Top;
-            this.All.FlatAppearance.BorderSize = 0;
-            this.All.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.All.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.All.ForeColor = System.Drawing.Color.White;
-            this.All.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.All.Location = new System.Drawing.Point(0, 0);
-            this.All.Name = "All";
-            this.All.Size = new System.Drawing.Size(131, 30);
-            this.All.TabIndex = 6;
-            this.All.Tag = "0";
-            this.All.Text = "All";
-            this.All.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.All.UseVisualStyleBackColor = false;
-            this.All.Click += new System.EventHandler(this.All_Click);
+            this.OnClick.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OnClick.FlatAppearance.BorderSize = 0;
+            this.OnClick.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OnClick.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OnClick.ForeColor = System.Drawing.Color.White;
+            this.OnClick.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OnClick.ImageIndex = 4;
+            this.OnClick.ImageList = this.GlobalItemsIcons;
+            this.OnClick.Location = new System.Drawing.Point(131, 350);
+            this.OnClick.Name = "OnClick";
+            this.OnClick.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.OnClick.Size = new System.Drawing.Size(359, 50);
+            this.OnClick.TabIndex = 8;
+            this.OnClick.Tag = "7";
+            this.OnClick.Text = "Click";
+            this.OnClick.UseVisualStyleBackColor = true;
+            this.OnClick.Click += new System.EventHandler(this.Floor_Click);
+            // 
+            // OnButtonPress
+            // 
+            this.OnButtonPress.Dock = System.Windows.Forms.DockStyle.Top;
+            this.OnButtonPress.FlatAppearance.BorderSize = 0;
+            this.OnButtonPress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OnButtonPress.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OnButtonPress.ForeColor = System.Drawing.Color.White;
+            this.OnButtonPress.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.OnButtonPress.ImageIndex = 4;
+            this.OnButtonPress.ImageList = this.GlobalItemsIcons;
+            this.OnButtonPress.Location = new System.Drawing.Point(131, 400);
+            this.OnButtonPress.Name = "OnButtonPress";
+            this.OnButtonPress.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.OnButtonPress.Size = new System.Drawing.Size(359, 50);
+            this.OnButtonPress.TabIndex = 9;
+            this.OnButtonPress.Tag = "8";
+            this.OnButtonPress.Text = "ButtonPress";
+            this.OnButtonPress.UseVisualStyleBackColor = true;
+            this.OnButtonPress.Click += new System.EventHandler(this.Floor_Click);
             // 
             // WorldOptions
             // 
@@ -359,5 +425,8 @@
         private System.Windows.Forms.Button Primitives;
         private System.Windows.Forms.ImageList GlobalItemsIcons;
         private System.Windows.Forms.Button All;
+        private System.Windows.Forms.Button OnButtonPress;
+        private System.Windows.Forms.Button OnClick;
+        private System.Windows.Forms.Button OnSceneLoad;
     }
 }
