@@ -75,6 +75,8 @@ namespace Engineer.Draw.OpenGL.GLSL
                 GL.GetShader(_TessellationEvaluation_Indexer, ShaderParameter.CompileStatus, out IsCompiled);
                 if (IsCompiled == 0) return false;
             }
+
+            GL.DeleteProgram(_Program_Indexer);
             _Program_Indexer = GL.CreateProgram();
             GL.AttachShader(_Program_Indexer, _VertexShader_Indexer);
             GL.AttachShader(_Program_Indexer, _FragmentShader_Indexer);
