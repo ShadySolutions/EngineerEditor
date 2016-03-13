@@ -16,6 +16,7 @@ namespace Engineer.Editor
     public partial class PropertiesWindow : ToolForm
     {
         private DockPanel _Dock;
+        private Scene _CurrentScene;
         private SceneObject _CurrentObject;
         public PropertiesWindow()
         {
@@ -30,6 +31,7 @@ namespace Engineer.Editor
         }
         public void SetDrawObject(SceneObject CurrentObject)
         {
+            this._CurrentScene = null;
             this._CurrentObject = CurrentObject;
             this.ContentPanel.Controls.Clear();
             if (CurrentObject == null) return;
@@ -63,6 +65,7 @@ namespace Engineer.Editor
         }
         public void SetScriptObject(SceneObject CurrentObject)
         {
+            this._CurrentScene = null;
             this._CurrentObject = CurrentObject;
             this.ContentPanel.Controls.Clear();
             NameLabel.Visible = true;
@@ -73,7 +76,24 @@ namespace Engineer.Editor
             ScriptEditor Editor = new ScriptEditor();
             Editor.Text = CurrentObject.Name + " - Script Editor";
             Editor.Title = CurrentObject.Name + " - Script Editor";
+            Editor.SetScript((ScriptSceneObject)CurrentObject);
             Editor.Show(_Dock, DockState.Document);
+        }
+        public void SetScene(Scene CurrentScene)
+        {
+            this._CurrentScene = CurrentScene;
+            this._CurrentObject = null;
+            this.ContentPanel.Controls.Clear();
+            NameLabel.Visible = true;
+            NameLabel.Text = CurrentScene.Name;
+            NameLabel.Dock = DockStyle.Top;
+            this.ContentPanel.Controls.Add(NameLabel);
+            NameLabel.SendToBack();
+            Properties_Scene PSC = new Properties_Scene();
+            PSC.SetScene(CurrentScene);
+            PSC.Dock = DockStyle.Top;
+            this.ContentPanel.Controls.Add(PSC);
+            PSC.BringToFront();
         }
     }
 }

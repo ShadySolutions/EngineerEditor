@@ -16,6 +16,7 @@ namespace Engineer.Editor
     {
         private SceneType _CurrentSceneType;
         private Scene _CurrentScene;
+        private TreeNode _SceneNode;
         private PropertiesWindow _Properties;
         public SceneWindow()
         {
@@ -31,6 +32,7 @@ namespace Engineer.Editor
         {
             Scene CurrentScene = this._CurrentScene as Scene;
             TreeNode SceneNode = new TreeNode(this._CurrentScene.Name, 0, 0);
+            this._SceneNode = SceneNode;
             for (int i = 0; i < _CurrentScene.Objects.Count; i++)
             {
                 if(_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && DrawnSceneObject.Drawn(_CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Actor)
@@ -121,6 +123,11 @@ namespace Engineer.Editor
         private void PropertiesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (SceneTree.SelectedNode == null) return;
+            if (SceneTree.SelectedNode == this._SceneNode)
+            {
+                this._Properties.SetScene(this._CurrentScene);
+                return;
+            }
             for (int i = 0; i < this._CurrentScene.Objects.Count; i++)
             {
                 if (((object[])SceneTree.SelectedNode.Tag)[2].ToString() == this._CurrentScene.Objects[i].ID)

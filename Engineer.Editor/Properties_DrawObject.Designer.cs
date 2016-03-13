@@ -32,14 +32,14 @@
             this.Value_Active = new System.Windows.Forms.CheckBox();
             this.Label_Active = new System.Windows.Forms.Label();
             this.Panel_Translation = new System.Windows.Forms.Panel();
-            this.Value_Translation = new Engineer.Editor.VertexControl();
             this.Label_Translation = new System.Windows.Forms.Label();
             this.Panel_Rotation = new System.Windows.Forms.Panel();
-            this.Value_Rotation = new Engineer.Editor.VertexControl();
             this.Label_Rotation = new System.Windows.Forms.Label();
             this.Panel_Scale = new System.Windows.Forms.Panel();
-            this.Value_Scale = new Engineer.Editor.VertexControl();
             this.Label_Scale = new System.Windows.Forms.Label();
+            this.Value_Scale = new Engineer.Editor.VertexControl();
+            this.Value_Rotation = new Engineer.Editor.VertexControl();
+            this.Value_Translation = new Engineer.Editor.VertexControl();
             this.Panel_Active.SuspendLayout();
             this.Panel_Translation.SuspendLayout();
             this.Panel_Rotation.SuspendLayout();
@@ -92,14 +92,6 @@
             this.Panel_Translation.Size = new System.Drawing.Size(320, 30);
             this.Panel_Translation.TabIndex = 2;
             // 
-            // Value_Translation
-            // 
-            this.Value_Translation.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Value_Translation.Location = new System.Drawing.Point(100, 14);
-            this.Value_Translation.Name = "Value_Translation";
-            this.Value_Translation.Size = new System.Drawing.Size(210, 16);
-            this.Value_Translation.TabIndex = 1;
-            // 
             // Label_Translation
             // 
             this.Label_Translation.Dock = System.Windows.Forms.DockStyle.Left;
@@ -123,14 +115,6 @@
             this.Panel_Rotation.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.Panel_Rotation.Size = new System.Drawing.Size(320, 30);
             this.Panel_Rotation.TabIndex = 3;
-            // 
-            // Value_Rotation
-            // 
-            this.Value_Rotation.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Value_Rotation.Location = new System.Drawing.Point(100, 14);
-            this.Value_Rotation.Name = "Value_Rotation";
-            this.Value_Rotation.Size = new System.Drawing.Size(210, 16);
-            this.Value_Rotation.TabIndex = 2;
             // 
             // Label_Rotation
             // 
@@ -156,14 +140,6 @@
             this.Panel_Scale.Size = new System.Drawing.Size(320, 30);
             this.Panel_Scale.TabIndex = 4;
             // 
-            // Value_Scale
-            // 
-            this.Value_Scale.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Value_Scale.Location = new System.Drawing.Point(100, 14);
-            this.Value_Scale.Name = "Value_Scale";
-            this.Value_Scale.Size = new System.Drawing.Size(210, 16);
-            this.Value_Scale.TabIndex = 2;
-            // 
             // Label_Scale
             // 
             this.Label_Scale.Dock = System.Windows.Forms.DockStyle.Left;
@@ -175,6 +151,30 @@
             this.Label_Scale.TabIndex = 0;
             this.Label_Scale.Text = "Scale";
             this.Label_Scale.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // Value_Scale
+            // 
+            this.Value_Scale.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Value_Scale.Location = new System.Drawing.Point(100, 14);
+            this.Value_Scale.Name = "Value_Scale";
+            this.Value_Scale.Size = new System.Drawing.Size(210, 16);
+            this.Value_Scale.TabIndex = 2;
+            // 
+            // Value_Rotation
+            // 
+            this.Value_Rotation.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Value_Rotation.Location = new System.Drawing.Point(100, 14);
+            this.Value_Rotation.Name = "Value_Rotation";
+            this.Value_Rotation.Size = new System.Drawing.Size(210, 16);
+            this.Value_Rotation.TabIndex = 2;
+            // 
+            // Value_Translation
+            // 
+            this.Value_Translation.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Value_Translation.Location = new System.Drawing.Point(100, 14);
+            this.Value_Translation.Name = "Value_Translation";
+            this.Value_Translation.Size = new System.Drawing.Size(210, 16);
+            this.Value_Translation.TabIndex = 1;
             // 
             // Properties_DrawObject
             // 

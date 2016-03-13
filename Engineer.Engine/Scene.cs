@@ -85,6 +85,7 @@ namespace Engineer.Engine
             this._Name = Name;
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();
+            this._Events = new SceneEvents();
         }
     }
     public class SceneEvents

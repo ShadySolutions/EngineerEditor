@@ -101,6 +101,12 @@
     <Compile Include="Properties_DrawObject.Designer.cs">
       <DependentUpon>Properties_DrawObject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties_Scene.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Properties_Scene.Designer.cs">
+      <DependentUpon>Properties_Scene.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties_Sprite.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties_DrawObject.resx">
       <DependentUpon>Properties_DrawObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties_Scene.resx">
+      <DependentUpon>Properties_Scene.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties_Sprite.resx">
       <DependentUpon>Properties_Sprite.cs</DependentUpon>
