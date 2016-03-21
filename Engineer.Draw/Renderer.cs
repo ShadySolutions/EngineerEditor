@@ -14,6 +14,10 @@ namespace Engineer.Draw
         Runner = 0,
         Editor = 1
     }
+    public enum RenderEnableCap
+    {
+        Depth = 0
+    }
     public class Renderer
     {
         private RenderTargetType _TargetType;
@@ -109,6 +113,10 @@ namespace Engineer.Draw
 
         }
         public virtual void PopPreferences()
+        {
+
+        }
+        public virtual void Toggle(RenderEnableCap Preference, bool Value)
         {
 
         }

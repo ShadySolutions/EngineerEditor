@@ -23,6 +23,7 @@ namespace Engineer.Runner
     {
         private bool _SceneInit;
         private bool _EngineInit;
+        private object _PreviousTarget;
         private Scene _Scene;
         private DrawEngine _Engine;
         public Runner(int width, int height, GraphicsMode mode, string title) : base(width, height, mode, title)
@@ -36,10 +37,18 @@ namespace Engineer.Runner
             this._EngineInit = true;
             this._Scene = CurrentScene;
             this._Engine = CurrentEngine;
+            this._PreviousTarget = this._Engine.CurrentRenderer.RenderDestination;
             this._Engine.CurrentRenderer.RenderDestination = this;
             this._Engine.CurrentRenderer.TargetType = RenderTargetType.Runner;
             this.Closing += new EventHandler<System.ComponentModel.CancelEventArgs>(Event_Closing);
+            this.KeyDown += new EventHandler<KeyboardKeyEventArgs>(Event_KeyPress);
             this.KeyDown += new EventHandler<KeyboardKeyEventArgs>(Event_KeyDown);
+            this.KeyUp += new EventHandler<KeyboardKeyEventArgs>(Event_KeyUp);
+            this.MouseDown += new EventHandler<MouseButtonEventArgs>(Event_MouseClick);
+            this.MouseDown += new EventHandler<MouseButtonEventArgs>(Event_MouseDown);
+            this.MouseUp += new EventHandler<MouseButtonEventArgs>(Event_MouseUp);
+            this.MouseMove += new EventHandler<MouseMoveEventArgs>(Event_MouseMove);
+            this.MouseWheel += new EventHandler<MouseWheelEventArgs>(Event_MouseWheel);
             Event_Load();
         }
         protected override void OnResize(EventArgs e)
@@ -56,20 +65,23 @@ namespace Engineer.Runner
             {
                 _Engine.Draw3DScene((Scene3D)_Scene, this.ClientRectangle.Width, this.ClientRectangle.Height);
             }
+            Event_RenderFrame(this, e);
             SwapBuffers();
         }
         private void Event_Closing(object sender, EventArgs e)
         {
-            for(int i = 0; i < _Scene.Events.Closing.Count; i++)
+            this._Engine.CurrentRenderer.TargetType = RenderTargetType.Editor;
+            this._Engine.CurrentRenderer.RenderDestination = this._PreviousTarget;
+            for (int i = 0; i < _Scene.Events.Closing.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.Closing[i].Script);
                 try
                 {
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.Closing[i].Script);
                     Script.Closing(_Scene);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.Closing[i].Name + " FAILED!");
                 }
             }
         }
@@ -77,14 +89,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.KeyDown.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.KeyDown[i].Script);
                 try
                 {
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.KeyDown[i].Script);
                     Script.KeyDown(_Scene, e.Key, e.Control, e.Alt, e.Shift);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.KeyDown[i].Name + " FAILED!");
                 }
             }
         }
@@ -92,14 +104,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.KeyUp.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.KeyUp[i].Script);
                 try
                 {
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.KeyUp[i].Script);
                     Script.KeyUp(_Scene, e.Key, e.Control, e.Alt, e.Shift);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.KeyUp[i].Name + " FAILED!");
                 }
             }
         }
@@ -107,14 +119,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.KeyPress.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.KeyPress[i].Script);
                 try
                 {
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.KeyPress[i].Script);
                     Script.KeyPress(_Scene, e.Key, e.Control, e.Alt, e.Shift);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.KeyPress[i].Name + " FAILED!");
                 }
             }
         }
@@ -122,14 +134,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.Load.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.Load[i].Script);
                 try
                 {
-                    Script.Load();
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.Load[i].Script);
+                    Script.Load(_Scene);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.Load[i].Name + " FAILED!");
                 }
             }
         }
@@ -137,14 +149,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.MouseDown.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseDown[i].Script);
                 try
                 {
-                    Script.MouseDown(_Scene, e.Button, e.Position);
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseDown[i].Script);
+                    Script.MouseDown(_Scene, (MouseClickButtonType)e.Button, new Vertex(e.X, e.Y, 0));
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.MouseDown[i].Name + " FAILED!");
                 }
             }
         }
@@ -152,14 +164,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.MouseUp.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseUp[i].Script);
                 try
                 {
-                    Script.MouseUp(_Scene, e.Button, e.Position);
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseUp[i].Script);
+                    Script.MouseUp(_Scene, (MouseClickButtonType)e.Button, new Vertex(e.X, e.Y, 0));
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.MouseUp[i].Name + " FAILED!");
                 }
             }
         }
@@ -167,44 +179,44 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.MousePress.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MousePress[i].Script);
                 try
                 {
-                    Script.MousePress(_Scene, e.Button, e.Position);
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MousePress[i].Script);
+                    Script.MousePress(_Scene, (MouseClickButtonType)e.Button, new Vertex(e.X, e.Y, 0));
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.MousePress[i].Name + " FAILED!");
                 }
             }
         }
-        private void Event_MouseMove(object sender, MouseButtonEventArgs e)
+        private void Event_MouseMove(object sender, MouseMoveEventArgs e)
         {
             for (int i = 0; i < _Scene.Events.MouseMove.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseMove[i].Script);
                 try
                 {
-                    Script.MouseMove(_Scene, e.Position);
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseMove[i].Script);
+                    Script.MouseMove(_Scene, new Vertex(e.X, e.Y, 0));
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.MouseMove[i].Name + " FAILED!");
                 }
             }
         }
-        private void Event_MouseWheel(object sender, MouseButtonEventArgs e)
+        private void Event_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             for (int i = 0; i < _Scene.Events.MouseWheel.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseWheel[i].Script);
                 try
                 {
-                    Script.OnMouseWheel(_Scene, e.Position);
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.MouseWheel[i].Script);
+                    Script.OnMouseWheel(_Scene, new Vertex(e.X, e.Y, 0), e.Delta);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.MouseWheel[i].Name + " FAILED!");
                 }
             }
         }
@@ -212,14 +224,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.RenderFrame.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.RenderFrame[i].Script);
                 try
                 {
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.RenderFrame[i].Script);
                     Script.RenderFrame(_Scene);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.RenderFrame[i].Name + " FAILED!");
                 }
             }
         }
@@ -227,14 +239,14 @@ namespace Engineer.Runner
         {
             for (int i = 0; i < _Scene.Events.EverySecond.Count; i++)
             {
-                dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.EverySecond[i].Script);
                 try
                 {
+                    dynamic Script = CSScript.Evaluator.LoadCode(_Scene.Events.EverySecond[i].Script);
                     Script.OnEverySecond(_Scene);
                 }
                 catch
                 {
-
+                    Console.WriteLine(_Scene.Events.EverySecond[i].Name + " FAILED!");
                 }
             }
         }

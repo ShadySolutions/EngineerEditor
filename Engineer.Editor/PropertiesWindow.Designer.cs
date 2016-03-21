@@ -34,6 +34,7 @@
             // 
             // ContentPanel
             // 
+            this.ContentPanel.AutoScroll = true;
             this.ContentPanel.Controls.Add(this.NameLabel);
             // 
             // NameLabel

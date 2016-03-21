@@ -54,6 +54,7 @@ namespace Engineer.Draw
         public virtual void Draw2DScene(Scene2D CurrentScene, int Width, int Height)
         {
             if (CurrentScene == null) return;
+            this._CurrentRenderer.Toggle(RenderEnableCap.Depth, false);
             if (!this._CurrentRenderer.IsMaterialReady("2D"))
             {
                 string Vertex2D = File.ReadAllText("GLSL\\Generator\\Vertex2D.shader");
@@ -96,6 +97,7 @@ namespace Engineer.Draw
         public virtual void Draw3DScene(Scene3D CurrentScene, int Width, int Height)
         {
             bool GlobalUpdate = false;
+            this._CurrentRenderer.Toggle(RenderEnableCap.Depth, true);
             List<Light> Lights = CurrentScene.Lights;
             List<Actor> Actors = CurrentScene.Actors;
             this._CurrentRenderer.SetViewport(Width, Height);

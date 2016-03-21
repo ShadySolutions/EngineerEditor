@@ -132,10 +132,14 @@ namespace Engineer.Editor
             {
                 if (((object[])SceneTree.SelectedNode.Tag)[2].ToString() == this._CurrentScene.Objects[i].ID)
                 {
-                    if((SceneObjectType)((object[])SceneTree.SelectedNode.Tag)[0] == SceneObjectType.DrawnSceneObject) this._Properties.SetDrawObject(this._CurrentScene.Objects[i]);
-                    else if ((SceneObjectType)((object[])SceneTree.SelectedNode.Tag)[0] == SceneObjectType.ScriptSceneObject) this._Properties.SetScriptObject(this._CurrentScene.Objects[i]);
+                    if((SceneObjectType)((object[])SceneTree.SelectedNode.Tag)[0] == SceneObjectType.DrawnSceneObject) this._Properties.SetSceneObject(this._CurrentScene.Objects[i]);
+                    else if ((SceneObjectType)((object[])SceneTree.SelectedNode.Tag)[0] == SceneObjectType.ScriptSceneObject) this._Properties.SetSceneObject(this._CurrentScene.Objects[i]);
                 }
             }
+        }
+        private void RefreshView_Tick(object sender, EventArgs e)
+        {
+            if(false) AssembleTree();
         }
     }
 }

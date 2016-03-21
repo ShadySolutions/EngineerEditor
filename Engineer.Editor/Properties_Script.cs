@@ -12,26 +12,27 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_Sprite : UserControl
+    public partial class Properties_Script : UserControl
     {
         private bool _Toggled;
         private DockPanel _Dock;
-        private Sprite _CurrentSprite;
-        public Properties_Sprite()
+        private ScriptSceneObject _CurrentScript;
+        public Properties_Script()
         {
             InitializeComponent();
             this._Toggled = true;
         }
-        public void Init(Sprite CurrentSprite, DockPanel Dock)
+        public void Init(ScriptSceneObject CurrentScript, DockPanel Dock)
         {
             this._Dock = Dock;
-            this._CurrentSprite = CurrentSprite;
+            this._CurrentScript = CurrentScript;
         }
-        private void Button_SpriteSets_Click(object sender, EventArgs e)
+        private void Button_ScriptCode_Click(object sender, EventArgs e)
         {
-            SpriteSetEditor Editor = new SpriteSetEditor(_CurrentSprite);
-            Editor.Text = this._CurrentSprite.Name + " - SpriteSet Editor";
-            Editor.Title = this._CurrentSprite.Name + " - SpriteSet Editor";
+            ScriptEditor Editor = new ScriptEditor();
+            Editor.SetScript(this._CurrentScript);
+            Editor.Text = this._CurrentScript.Name + " - Script Editor";
+            Editor.Title = this._CurrentScript.Name + " - Script Editor";
             Editor.Show(_Dock, DockState.Document);
         }
         private void ToggleHeader_Click(object sender, EventArgs e)

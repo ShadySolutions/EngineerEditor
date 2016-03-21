@@ -13,33 +13,19 @@ namespace Engineer.Editor
 {
     public partial class Properties_DrawObject : UserControl
     {
-        private bool _SkipFlag;
+        private bool _Toggled;
         private DrawObject _CurrentObject;
         public Properties_DrawObject()
         {
             InitializeComponent();
-            this.Value_Translation.SetMinMax(-100000, 100000);
-            this.Value_Rotation.SetMinMax(-100000, 100000);
-            this.Value_Scale.SetMinMax((decimal)0.000001, 100000);
-            this.Value_Translation.X.ValueChanged += new EventHandler(Value_Translation_Changed);
-            this.Value_Translation.Y.ValueChanged += new EventHandler(Value_Translation_Changed);
-            this.Value_Translation.Z.ValueChanged += new EventHandler(Value_Translation_Changed);
-            this.Value_Rotation.X.ValueChanged += new EventHandler(Value_Rotation_Changed);
-            this.Value_Rotation.Y.ValueChanged += new EventHandler(Value_Rotation_Changed);
-            this.Value_Rotation.Z.ValueChanged += new EventHandler(Value_Rotation_Changed);
-            this.Value_Scale.X.ValueChanged += new EventHandler(Value_Scale_Changed);
-            this.Value_Scale.Y.ValueChanged += new EventHandler(Value_Scale_Changed);
-            this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);
+            this._Toggled = true;
         }
-
-        public Properties_DrawObject(DrawObject CurrentObject)
+        public void Init(DrawObject CurrentObject)
         {
-            InitializeComponent();
+            this._CurrentObject = CurrentObject;
             this.Value_Translation.SetMinMax(-100000, 100000);
             this.Value_Rotation.SetMinMax(-100000, 100000);
             this.Value_Scale.SetMinMax((decimal)0.000001, 100000);
-
-            this._CurrentObject = CurrentObject;
             this.Value_Active.Checked = CurrentObject.Active;
             this.Value_Translation.X.Value = Convert.ToDecimal(CurrentObject.Translation.X);
             this.Value_Translation.Y.Value = Convert.ToDecimal(CurrentObject.Translation.Y);
@@ -50,7 +36,6 @@ namespace Engineer.Editor
             this.Value_Scale.X.Value = Convert.ToDecimal(CurrentObject.Scale.X);
             this.Value_Scale.Y.Value = Convert.ToDecimal(CurrentObject.Scale.Y);
             this.Value_Scale.Z.Value = Convert.ToDecimal(CurrentObject.Scale.Z);
-
             this.Value_Translation.X.ValueChanged += new EventHandler(Value_Translation_Changed);
             this.Value_Translation.Y.ValueChanged += new EventHandler(Value_Translation_Changed);
             this.Value_Translation.Z.ValueChanged += new EventHandler(Value_Translation_Changed);
@@ -61,25 +46,34 @@ namespace Engineer.Editor
             this.Value_Scale.Y.ValueChanged += new EventHandler(Value_Scale_Changed);
             this.Value_Scale.Z.ValueChanged += new EventHandler(Value_Scale_Changed);
         }
-
         private void Value_Active_CheckedChanged(object sender, EventArgs e)
         {
             this._CurrentObject.Active = Value_Active.Checked;
         }
-
         private void Value_Translation_Changed(object sender, EventArgs e)
         {
             this._CurrentObject.Translation = new Mathematics.Vertex((float)this.Value_Translation.X.Value, (float)this.Value_Translation.Y.Value, (float)this.Value_Translation.Z.Value);
         }
-
         private void Value_Rotation_Changed(object sender, EventArgs e)
         {
             this._CurrentObject.Rotation = new Mathematics.Vertex((float)this.Value_Rotation.X.Value, (float)this.Value_Rotation.Y.Value, (float)this.Value_Rotation.Z.Value);
         }
-
         private void Value_Scale_Changed(object sender, EventArgs e)
         {
             this._CurrentObject.Scale = new Mathematics.Vertex((float)this.Value_Scale.X.Value, (float)this.Value_Scale.Y.Value, (float)this.Value_Scale.Z.Value);
+        }
+        private void ToggleHeader_Click(object sender, EventArgs e)
+        {
+            if (_Toggled)
+            {
+                _Toggled = false;
+                this.Height = 24;
+            }
+            else
+            {
+                _Toggled = true;
+                this.Height = 156;
+            }
         }
     }
 }

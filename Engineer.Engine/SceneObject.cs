@@ -18,6 +18,7 @@ namespace Engineer.Engine
         private string _ID;
         private SceneObjectType _Type;
         private Scene _ParentScene;
+        private Dictionary<string, object> _Data;
         public string Name
         {
             get
@@ -64,6 +65,18 @@ namespace Engineer.Engine
             set
             {
                 _ParentScene = value;
+            }
+        }
+        public Dictionary<string, object> Data
+        {
+            get
+            {
+                return _Data;
+            }
+
+            set
+            {
+                _Data = value;
             }
         }
         public SceneObject(string Name)

@@ -14,11 +14,24 @@ namespace Engineer.Engine
     }
     public class Scene
     {
+        private string _ID;
         protected string _Name;
         protected SceneType _Type;
         protected Color _BackColor;
         private SceneEvents _Events;
         protected List<SceneObject> _Objects;
+        public string ID
+        {
+            get
+            {
+                return _ID;
+            }
+
+            set
+            {
+                _ID = value;
+            }
+        }
         public string Name
         {
             get
@@ -82,6 +95,7 @@ namespace Engineer.Engine
         }
         public Scene(string Name)
         {
+            this._ID = Guid.NewGuid().ToString();
             this._Name = Name;
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();

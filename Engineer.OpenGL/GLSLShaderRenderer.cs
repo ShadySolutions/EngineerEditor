@@ -33,5 +33,13 @@ namespace Engineer.Draw.OpenGL.GLSL
         {
             GL.ClearColor(Color[0], Color[1], Color[2], Color[3]);
         }
+        public override void Toggle(RenderEnableCap Preference, bool Value)
+        {
+            if(Preference == RenderEnableCap.Depth)
+            {
+                if (Value) GL.Enable(EnableCap.DepthTest);
+                else GL.Disable(EnableCap.DepthTest);
+            }
+        }
     }
 }
