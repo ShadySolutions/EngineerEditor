@@ -82,8 +82,8 @@ namespace Engineer.Draw
 
             for(int i = 0; i < CurrentScene.Sprites.Count; i++)
             {
-                this._Matrix.Scale(CurrentScene.Sprites[i].Scale.X, CurrentScene.Sprites[i].Scale.Y, CurrentScene.Sprites[i].Scale.Z);
                 this._Matrix.Translate(CurrentScene.Sprites[i].Translation.X, CurrentScene.Sprites[i].Translation.Y, CurrentScene.Sprites[i].Translation.Z);
+                this._Matrix.Scale(CurrentScene.Sprites[i].Scale.X, CurrentScene.Sprites[i].Scale.Y, CurrentScene.Sprites[i].Scale.Z);
                 this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.X, 1, 0, 0);
                 this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.Y, 0, 1, 0);
                 this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.Z, 0, 0, 1);
