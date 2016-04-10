@@ -238,11 +238,11 @@ namespace Engineer.Draw
             {
                 List<Vertex> Vertices = new List<Vertex>();
                 Vertices.Add(new Vertex(0, 0, 0));
-                Vertices.Add(new Vertex(100, 0, 0));
-                Vertices.Add(new Vertex(0, 100, 0));
-                Vertices.Add(new Vertex(0, 100, 0));
-                Vertices.Add(new Vertex(100, 0, 0));
-                Vertices.Add(new Vertex(100, 100, 0));
+                Vertices.Add(new Vertex(1, 0, 0));
+                Vertices.Add(new Vertex(0, 1, 0));
+                Vertices.Add(new Vertex(0, 1, 0));
+                Vertices.Add(new Vertex(1, 0, 0));
+                Vertices.Add(new Vertex(1, 1, 0));
                 _SpriteVertices = ConvertToByteArray(Vertices, 3);
 
                 List<Vertex> UV = new List<Vertex>();

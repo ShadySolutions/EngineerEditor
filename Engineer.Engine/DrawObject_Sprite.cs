@@ -4,9 +4,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
+    [XmlInclude(typeof(SpriteSet))]
     public class Sprite : DrawObject
     {
         private bool _Modified;
@@ -39,6 +41,7 @@ namespace Engineer.Engine
         {
             this.Type = DrawObjectType.Sprite;
             this._SpriteSets = new List<SpriteSet>();
+            this.Scale = new Mathematics.Vertex(100,100,1);
         }
         public List<Bitmap> CollectiveLists()
         {
@@ -77,6 +80,11 @@ namespace Engineer.Engine
             {
                 _Sprites = value;
             }
+        }
+        public SpriteSet()
+        {
+            this._Name = Guid.NewGuid().ToString();
+            this._Sprites = new List<Bitmap>();
         }
         public SpriteSet(string Name)
         {

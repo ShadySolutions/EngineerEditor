@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
@@ -55,6 +56,7 @@ namespace Engineer.Engine
                 _Type = value;
             }
         }
+        [XmlIgnore]
         public Scene ParentScene
         {
             get
@@ -67,6 +69,7 @@ namespace Engineer.Engine
                 _ParentScene = value;
             }
         }
+        [XmlIgnore]
         public Dictionary<string, object> Data
         {
             get
@@ -79,11 +82,38 @@ namespace Engineer.Engine
                 _Data = value;
             }
         }
+        public List<KeyValuePair<string, object>> IO_DataList
+        {
+            get
+            {
+                if (_Data == null) return null;
+                List<KeyValuePair<string, object>> NewList = _Data.ToList();
+                return NewList;
+            }
+            set
+            {
+                foreach (KeyValuePair<string, object> Pair in value)
+                {
+                    if (!_Data.ContainsKey(Pair.Key))
+                    {
+                        _Data.Add(Pair.Key, Pair.Value);
+                    }
+                }
+            }
+        }
+        public SceneObject()
+        {
+            this._ID = Guid.NewGuid().ToString();
+            this._Name = this._ID;
+            this._Type = SceneObjectType.Undefined;
+            this._Data = new Dictionary<string, object>();
+        }
         public SceneObject(string Name)
         {
             this._Name = Name;
             this._ID = Guid.NewGuid().ToString();
             this._Type = SceneObjectType.Undefined;
+            this._Data = new Dictionary<string, object>();
         }
     }
 }

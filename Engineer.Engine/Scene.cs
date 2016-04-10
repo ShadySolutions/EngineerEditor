@@ -4,6 +4,7 @@ using System.Linq;
 using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
@@ -12,6 +13,9 @@ namespace Engineer.Engine
         Scene2D = 0,
         Scene3D = 1
     }
+    [XmlInclude(typeof(SceneObject))]
+    [XmlInclude(typeof(ScriptSceneObject))]
+    [XmlInclude(typeof(DrawnSceneObject))]
     public class Scene
     {
         private string _ID;
@@ -92,6 +96,14 @@ namespace Engineer.Engine
             Object.ParentScene = this;
             this._Objects.Add(Object);
             return true;
+        }
+        public Scene()
+        {
+            this._ID = Guid.NewGuid().ToString();
+            this._Name = this._ID;
+            this._BackColor = Color.FromArgb(40, 40, 40);
+            this._Objects = new List<SceneObject>();
+            this._Events = new SceneEvents();
         }
         public Scene(string Name)
         {

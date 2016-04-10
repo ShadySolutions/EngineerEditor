@@ -252,5 +252,56 @@ namespace Engineer.Editor
             Run.Init(_CurrentScene, _View.Engine);
             Run.Run();
         }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog Dialog = new SaveFileDialog();
+            Dialog.Filter = "Engineer Game File (*.egf)|*.egf";
+            if(Dialog.ShowDialog() == DialogResult.OK && Dialog.FileName != "")
+            {
+                try
+                {
+                    if (File.Exists(Dialog.FileName)) File.Delete(Dialog.FileName);
+                    string DirPath = Dialog.FileName.Replace(Path.GetFileName(Dialog.FileName), Path.GetFileNameWithoutExtension(Dialog.FileName)) + "\\";
+                    Directory.CreateDirectory(DirPath);
+                    List<string> Files = new List<string>();
+                    for(int i = 0; i < _Game.Scenes.Count; i++)
+                    {
+                        for(int j = 0; j < _Game.Scenes[i].Objects.Count; j++)
+                        {
+                            if(_Game.Scenes[i].Objects[j].Type == SceneObjectType.DrawnSceneObject)
+                            {
+                                DrawnSceneObject Drawn = (DrawnSceneObject)_Game.Scenes[i].Objects[j];
+                                if(Drawn.Representation.Type == DrawObjectType.Actor)
+                                {
+                                    Actor CurrentActor = (Actor)Drawn.Representation;
+                                    if(CurrentActor.Geometries.Count > 0)
+                                    {
+                                        OBJContainer OBJ = new OBJContainer();
+                                        OBJ.Geometries = CurrentActor.Geometries;
+                                        string NewFilePath = DirPath + CurrentActor.ID + ".obj";
+                                        Files.Add(NewFilePath);
+                                        OBJ.Save(NewFilePath, null);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Files.Add(DirPath + Path.GetFileNameWithoutExtension(Dialog.FileName) + ".xml");
+                    Game.Serialize(_Game, DirPath + Path.GetFileNameWithoutExtension(Dialog.FileName) + ".xml");
+                    ZipFile.CreateFromDirectory(DirPath, Dialog.FileName);
+                    for (int i = 0; i < Files.Count; i++) File.Delete(Files[i]);
+                    Directory.Delete(DirPath);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        MessageBox.Show(ex.InnerException.ToString(), ex.Message);
+                    }
+                    else MessageBox.Show(ex.Message, "Error");
+                }
+            }
+        }
     }
 }

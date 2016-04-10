@@ -5,12 +5,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
     public class Scene2D : Scene
     {
+        [XmlIgnore]
         private Scene2DTransformation _Transformation;
+        [XmlIgnore]
         public Scene2DTransformation Transformation
         {
             get
@@ -23,6 +26,7 @@ namespace Engineer.Engine
                 _Transformation = value;
             }
         }
+        [XmlIgnore]
         public List<Sprite> Sprites
         {
             get
@@ -45,6 +49,10 @@ namespace Engineer.Engine
             Object.ParentScene = this;
             this._Objects.Add(Object);
             return true;
+        }
+        public Scene2D() : base()
+        {
+            this._Transformation = new Scene2DTransformation();
         }
         public Scene2D(string Name) : base(Name)
         {

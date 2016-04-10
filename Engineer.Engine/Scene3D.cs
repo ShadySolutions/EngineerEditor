@@ -92,6 +92,11 @@ namespace Engineer.Engine
             this._Objects.Add(Object);
             return true;
         }
+        public Scene3D() : base()
+        {
+            this._ActiveCamera = new Camera();
+            this._EditorCamera = new Camera();
+        }
         public Scene3D(string Name) : base(Name)
         {
             this._ActiveCamera = new Camera();

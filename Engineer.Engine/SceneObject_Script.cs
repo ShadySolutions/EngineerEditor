@@ -38,6 +38,11 @@ namespace Engineer.Engine
                 _ScriptType = value;
             }
         }
+        public ScriptSceneObject() : base()
+        {
+            this.ScriptType = ScriptObjectType.CSScript;
+            this.Type = SceneObjectType.ScriptSceneObject;
+        }
         public ScriptSceneObject(string Name) : base(Name)
         {
             this.ScriptType = ScriptObjectType.CSScript;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
@@ -78,6 +79,7 @@ namespace Engineer.Engine
                 _Tags = value;
             }
         }
+        [XmlIgnore]
         public Material Holder
         {
             get
@@ -125,6 +127,16 @@ namespace Engineer.Engine
             {
                 _Outputs = value;
             }
+        }
+        public MaterialNode()
+        {
+            this._Index = Holder.Nodes.Count;
+            this._ID = Guid.NewGuid().ToString();
+            this._Name = this._ID;
+            this._Holder = null;
+            this._Values = new List<MaterialNodeValue>();
+            this._Inputs = new List<MaterialNodeValue>();
+            this._Outputs = new List<MaterialNodeValue>();
         }
         public MaterialNode(string Name, Material Holder)
         {

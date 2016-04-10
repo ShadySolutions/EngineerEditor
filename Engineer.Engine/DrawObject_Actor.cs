@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Engineer.Data;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
@@ -49,6 +50,7 @@ namespace Engineer.Engine
                 _Materials = value;
             }
         }
+        [XmlIgnore]
         public List<Geometry> Geometries
         {
             get

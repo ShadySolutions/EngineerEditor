@@ -74,6 +74,14 @@ namespace Engineer.Data
                 _Faces = value;
             }
         }
+        public Geometry()
+        {
+            this._Name = Guid.NewGuid().ToString();
+            this._Vertices = new List<Vertex>();
+            this._Normals = new List<Vertex>();
+            this._TexCoords = new List<Vertex>();
+            this._Faces = new List<Face>();
+        }
         public Geometry(string Name)
         {
             this._Name = Name;

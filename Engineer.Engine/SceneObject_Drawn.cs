@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
+    [XmlInclude(typeof(DrawObject))]
+    [XmlInclude(typeof(Actor))]
+    [XmlInclude(typeof(Background))]
+    [XmlInclude(typeof(Camera))]
+    [XmlInclude(typeof(Light))]
+    [XmlInclude(typeof(Sprite))]
     public class DrawnSceneObject : SceneObject
     {
         private DrawObject _Representation;
@@ -20,6 +27,11 @@ namespace Engineer.Engine
             {
                 _Representation = value;
             }
+        }
+        public DrawnSceneObject() : base()
+        {
+            this.Type = SceneObjectType.DrawnSceneObject;
+            this.Representation = null;
         }
         public DrawnSceneObject(string Name, DrawObject Representation) : base(Name)
         {

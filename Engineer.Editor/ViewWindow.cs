@@ -101,8 +101,8 @@ namespace Engineer.Editor
                 {
                     bool InX = false;
                     bool InY = false;
-                    if (e.X > Translation.X + Sprites[i].Translation.X && e.X < Translation.X + Sprites[i].Translation.X + Sprites[i].Scale.X * 100) InX = true;
-                    if (e.Y > Translation.Y + Sprites[i].Translation.Y && e.Y < Translation.Y + Sprites[i].Translation.Y + Sprites[i].Scale.Y * 100) InY = true;
+                    if (e.X > Translation.X + Sprites[i].Translation.X && e.X < Translation.X + Sprites[i].Translation.X + Sprites[i].Scale.X) InX = true;
+                    if (e.Y > Translation.Y + Sprites[i].Translation.Y && e.Y < Translation.Y + Sprites[i].Translation.Y + Sprites[i].Scale.Y) InY = true;
                     if(InX && InY)
                     {
                         this._OriginalTranslation = new Vertex(Sprites[i].Translation.X, Sprites[i].Translation.Y, Sprites[i].Translation.Z);

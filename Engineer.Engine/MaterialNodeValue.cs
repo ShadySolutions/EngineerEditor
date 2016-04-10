@@ -6,6 +6,7 @@ using System.Xml;
 using System.Threading.Tasks;
 using Engineer.Mathematics;
 using System.Drawing;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
@@ -40,6 +41,31 @@ namespace Engineer.Engine
                 _Value = value;
             }
         }
+        public string IO_InputParentID
+        {
+            get
+            {
+                if (_InputTarget == null) return "";
+                return _InputTarget._Parent.ID;
+            }
+            set
+            {
+
+            }
+        }
+        public string IO_InputName
+        {
+            get
+            {
+                if (_InputTarget == null) return "";
+                return _InputTarget._Name;
+            }
+            set
+            {
+
+            }
+        }
+        [XmlIgnore]
         public MaterialNodeValue InputTarget
         {
             get
@@ -52,6 +78,7 @@ namespace Engineer.Engine
                 _InputTarget = value;
             }
         }
+        [XmlIgnore]
         public MaterialNode Parent
         {
             get
@@ -64,6 +91,33 @@ namespace Engineer.Engine
                 _Parent = value;
             }
         }
+        public List<string> IO_OutputTargetParentsIDs
+        {
+            get
+            {
+                List<string> ParentIDs = new List<string>();
+                for (int i = 0; i < _OutputTargets.Count; i++) ParentIDs.Add(_OutputTargets[i]._Parent.ID);
+                return ParentIDs;
+            }
+            set
+            {
+
+            }
+        }
+        public List<string> IO_OutputTargetNames
+        {
+            get
+            {
+                List<string> ParentTargetNames = new List<string>();
+                for (int i = 0; i < _OutputTargets.Count; i++) ParentTargetNames.Add(_OutputTargets[i]._Name);
+                return ParentTargetNames;
+            }
+            set
+            {
+
+            }
+        }
+        [XmlIgnore]
         public List<MaterialNodeValue> OutputTargets
         {
             get
@@ -75,7 +129,15 @@ namespace Engineer.Engine
             {
                 _OutputTargets = value;
             }
-        }       
+        }
+        public MaterialNodeValue()
+        {
+            this._Name = Guid.NewGuid().ToString();
+            this._Value = new MaterialValueHolder();
+            this._InputTarget = null;
+            this.Parent = null;
+            this._OutputTargets = new List<MaterialNodeValue>();
+        }
         public MaterialNodeValue(string Name, MaterialNode Parent)
         {
             this._Name = Name;

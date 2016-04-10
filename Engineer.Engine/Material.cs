@@ -75,6 +75,14 @@ namespace Engineer.Engine
                 _Nodes = value;
             }
         }
+        public Material()
+        {
+            this._Modified = true;
+            this._ID = Guid.NewGuid().ToString();
+            this._Name = this._ID;
+            this._Tags = null;
+            this._Nodes = new List<MaterialNode>();
+        }
         public Material(string Name)
         {
             this._Modified = true;
