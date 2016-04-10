@@ -56,5 +56,11 @@ namespace Engineer.Engine
             this._Color = Color.White;
             this._Attenuation = new Vertex(1, 0, 0);
         }
+        public Light(Light L) : base (L)
+        {
+            this._Intensity = L._Intensity;
+            this._Color = L._Color;
+            this._Attenuation = new Vertex(L._Attenuation.X, L._Attenuation.Y, L._Attenuation.Z);
+        }
     }
 }

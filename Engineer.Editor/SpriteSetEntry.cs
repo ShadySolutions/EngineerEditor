@@ -38,12 +38,10 @@ namespace Engineer.Editor
                 List.Items.Add(new ListViewItem("", i));
             }
         }
-
         private void SpriteSetEntry_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
         }
-
         private void List_DragDrop(object sender, DragEventArgs e)
         {
             List<Bitmap> Images = e.Data.GetData(typeof(List<Bitmap>)) as List<Bitmap>;

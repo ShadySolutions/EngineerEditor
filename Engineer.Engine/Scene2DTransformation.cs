@@ -54,5 +54,11 @@ namespace Engineer.Engine
             this._Rotation = new Vertex();
             this._Scale = new Vertex(1, 1, 1);
         }
+        public Scene2DTransformation(Scene2DTransformation S2DT)
+        {
+            this._Translation = new Vertex(S2DT._Translation.X, S2DT._Translation.Y, S2DT._Translation.Z);
+            this._Rotation = new Vertex(S2DT._Rotation.X, S2DT._Rotation.Y, S2DT._Rotation.Z);
+            this._Scale = new Vertex(S2DT._Scale.X, S2DT._Scale.Y, S2DT._Scale.Z);
+        }
     }
 }

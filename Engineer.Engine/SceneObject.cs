@@ -115,5 +115,13 @@ namespace Engineer.Engine
             this._Type = SceneObjectType.Undefined;
             this._Data = new Dictionary<string, object>();
         }
+        public SceneObject(SceneObject SO, Scene ParentScene)
+        {
+            this._Name = SO._Name;
+            this._ID = Guid.NewGuid().ToString();
+            this._Type = SO._Type;
+            this._ParentScene = ParentScene;
+            this._Data = new Dictionary<string, object>(SO._Data);
+        }
     }
 }

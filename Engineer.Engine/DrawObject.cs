@@ -121,8 +121,8 @@ namespace Engineer.Engine
         public DrawObject(DrawObject Object)
         {
             this._Active = Object.Active;
-            this._Name = Object.Name;
             this._ID = Guid.NewGuid().ToString();
+            this._Name = Object.Name;
             this._Type = Object.Type;
             this._Translation = new Vertex(Object.Translation.X, Object.Translation.Y, Object.Translation.Z);
             this._Rotation = new Vertex(Object.Rotation.X, Object.Rotation.Y, Object.Rotation.Z);

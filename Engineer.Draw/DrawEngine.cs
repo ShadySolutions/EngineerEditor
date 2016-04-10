@@ -43,6 +43,10 @@ namespace Engineer.Draw
         {
             this._Matrix = new MatrixTransformer();
         }
+        public DrawEngine(DrawEngine DE)
+        {
+            this._Matrix = new MatrixTransformer();
+        }
         public void SetDefaults()
         {
             ShaderMaterialTranslator SMT = _CurrentTranslator as ShaderMaterialTranslator;

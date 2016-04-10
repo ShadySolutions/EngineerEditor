@@ -90,6 +90,18 @@ namespace Engineer.Data
             this._TexCoords = new List<Vertex>();
             this._Faces = new List<Face>();
         }
+        public Geometry(Geometry G)
+        {
+            this._Name = G._Name;
+            this._Vertices = new List<Vertex>();
+            this._Normals = new List<Vertex>();
+            this._TexCoords = new List<Vertex>();
+            this._Faces = new List<Face>();
+            for (int i = 0; i < G._Vertices.Count; i++) this._Vertices.Add(new Vertex(G._Vertices[i].X, G._Vertices[i].Y, G._Vertices[i].Z));
+            for (int i = 0; i < G._Normals.Count; i++) this._Normals.Add(new Vertex(G._Normals[i].X, G._Normals[i].Y, G._Normals[i].Z));
+            for (int i = 0; i < G._TexCoords.Count; i++) this._TexCoords.Add(new Vertex(G._TexCoords[i].X, G._TexCoords[i].Y, G._TexCoords[i].Z));
+            for (int i = 0; i < G._Faces.Count; i++) this._Faces.Add(new Face(G._Faces[i]));
+        }
         public void RecalculateNormals()
         {
             this._Normals = new List<Vertex>();

@@ -27,6 +27,11 @@ namespace Engineer.Editor
             this._CurrentGame = CurrentGame;
             GenerateEntries();
         }
+        public void SetGame(Game CurrentGame)
+        {
+            this._CurrentGame = CurrentGame;
+            GenerateEntries();
+        }
         public void OnEntrySelection(int Index)
         {
 

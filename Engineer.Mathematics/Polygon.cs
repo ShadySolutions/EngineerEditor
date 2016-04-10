@@ -56,5 +56,11 @@ namespace Engineer.Mathematics
             this._Normals = new List<int>();
             this._TexCoords = new List<int>();
         }
+        public Face(Face F)
+        {
+            this._Vertices = new List<int>(F._Vertices);
+            this._Normals = new List<int>(F._Normals);
+            this._TexCoords = new List<int>(F._TexCoords);
+        }
     }
 }

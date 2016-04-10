@@ -239,24 +239,21 @@ namespace Engineer.Editor
             this._GameW.GenerateEntries();
             this._GameW.Show(MainDock, DockState.Document);
         }
-
         private void MemoryTime_Tick(object sender, EventArgs e)
         {
             GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
             System.GC.Collect();
         }
-
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Runner.Runner Run = new Runner.Runner(800, 600, OpenTK.Graphics.GraphicsMode.Default, _Game.Name);
             Run.Init(_CurrentScene, _View.Engine);
             Run.Run();
         }
-
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog Dialog = new SaveFileDialog();
-            Dialog.Filter = "Engineer Game File (*.egf)|*.egf";
+            Dialog.Filter = "Engineer Game XML (*.egx)|*.egx";
             if(Dialog.ShowDialog() == DialogResult.OK && Dialog.FileName != "")
             {
                 try
@@ -284,6 +281,19 @@ namespace Engineer.Editor
                                         OBJ.Save(NewFilePath, null);
                                     }
                                 }
+                                else if (Drawn.Representation.Type == DrawObjectType.Sprite)
+                                {
+                                    Sprite CurrentSprite = (Sprite)Drawn.Representation;
+                                    for(int k = 0; k < CurrentSprite.SpriteSets.Count; k++)
+                                    {
+                                        for(int l = 0; l < CurrentSprite.SpriteSets[k].Sprite.Count; l++)
+                                        {
+                                            string NewFilePath = DirPath + CurrentSprite.ID + "_" + l + ".png";
+                                            CurrentSprite.SpriteSets[k].Sprite[l].Save(NewFilePath, System.Drawing.Imaging.ImageFormat.Png);
+                                            Files.Add(NewFilePath);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -292,6 +302,95 @@ namespace Engineer.Editor
                     ZipFile.CreateFromDirectory(DirPath, Dialog.FileName);
                     for (int i = 0; i < Files.Count; i++) File.Delete(Files[i]);
                     Directory.Delete(DirPath);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        MessageBox.Show(ex.InnerException.ToString(), ex.Message);
+                    }
+                    else MessageBox.Show(ex.Message, "Error");
+                }
+            }
+        }
+        private void projectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog Dialog = new OpenFileDialog();
+            Dialog.Filter = "Engineer Game XML (*.egx)|*.egx";
+            if (Dialog.ShowDialog() == DialogResult.OK && Dialog.FileName != "")
+            {
+                try
+                {
+                    string DirPath = Dialog.FileName.Replace(Path.GetFileName(Dialog.FileName), Path.GetFileNameWithoutExtension(Dialog.FileName)) + "\\";
+                    ZipFile.ExtractToDirectory(Dialog.FileName, DirPath);
+                    _Game = Game.Deserialize(DirPath + Path.GetFileNameWithoutExtension(Dialog.FileName) + ".xml");
+                    List<string> Files = new List<string>(Directory.GetFiles(DirPath));
+                    for (int i = 0; i < _Game.Scenes.Count; i++)
+                    {
+                        for (int j = 0; j < _Game.Scenes[i].Objects.Count; j++)
+                        {
+                            if (_Game.Scenes[i].Objects[j].Type == SceneObjectType.DrawnSceneObject)
+                            {
+                                DrawnSceneObject Drawn = (DrawnSceneObject)_Game.Scenes[i].Objects[j];
+                                if (Drawn.Representation.Type == DrawObjectType.Actor)
+                                {
+                                    Actor CurrentActor = (Actor)Drawn.Representation;
+                                    if (Files.Contains(DirPath + CurrentActor.ID + ".obj"))
+                                    {
+                                        OBJContainer OBJ = new OBJContainer();
+                                        OBJ.Load(DirPath + CurrentActor.ID + ".obj", null);
+                                        CurrentActor.Geometries = OBJ.Geometries;
+                                    }
+                                    for(int k = 0; k < CurrentActor.Materials.Count; k++)
+                                    {
+                                        for (int l = 0; l < CurrentActor.Materials[k].Nodes.Count; l++)
+                                        {
+                                            CurrentActor.Materials[k].Nodes[l].Holder = CurrentActor.Materials[k];
+                                            for (int m = 0; m < CurrentActor.Materials[k].Nodes[l].Values.Count; m++)
+                                            {
+                                                CurrentActor.Materials[k].Nodes[l].Values[m].Parent = CurrentActor.Materials[k].Nodes[l];
+                                            }
+                                            for (int m = 0; m < CurrentActor.Materials[k].Nodes[l].Inputs.Count; m++)
+                                            {
+                                                CurrentActor.Materials[k].Nodes[l].Inputs[m].Parent = CurrentActor.Materials[k].Nodes[l];
+                                                CurrentActor.Materials[k].Nodes[l].Inputs[m].InputTarget = MaterialNodeValue.FindConnection(CurrentActor.Materials[k].Nodes[l], CurrentActor.Materials[k].Nodes[l].Inputs[m].IO_InputParentID, CurrentActor.Materials[k].Nodes[l].Inputs[m].IO_InputName, MaterialValueType.Output);
+                                                if(CurrentActor.Materials[k].Nodes[l].Inputs[m].InputTarget != null) CurrentActor.Materials[k].Nodes[l].Inputs[m].InputTarget.OutputTargets.Add(CurrentActor.Materials[k].Nodes[l].Inputs[m]);
+                                            }
+                                            for (int m = 0; m < CurrentActor.Materials[k].Nodes[l].Outputs.Count; m++)
+                                            {
+                                                CurrentActor.Materials[k].Nodes[l].Outputs[m].Parent = CurrentActor.Materials[k].Nodes[l];
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (Drawn.Representation.Type == DrawObjectType.Sprite)
+                                {
+                                    Sprite CurrentSprite = (Sprite)Drawn.Representation;
+                                    for (int k = 0; k < CurrentSprite.SpriteSets.Count; k++)
+                                    {
+                                        for (int l = 0; l < CurrentSprite.SpriteSets[k].IO_SpriteCount; l++)
+                                        {
+                                            string NewFilePath = DirPath + CurrentSprite.ID + "_" + l + ".png";
+                                            if (Files.Contains(NewFilePath))
+                                            {
+                                                FileStream Stream = new FileStream(NewFilePath, FileMode.Open);
+                                                CurrentSprite.SpriteSets[k].Sprite.Add(new Bitmap(Stream));
+                                                Stream.Close();
+                                            }
+                                        }
+                                        CurrentSprite.SpriteSets[k].IO_SpriteCount = -1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (int i = 0; i < Files.Count; i++) File.Delete(Files[i]);
+                    Directory.Delete(DirPath);
+                    _GameW.SetGame(_Game);
                 }
                 catch (Exception ex)
                 {

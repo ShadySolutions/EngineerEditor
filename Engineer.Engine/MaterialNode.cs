@@ -130,7 +130,7 @@ namespace Engineer.Engine
         }
         public MaterialNode()
         {
-            this._Index = Holder.Nodes.Count;
+            this._Index = -1;
             this._ID = Guid.NewGuid().ToString();
             this._Name = this._ID;
             this._Holder = null;

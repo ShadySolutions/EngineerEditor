@@ -43,6 +43,16 @@ namespace Engineer.Engine
         {
             this._Scenes = new List<Scene>();
         }
+        public Game(Game G)
+        {
+            this._Name = G._Name;
+            this._Scenes = new List<Scene>();
+            for(int i = 0; i < G._Scenes.Count; i++)
+            {
+                if (G._Scenes[i].Type == SceneType.Scene2D) this._Scenes.Add(new Scene2D((Scene2D)G._Scenes[i]));
+                else if (G._Scenes[i].Type == SceneType.Scene3D) this._Scenes.Add(new Scene3D((Scene3D)G._Scenes[i]));
+            }
+        }
         public static void Serialize(Game CurrentGame, string Path)
         {
             XmlSerializer Serializer = new XmlSerializer(typeof(Game));
@@ -50,6 +60,14 @@ namespace Engineer.Engine
             {
                 Serializer.Serialize(Writer, CurrentGame);
             }
+        }
+        public static Game Deserialize(string Path)
+        {
+            XmlSerializer Deserializer = new XmlSerializer(typeof(Game));
+            TextReader Reader = new StreamReader(Path);
+            Game CurrentGame = (Game)Deserializer.Deserialize(Reader);
+            Reader.Close();
+            return CurrentGame;
         }
     }
 }

@@ -38,9 +38,13 @@ namespace Engineer.Engine
             this.Type = SceneObjectType.DrawnSceneObject;
             this.Representation = Representation;
         }
-        public static DrawnSceneObject Drawn(SceneObject Object)
+        public DrawnSceneObject(DrawnSceneObject DSO, Scene ParentScene) : base(DSO, ParentScene)
         {
-            return Object as DrawnSceneObject;
-        }
+            if (DSO._Representation.Type == DrawObjectType.Actor) this._Representation = new Actor((Actor)DSO._Representation);
+            else if (DSO._Representation.Type == DrawObjectType.Background) this._Representation = new Background((Background)DSO._Representation);
+            else if (DSO._Representation.Type == DrawObjectType.Camera) this._Representation = new Camera((Camera)DSO._Representation);
+            else if (DSO._Representation.Type == DrawObjectType.Light) this._Representation = new Light((Light)DSO._Representation);
+            else if (DSO._Representation.Type == DrawObjectType.Sprite) this._Representation = new Sprite((Sprite)DSO._Representation);
+        } 
     }
 }

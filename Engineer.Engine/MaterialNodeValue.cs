@@ -17,6 +17,8 @@ namespace Engineer.Engine
         private MaterialNodeValue _InputTarget;
         private MaterialNode _Parent;
         private List<MaterialNodeValue> _OutputTargets;
+        private string _IO_InputParentID;
+        private string _IO_InputName;
         public string Name
         {
             get
@@ -45,24 +47,24 @@ namespace Engineer.Engine
         {
             get
             {
-                if (_InputTarget == null) return "";
+                if (_InputTarget == null) return _IO_InputParentID;
                 return _InputTarget._Parent.ID;
             }
             set
             {
-
+                this._IO_InputParentID = value;
             }
         }
         public string IO_InputName
         {
             get
             {
-                if (_InputTarget == null) return "";
+                if (_InputTarget == null) return _IO_InputName;
                 return _InputTarget._Name;
             }
             set
             {
-
+                this._IO_InputName = value;
             }
         }
         [XmlIgnore]
@@ -89,32 +91,6 @@ namespace Engineer.Engine
             set
             {
                 _Parent = value;
-            }
-        }
-        public List<string> IO_OutputTargetParentsIDs
-        {
-            get
-            {
-                List<string> ParentIDs = new List<string>();
-                for (int i = 0; i < _OutputTargets.Count; i++) ParentIDs.Add(_OutputTargets[i]._Parent.ID);
-                return ParentIDs;
-            }
-            set
-            {
-
-            }
-        }
-        public List<string> IO_OutputTargetNames
-        {
-            get
-            {
-                List<string> ParentTargetNames = new List<string>();
-                for (int i = 0; i < _OutputTargets.Count; i++) ParentTargetNames.Add(_OutputTargets[i]._Name);
-                return ParentTargetNames;
-            }
-            set
-            {
-
             }
         }
         [XmlIgnore]
@@ -330,7 +306,7 @@ namespace Engineer.Engine
             }
             SetValue(XValue);
         }
-        private MaterialNodeValue FindConnection(MaterialNode Parent, string ID, string ValueName, MaterialValueType Type)
+        public static MaterialNodeValue FindConnection(MaterialNode Parent, string ID, string ValueName, MaterialValueType Type)
         {
             Material HolderMaterial = Parent.Holder;
             for(int i = 0; i < HolderMaterial.Nodes.Count; i++)

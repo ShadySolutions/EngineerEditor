@@ -12,5 +12,8 @@ namespace Engineer.Engine
         {
             this.Type = DrawObjectType.Background;
         }
+        public Background(Background B) : base(B)
+        {
+        }
     }
 }

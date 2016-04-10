@@ -80,11 +80,20 @@ namespace Engineer.Engine
             this.Name = Name;
             this._Modified = false;
             this.Type = DrawObjectType.Actor;
-            this.GeometryMaterialIndices = new List<int>();
+            this._GeometryMaterialIndices = new List<int>();
             this._Geometries = Mesh.Geometries;
-            this.Materials = new List<Material>();
-            this.Materials.Add(new Material(ID + "_01", Material.Default));
+            this._Materials = new List<Material>();
+            this._Materials.Add(new Material(ID + "_01", Material.Default));
             for(int i = 0; i < this._Geometries.Count; i++) this.GeometryMaterialIndices.Add(0);
+        }
+        public Actor(Actor A) : base(A)
+        {
+            this._Modified = A._Modified;
+            this._GeometryMaterialIndices = new List<int>(A._GeometryMaterialIndices);
+            this._Materials = new List<Material>();
+            for(int i = 0; i < this._Materials.Count; i++) this._Materials.Add(new Material(Guid.NewGuid().ToString(), A._Materials[i]));
+            this._Geometries = new List<Geometry>();
+            for (int i = 0; i < this._Geometries.Count; i++) this._Geometries.Add(new Geometry(A._Geometries[i]));
         }
         private static List<string> _UsedIDs;
     }

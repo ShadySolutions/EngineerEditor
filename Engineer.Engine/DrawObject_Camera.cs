@@ -14,7 +14,6 @@ namespace Engineer.Engine
         }
         public Camera(Camera Camera) : base(Camera)
         {
-            this.Type = DrawObjectType.Camera;
         }
     }
 }

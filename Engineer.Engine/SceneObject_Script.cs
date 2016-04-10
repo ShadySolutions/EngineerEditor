@@ -48,5 +48,10 @@ namespace Engineer.Engine
             this.ScriptType = ScriptObjectType.CSScript;
             this.Type = SceneObjectType.ScriptSceneObject;
         }
+        public ScriptSceneObject(ScriptSceneObject SSO, Scene ParentScene) : base(SSO, ParentScene)
+        {
+            this._Script = SSO._Script;
+            this._ScriptType = SSO.ScriptType;
+        }
     }
 }
