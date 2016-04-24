@@ -258,6 +258,7 @@ namespace Engineer.Draw
             _Manager.Active.Attributes.SetData("V_Vertex", 6 * 3 * sizeof(float), _SpriteVertices);
             _Manager.Active.Attributes.SetData("V_TextureUV", 6 * 2 * sizeof(float), _SpriteUV);
 
+            if (!_Manager.Active.Uniforms.Exists("Index")) _Manager.Active.Uniforms.SetDefinition("Index", sizeof(int), "int");
             _Manager.Active.Uniforms.SetData("Index", BitConverter.GetBytes(CurrentIndex));
 
             _Manager.SetDrawMode(GraphicDrawMode.Triangles);

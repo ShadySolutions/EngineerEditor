@@ -93,7 +93,7 @@ namespace Engineer.Draw
                 this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.Z, 0, 0, 1);
                 this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
 
-                this._CurrentRenderer.RenderSprite(CurrentScene.Sprites[i].ID, CurrentScene.Sprites[i].CollectiveLists(), (CurrentScene.Sprites[i].CollectiveLists().Count > 0)?0:-1, CurrentScene.Sprites[i].Modified);
+                this._CurrentRenderer.RenderSprite(CurrentScene.Sprites[i].ID, CurrentScene.Sprites[i].CollectiveLists(), (CurrentScene.Sprites[i].CollectiveLists().Count > 0)? CurrentScene.Sprites[i].Index(): -1, CurrentScene.Sprites[i].Modified);
                 CurrentScene.Sprites[i].Modified = false;
                 this._Matrix.PopMatrix();
             }

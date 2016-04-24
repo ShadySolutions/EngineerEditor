@@ -71,6 +71,7 @@ namespace Engineer.Editor
         private void GLControl_Paint(object sender, PaintEventArgs e)
         {
             if (!this._GLControlLoaded) return;
+            GLControl.MakeCurrent();
             if (_CurrentScene == null) return;
             if (_CurrentScene.Type == SceneType.Scene3D)
             {

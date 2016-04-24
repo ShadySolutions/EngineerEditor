@@ -12,6 +12,8 @@ namespace Engineer.Engine
     public class Sprite : DrawObject
     {
         private bool _Modified;
+        private int _CurrentIndex;
+        private int _CurrentSpriteSet;
         private List<SpriteSet> _SpriteSets;
         public bool Modified
         {
@@ -39,15 +41,16 @@ namespace Engineer.Engine
         }
         public Sprite() : base()
         {
+            this._CurrentIndex = 0;
             this.Type = DrawObjectType.Sprite;
             this._SpriteSets = new List<SpriteSet>();
             this.Scale = new Mathematics.Vertex(100,100,1);
         }
         public Sprite(Sprite S) : base(S)
         {
+            this._CurrentIndex = 0;
             this._SpriteSets = new List<SpriteSet>();
             for (int i = 0; i < S._SpriteSets.Count; i++) this._SpriteSets.Add(new SpriteSet(S._SpriteSets[i]));
-
         }
         public List<Bitmap> CollectiveLists()
         {
@@ -57,6 +60,28 @@ namespace Engineer.Engine
                 Lists.AddRange(_SpriteSets[i].Sprite);
             }
             return Lists;
+        }
+        public void RaiseIndex()
+        {
+            _CurrentIndex++;
+            if (_SpriteSets.Count < 0) _CurrentIndex = -1;
+            if (_CurrentIndex >= _SpriteSets[_CurrentSpriteSet].Sprite.Count) _CurrentIndex = 0;
+        }
+        public void SetSpriteSet(int Index)
+        {
+            if (Index >= _SpriteSets.Count) return;
+            _CurrentSpriteSet = Index;
+            _CurrentIndex = 0;
+        }
+        public int Index()
+        {
+            int Index = 0;
+            for(int i = 0; i < _CurrentSpriteSet; i++)
+            {
+                Index += _SpriteSets[i].Sprite.Count;
+            }
+            Index += _CurrentIndex;
+            return Index;
         }
     }
     public class SpriteSet
