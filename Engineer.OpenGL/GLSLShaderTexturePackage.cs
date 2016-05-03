@@ -22,9 +22,10 @@ namespace Engineer.Draw.OpenGL
         }
         public override bool Activate()
         {
-            //if (this._Active == true) return true;
+            if(GLSLShaderTexturePackage._Binded) GL.DeleteTexture(GLSLShaderTexturePackage._Index);
             if (this._TexturesNumber == 0) return true;
             GL.GenTextures(1, out TexturesPointer);
+            GLSLShaderTexturePackage._Index = TexturesPointer;
             GL.BindTexture(TextureTarget.Texture2DArray, TexturesPointer);
             GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Modulate);
             GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapS, (float)All.Clamp);
@@ -36,6 +37,7 @@ namespace Engineer.Draw.OpenGL
             IntPtr TextureBuffer = _BufferPointer.AddrOfPinnedObject();
             GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.Rgba, 256, 256, this._TexturesNumber, 0, PixelFormat.Bgra, PixelType.UnsignedByte, TextureBuffer);
             this._Active = true;
+            GLSLShaderTexturePackage._Binded = true;
             return true;
         }
         public override void ClearData()

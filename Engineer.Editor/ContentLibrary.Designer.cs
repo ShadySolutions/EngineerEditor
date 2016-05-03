@@ -38,7 +38,8 @@
             this.Tree = new System.Windows.Forms.TreeView();
             this.FolderIcons = new System.Windows.Forms.ImageList(this.components);
             this.FileList = new System.Windows.Forms.ListView();
-            this.Thumbs = new System.Windows.Forms.ImageList(this.components);
+            this.LibraryThumbs = new System.Windows.Forms.ImageList(this.components);
+            this.AssetsThumbs = new System.Windows.Forms.ImageList(this.components);
             this.ContentPanel.SuspendLayout();
             this.MenuLine.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitMain)).BeginInit();
@@ -140,23 +141,37 @@
             this.FileList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.FileList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FileList.ForeColor = System.Drawing.Color.White;
-            this.FileList.LargeImageList = this.Thumbs;
+            this.FileList.LargeImageList = this.LibraryThumbs;
             this.FileList.Location = new System.Drawing.Point(0, 0);
             this.FileList.Name = "FileList";
             this.FileList.Size = new System.Drawing.Size(243, 346);
             this.FileList.TabIndex = 0;
             this.FileList.UseCompatibleStateImageBehavior = false;
+            this.FileList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.FileList_ItemDrag);
             // 
-            // Thumbs
+            // LibraryThumbs
             // 
-            this.Thumbs.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("Thumbs.ImageStream")));
-            this.Thumbs.TransparentColor = System.Drawing.Color.Transparent;
-            this.Thumbs.Images.SetKeyName(0, "File.png");
-            this.Thumbs.Images.SetKeyName(1, "FileText.png");
-            this.Thumbs.Images.SetKeyName(2, "FileCode.png");
-            this.Thumbs.Images.SetKeyName(3, "FileSound.png");
-            this.Thumbs.Images.SetKeyName(4, "FilePicture.png");
-            this.Thumbs.Images.SetKeyName(5, "File3D.png");
+            this.LibraryThumbs.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("LibraryThumbs.ImageStream")));
+            this.LibraryThumbs.TransparentColor = System.Drawing.Color.Transparent;
+            this.LibraryThumbs.Images.SetKeyName(0, "File.png");
+            this.LibraryThumbs.Images.SetKeyName(1, "FileText.png");
+            this.LibraryThumbs.Images.SetKeyName(2, "FileCode.png");
+            this.LibraryThumbs.Images.SetKeyName(3, "FileSound.png");
+            this.LibraryThumbs.Images.SetKeyName(4, "FilePicture.png");
+            this.LibraryThumbs.Images.SetKeyName(5, "File3D.png");
+            // 
+            // AssetsThumbs
+            // 
+            this.AssetsThumbs.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("AssetsThumbs.ImageStream")));
+            this.AssetsThumbs.TransparentColor = System.Drawing.Color.Transparent;
+            this.AssetsThumbs.Images.SetKeyName(0, "Object.png");
+            this.AssetsThumbs.Images.SetKeyName(1, "Camera.png");
+            this.AssetsThumbs.Images.SetKeyName(2, "Light.png");
+            this.AssetsThumbs.Images.SetKeyName(3, "Background.png");
+            this.AssetsThumbs.Images.SetKeyName(4, "Sprite.png");
+            this.AssetsThumbs.Images.SetKeyName(5, "Actor.png");
+            this.AssetsThumbs.Images.SetKeyName(6, "Event.png");
+            this.AssetsThumbs.Images.SetKeyName(7, "Sound.png");
             // 
             // ContentLibrary
             // 
@@ -192,6 +207,7 @@
         private System.Windows.Forms.TreeView Tree;
         private System.Windows.Forms.ImageList FolderIcons;
         private System.Windows.Forms.ListView FileList;
-        private System.Windows.Forms.ImageList Thumbs;
+        private System.Windows.Forms.ImageList LibraryThumbs;
+        private System.Windows.Forms.ImageList AssetsThumbs;
     }
 }

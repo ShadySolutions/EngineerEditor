@@ -17,7 +17,20 @@ namespace Engineer.Editor
         private SceneType _CurrentSceneType;
         private Scene _CurrentScene;
         private TreeNode _SceneNode;
+        private SceneObject _CurrentSceneObject;
         private PropertiesWindow _Properties;
+        public SceneObject CurrentSceneObject
+        {
+            get
+            {
+                return _CurrentSceneObject;
+            }
+
+            set
+            {
+                _CurrentSceneObject = value;
+            }
+        }
         public SceneWindow()
         {
             InitializeComponent();
@@ -82,6 +95,13 @@ namespace Engineer.Editor
             {
                 if (SceneTree.SelectedNode.Tag != null)
                 {
+                    for (int i = 0; i < _CurrentScene.Objects.Count; i++)
+                    {
+                        if (_CurrentScene.Objects[i].ID == ((object[])SceneTree.SelectedNode.Tag)[2].ToString())
+                        {
+                            this.CurrentSceneObject = _CurrentScene.Objects[i];
+                        }
+                    }
                     DrawObjectType Type = (DrawObjectType)((object[])SceneTree.SelectedNode.Tag)[0];
                     deleteToolStripMenuItem.Visible = true;
                     SetAsCurrentToolStripMenuItem.Visible = Type == DrawObjectType.Camera;

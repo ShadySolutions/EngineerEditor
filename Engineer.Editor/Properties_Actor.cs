@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Engineer.Engine;
 using WeifenLuo.WinFormsUI.Docking;
+using TakeOne.WindowSuite;
 
 namespace Engineer.Editor
 {
@@ -18,16 +19,18 @@ namespace Engineer.Editor
         private int _TotalHeight;
         private DockPanel _Dock;
         private Actor _CurrentActor;
+        private List<ToolForm> _OpenForms;
         public Properties_Actor()
         {
             InitializeComponent();
             this._Toggled = true;
         }
-        public void Init(Actor CurrentActor, DockPanel Dock)
+        public void Init(Actor CurrentActor, DockPanel Dock, List<ToolForm> OpenForms)
         {
             InitializeComponent();
             this.Margin = new Padding(10, 0, 0, 0);
             this._Dock = Dock;
+            this._OpenForms = OpenForms;
             this._CurrentActor = CurrentActor;
             this.Value_Modified.Checked = CurrentActor.Modified;
             for (int i = 0; i < CurrentActor.Materials.Count; i++)
@@ -65,6 +68,7 @@ namespace Engineer.Editor
             MaterialEditor Editor = new MaterialEditor(_CurrentActor.Materials[Index]);
             _Parent.OpenForms.Add(Editor);
             Editor.Title = _CurrentActor.Materials[Index].Name + " - Material Editor";
+            _OpenForms.Add(Editor);
             Editor.Show(_Dock, DockState.Document);
         }
         private void ToggleHeader_Click(object sender, EventArgs e)

@@ -14,7 +14,8 @@ namespace Engineer.Engine
         Camera = 1,
         Light = 2,
         Background = 3,
-        Sprite = 4
+        Sprite = 4,
+        Figure = 5
     }
     public class DrawObject
     {

@@ -41,6 +41,7 @@
             // 
             // GLControl
             // 
+            this.GLControl.AllowDrop = true;
             this.GLControl.BackColor = System.Drawing.Color.Black;
             this.GLControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GLControl.Location = new System.Drawing.Point(0, 0);
@@ -49,6 +50,8 @@
             this.GLControl.TabIndex = 1;
             this.GLControl.VSync = false;
             this.GLControl.Load += new System.EventHandler(this.GLControl_Load);
+            this.GLControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.GLControl_DragDrop);
+            this.GLControl.DragEnter += new System.Windows.Forms.DragEventHandler(this.GLControl_DragEnter);
             this.GLControl.Paint += new System.Windows.Forms.PaintEventHandler(this.GLControl_Paint);
             this.GLControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseDown);
             this.GLControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GLControl_MouseMove);

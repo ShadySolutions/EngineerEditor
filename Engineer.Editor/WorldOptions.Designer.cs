@@ -51,6 +51,7 @@
             // 
             // ContentPanel
             // 
+            this.ContentPanel.AutoScroll = true;
             this.ContentPanel.Controls.Add(this.Event);
             this.ContentPanel.Controls.Add(this.Sprite);
             this.ContentPanel.Controls.Add(this.Camera);

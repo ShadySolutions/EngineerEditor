@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,22 @@ namespace Engineer.Engine
             else if (DSO._Representation.Type == DrawObjectType.Camera) this._Representation = new Camera((Camera)DSO._Representation);
             else if (DSO._Representation.Type == DrawObjectType.Light) this._Representation = new Light((Light)DSO._Representation);
             else if (DSO._Representation.Type == DrawObjectType.Sprite) this._Representation = new Sprite((Sprite)DSO._Representation);
-        } 
+        }
+        public static void Serialize(DrawnSceneObject CurrentDrawnSceneObject, string Path)
+        {
+            XmlSerializer Serializer = new XmlSerializer(typeof(DrawnSceneObject));
+            using (TextWriter Writer = new StreamWriter(Path))
+            {
+                Serializer.Serialize(Writer, CurrentDrawnSceneObject);
+            }
+        }
+        public static DrawnSceneObject Deserialize(string Path)
+        {
+            XmlSerializer Deserializer = new XmlSerializer(typeof(DrawnSceneObject));
+            TextReader Reader = new StreamReader(Path);
+            DrawnSceneObject CurrentDrawnSceneObject = (DrawnSceneObject)Deserializer.Deserialize(Reader);
+            Reader.Close();
+            return CurrentDrawnSceneObject;
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace Engineer.Engine
     public class Game
     {
         private string _Name;
+        private List<SceneObject> _Assets;
         private List<Scene> _Scenes;
         public string Name
         {
@@ -25,6 +26,18 @@ namespace Engineer.Engine
             set
             {
                 _Name = value;
+            }
+        }
+        public List<SceneObject> Assets
+        {
+            get
+            {
+                return _Assets;
+            }
+
+            set
+            {
+                _Assets = value;
             }
         }
         public List<Scene> Scenes
@@ -41,11 +54,18 @@ namespace Engineer.Engine
         }
         public Game()
         {
+            this._Assets = new List<SceneObject>();
             this._Scenes = new List<Scene>();
         }
         public Game(Game G)
         {
             this._Name = G._Name;
+            this._Assets = new List<SceneObject>();
+            for (int i = 0; i < G._Assets.Count; i++)
+            {
+                if (G._Assets[i].Type == SceneObjectType.DrawnSceneObject) this._Assets.Add(new DrawnSceneObject((DrawnSceneObject)G._Assets[i], null));
+                else if (G._Assets[i].Type == SceneObjectType.ScriptSceneObject) this._Assets.Add(new ScriptSceneObject((ScriptSceneObject)G._Assets[i], null));
+            }
             this._Scenes = new List<Scene>();
             for(int i = 0; i < G._Scenes.Count; i++)
             {

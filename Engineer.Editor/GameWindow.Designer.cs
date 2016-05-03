@@ -33,8 +33,8 @@
             this.Info = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.GameNamePanel = new System.Windows.Forms.Panel();
-            this.GameNameLabel = new System.Windows.Forms.Label();
             this.GameName = new System.Windows.Forms.TextBox();
+            this.GameNameLabel = new System.Windows.Forms.Label();
             this.ContentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Info.SuspendLayout();
@@ -88,7 +88,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(367, 27);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Engineer by Milos Manojlovic and Jovan Markovic";
+            this.label1.Text = "Engineer by Shady Solutions";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // GameNamePanel
@@ -101,19 +101,6 @@
             this.GameNamePanel.Name = "GameNamePanel";
             this.GameNamePanel.Size = new System.Drawing.Size(548, 30);
             this.GameNamePanel.TabIndex = 3;
-            // 
-            // GameNameLabel
-            // 
-            this.GameNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.GameNameLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.GameNameLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GameNameLabel.ForeColor = System.Drawing.Color.White;
-            this.GameNameLabel.Location = new System.Drawing.Point(0, 0);
-            this.GameNameLabel.Name = "GameNameLabel";
-            this.GameNameLabel.Size = new System.Drawing.Size(115, 30);
-            this.GameNameLabel.TabIndex = 2;
-            this.GameNameLabel.Text = "Project Name:";
-            this.GameNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GameName
             // 
@@ -129,6 +116,19 @@
             this.GameName.Text = "New Project";
             this.GameName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GameName.TextChanged += new System.EventHandler(this.GameName_TextChanged);
+            // 
+            // GameNameLabel
+            // 
+            this.GameNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.GameNameLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GameNameLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GameNameLabel.ForeColor = System.Drawing.Color.White;
+            this.GameNameLabel.Location = new System.Drawing.Point(0, 0);
+            this.GameNameLabel.Name = "GameNameLabel";
+            this.GameNameLabel.Size = new System.Drawing.Size(115, 30);
+            this.GameNameLabel.TabIndex = 2;
+            this.GameNameLabel.Text = "Project Name:";
+            this.GameNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GameWindow
             // 

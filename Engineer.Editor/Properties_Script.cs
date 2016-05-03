@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Engineer.Engine;
 using WeifenLuo.WinFormsUI.Docking;
+using TakeOne.WindowSuite;
 
 namespace Engineer.Editor
 {
@@ -17,14 +18,16 @@ namespace Engineer.Editor
         private bool _Toggled;
         private DockPanel _Dock;
         private ScriptSceneObject _CurrentScript;
+        private List<ToolForm> _OpenForms;
         public Properties_Script()
         {
             InitializeComponent();
             this._Toggled = true;
         }
-        public void Init(ScriptSceneObject CurrentScript, DockPanel Dock)
+        public void Init(ScriptSceneObject CurrentScript, DockPanel Dock, List<ToolForm> OpenForms)
         {
             this._Dock = Dock;
+            this._OpenForms = OpenForms;
             this._CurrentScript = CurrentScript;
         }
         private void Button_ScriptCode_Click(object sender, EventArgs e)
@@ -33,6 +36,7 @@ namespace Engineer.Editor
             Editor.SetScript(this._CurrentScript);
             Editor.Text = this._CurrentScript.Name + " - Script Editor";
             Editor.Title = this._CurrentScript.Name + " - Script Editor";
+            _OpenForms.Add(Editor);
             Editor.Show(_Dock, DockState.Document);
         }
         private void ToggleHeader_Click(object sender, EventArgs e)

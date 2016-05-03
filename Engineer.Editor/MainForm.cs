@@ -22,6 +22,7 @@ namespace Engineer.Editor
 {
     public partial class _Parent : TakeOne.WindowSuite.MainForm
     {
+        public static string Version = "0.0.1.0";
         public static List<ToolForm> OpenForms;
 
         private GameWindow _GameW;
@@ -47,6 +48,8 @@ namespace Engineer.Editor
             this._GameW = new GameWindow(this._Game);
             this._GameW.Show(MainDock, DockState.Document);
             this._GameW.EntrySelection += new Editor.SceneSelection(SceneSelection);
+            this.Title = "Engineer " + Version;
+            this.Text = "Engineer " + Version;
         }
         private void AcquireData()
         {
@@ -75,8 +78,6 @@ namespace Engineer.Editor
             XmlNode Main = Document.FirstChild;
             Material Mat = new Material(Main);
             Material.Default = Mat;
-
-
         }
         private void SceneSelection(int Index)
         {
@@ -93,6 +94,9 @@ namespace Engineer.Editor
                 this._CurrentScene = this._Game.Scenes[Index];
             }
             GenerateLayout();
+            sceneToolStripMenuItem.Visible = true;
+            sceneObjectToolStripMenuItem.Visible = true;
+            runGameToolStripMenuItem.Visible = true;
         }
         private void CheckRuntime()
         {
@@ -178,20 +182,19 @@ namespace Engineer.Editor
             MainDock.DockLeftPortion = 310;
             this._World = new WorldOptions();
             this._Library = new ContentLibrary();
-            this._Properties = new PropertiesWindow(MainDock);
+            this._Properties = new PropertiesWindow(MainDock, OpenForms);
             this._Scene = new SceneWindow();
             this._Scene.SetPropertiesWindow(this._Properties);
             this._World.Show(MainDock, DockState.DockLeft);
             this._Library.Show(this._World.Pane, DockAlignment.Bottom, 1.4 / 2);
             this._Scene.Show(MainDock, DockState.DockRight);
             this._Properties.Show(this._Scene.Pane, DockAlignment.Bottom, 1.0 / 2);
-            this._Library.SetLibraryRoot("Library", 0);
-            this._Library.SetLibraryRoot("Project\\Assets", 1);
-            this._Library.SetLibraryView(0);
+            this._Library.Init("Library", _Game);
+            this._Library.SetLibraryView("Library");
             this._Scene.SetScene(_CurrentSceneType, _CurrentScene);
             this._View = new ViewWindow();
             this._View.Show(MainDock, DockState.Document);
-            this._View.SetScene(_CurrentSceneType, _CurrentScene);
+            this._View.SetScene(_CurrentSceneType, _CurrentScene, _Game);
             this._World.AddItem += new AddToSceeneEventHandler(AddSceneItem);
             this._World.UpdateSceneType(_CurrentSceneType);
         }
@@ -238,6 +241,9 @@ namespace Engineer.Editor
             OpenForms.Clear();
             this._GameW.GenerateEntries();
             this._GameW.Show(MainDock, DockState.Document);
+            sceneToolStripMenuItem.Visible = false;
+            sceneObjectToolStripMenuItem.Visible = false;
+            runGameToolStripMenuItem.Visible = false;
         }
         private void MemoryTime_Tick(object sender, EventArgs e)
         {
@@ -315,10 +321,6 @@ namespace Engineer.Editor
                     else MessageBox.Show(ex.Message, "Error");
                 }
             }
-        }
-        private void projectToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -403,6 +405,49 @@ namespace Engineer.Editor
                     }
                     else MessageBox.Show(ex.Message, "Error");
                 }
+            }
+        }
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("This is pre-alpha.\nMay god have mercy on your soul.","Help");
+        }
+        private void addCurrentItemToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(_Scene.CurrentSceneObject!=null)
+            {
+                SceneObject NewAsset = null;
+                if (_Scene.CurrentSceneObject.Type == SceneObjectType.DrawnSceneObject) NewAsset = new DrawnSceneObject((DrawnSceneObject)_Scene.CurrentSceneObject, null);
+                else if (_Scene.CurrentSceneObject.Type == SceneObjectType.ScriptSceneObject) NewAsset = new ScriptSceneObject((ScriptSceneObject)_Scene.CurrentSceneObject, null);
+                _Game.Assets.Add(NewAsset);
+            }
+            else
+            {
+                MessageBox.Show("No SceneObject Selected"," Warning");
+            }
+        }
+        private void createToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_Scene.CurrentSceneObject != null)
+            {
+                string Path = "Library\\Objects\\" + _Scene.CurrentSceneObject.Name + ".sco";
+                if(File.Exists(Path)) Path = "Library\\Objects\\" + _Scene.CurrentSceneObject.Name + Guid.NewGuid().ToString() + ".sco";
+                try
+                {
+                    if(_Scene.CurrentSceneObject.Type == SceneObjectType.DrawnSceneObject) DrawnSceneObject.Serialize((DrawnSceneObject)_Scene.CurrentSceneObject, Path);
+                    else if (_Scene.CurrentSceneObject.Type == SceneObjectType.ScriptSceneObject) ScriptSceneObject.Serialize((ScriptSceneObject)_Scene.CurrentSceneObject, Path);
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        MessageBox.Show(ex.InnerException.ToString(), ex.Message);
+                    }
+                    else MessageBox.Show(ex.Message, "Error");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No SceneObject Selected", " Warning");
             }
         }
     }

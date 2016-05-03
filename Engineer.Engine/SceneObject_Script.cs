@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Engineer.Engine
 {
@@ -52,6 +54,22 @@ namespace Engineer.Engine
         {
             this._Script = SSO._Script;
             this._ScriptType = SSO.ScriptType;
+        }
+        public static void Serialize(ScriptSceneObject CurrentScriptSceneObject, string Path)
+        {
+            XmlSerializer Serializer = new XmlSerializer(typeof(ScriptSceneObject));
+            using (TextWriter Writer = new StreamWriter(Path))
+            {
+                Serializer.Serialize(Writer, CurrentScriptSceneObject);
+            }
+        }
+        public static ScriptSceneObject Deserialize(string Path)
+        {
+            XmlSerializer Deserializer = new XmlSerializer(typeof(ScriptSceneObject));
+            TextReader Reader = new StreamReader(Path);
+            ScriptSceneObject CurrentScriptSceneObject = (ScriptSceneObject)Deserializer.Deserialize(Reader);
+            Reader.Close();
+            return CurrentScriptSceneObject;
         }
     }
 }

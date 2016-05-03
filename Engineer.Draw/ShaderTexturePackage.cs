@@ -9,6 +9,8 @@ namespace Engineer.Draw
 {
     public class ShaderTexturePackage
     {
+        protected static bool _Binded = false;
+        protected static uint _Index = 0;
         protected bool _Active;
         protected int _TexturesNumber;
         protected byte[] _Textures;

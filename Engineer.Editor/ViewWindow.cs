@@ -28,6 +28,7 @@ namespace Engineer.Editor
         private Point _CurrentPoint;
         private Vertex _OriginalTranslation;
         private Vertex _OriginalRotation;
+        private Game _CurrentGame;
         private Scene _CurrentScene;
         private DrawEngine _Engine;
         public DrawEngine Engine
@@ -47,9 +48,10 @@ namespace Engineer.Editor
             InitializeComponent();
             this._MouseDown = false;
         }
-        public void SetScene(SceneType Type, Scene CurrentScene)
+        public void SetScene(SceneType Type, Scene CurrentScene, Game CurrentGame)
         {
             this._CurrentScene = CurrentScene;
+            this._CurrentGame = CurrentGame;
         }
         private void Time_Tick(object sender, EventArgs e)
         {
@@ -162,6 +164,38 @@ namespace Engineer.Editor
             else if (_CurrentScene.Type == SceneType.Scene3D)
             {
                 this._MouseDown = false;
+            }
+        }
+        private void GLControl_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+        private void GLControl_DragDrop(object sender, DragEventArgs e)
+        {
+            if(e.Data!=null)
+            {
+                object LVData = e.Data.GetData("System.Windows.Forms.ListView+SelectedListViewItemCollection");
+                ListView.SelectedListViewItemCollection Collection = (ListView.SelectedListViewItemCollection)LVData;
+                foreach (ListViewItem Item in Collection)
+                {
+                    object[] Info = (object[])Item.Tag;
+                    if(Info[0].ToString() == "Asset")
+                    {
+                        int Index = (int)Info[1];
+                        SceneObject New = null;
+                        if (_CurrentGame.Assets[Index].Type == SceneObjectType.DrawnSceneObject) New = new DrawnSceneObject((DrawnSceneObject)_CurrentGame.Assets[Index], _CurrentScene);
+                        else if (_CurrentGame.Assets[Index].Type == SceneObjectType.ScriptSceneObject) New = new ScriptSceneObject((ScriptSceneObject)_CurrentGame.Assets[Index], _CurrentScene);
+                        if (New != null) _CurrentScene.Objects.Add(New);
+                        else MessageBox.Show("File type not supported for this scene type", "Not Supported");
+                    }
+                    if (Info[0].ToString() == "Library")
+                    {
+                        string Path = (string)Info[1];
+                        SceneObject New = SceneObject.FromFile(Path, _CurrentScene);
+                        if (New != null) _CurrentScene.Objects.Add(New);
+                        else MessageBox.Show("File type not supported for this scene type","Not Supported");
+                    }
+                }
             }
         }
     }

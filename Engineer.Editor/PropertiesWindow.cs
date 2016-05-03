@@ -18,16 +18,18 @@ namespace Engineer.Editor
         private DockPanel _Dock;
         private Scene _CurrentScene;
         private SceneObject _CurrentObject;
+        private List<ToolForm> _OpenForms;
         public PropertiesWindow()
         {
             InitializeComponent();
             this.ContentPanel.Padding = new Padding(10);
         }
-        public PropertiesWindow(DockPanel Dock)
+        public PropertiesWindow(DockPanel Dock, List<ToolForm> OpenForms)
         {
             InitializeComponent();
             this.ContentPanel.Padding = new Padding(10);
             this._Dock = Dock;
+            this._OpenForms = OpenForms;
         }
         public void SetSceneObject(SceneObject CurrentObject)
         {
@@ -62,7 +64,7 @@ namespace Engineer.Editor
                 if(((DrawnSceneObject)CurrentObject).Representation.Type == DrawObjectType.Actor)
                 {
                     Properties_Actor ActorProperties = new Properties_Actor();
-                    ActorProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Actor, _Dock);
+                    ActorProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Actor, _Dock, _OpenForms);
                     ActorProperties.Dock = DockStyle.Top;
                     this.ContentPanel.Controls.Add(ActorProperties);
                     ActorProperties.BringToFront();
@@ -70,7 +72,7 @@ namespace Engineer.Editor
                 if (((DrawnSceneObject)CurrentObject).Representation.Type == DrawObjectType.Sprite)
                 {
                     Properties_Sprite SpriteProperties = new Properties_Sprite();
-                    SpriteProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Sprite, _Dock);
+                    SpriteProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Sprite, _Dock, _OpenForms);
                     SpriteProperties.Dock = DockStyle.Top;
                     this.ContentPanel.Controls.Add(SpriteProperties);
                     SpriteProperties.BringToFront();
@@ -85,7 +87,7 @@ namespace Engineer.Editor
             this.ContentPanel.Controls.Add(NameLabel);
             NameLabel.SendToBack();
             Properties_Script ScriptProperties = new Properties_Script();
-            ScriptProperties.Init(CurrentObject as ScriptSceneObject, _Dock);
+            ScriptProperties.Init(CurrentObject as ScriptSceneObject, _Dock, _OpenForms);
             ScriptProperties.Dock = DockStyle.Top;
             this.ContentPanel.Controls.Add(ScriptProperties);
             ScriptProperties.BringToFront();
