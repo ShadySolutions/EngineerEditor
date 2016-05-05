@@ -263,6 +263,10 @@
       <Project>{efb51f33-46a8-4367-a8a3-9e647ca6bbe7}</Project>
       <Name>Engineer.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engineer.Interface\Engineer.Interface.csproj">
+      <Project>{cc8eaeec-7517-4e47-8e6a-adcefa863f57}</Project>
+      <Name>Engineer.Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engineer.IO\Engineer.IO.csproj">
       <Project>{e609ebc6-3b93-4386-a4a2-f96c00b376e7}</Project>
       <Name>Engineer.IO</Name>
