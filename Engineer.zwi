@@ -1,0 +1,21 @@
+<!-- Workspace file for the Zeus IDE - http://www.zeusedit.com -->
+<Workspace name="Engineer" sorted="Yes" autosynch="Yes" type="C#" filename="Engineer.sln" st_mtime="1462395764">
+    <Mode>Debug</Mode>
+    <Active>Engineer.Editor</Active>
+    <Project name="BlocklineExample">BlocklineExample\BlocklineExample.zpi</Project>
+    <Project name="Engineer.Data">Engineer.Data\Engineer.Data.zpi</Project>
+    <Project name="Engineer.Draw">Engineer.Draw\Engineer.Draw.zpi</Project>
+    <Project name="Engineer.Draw.OpenGL">Engineer.OpenGL\Engineer.Draw.OpenGL.zpi</Project>
+    <Project name="Engineer.Editor">Engineer.Editor\Engineer.Editor.zpi</Project>
+    <Project name="Engineer.Engine">Engineer.Engine\Engineer.Engine.zpi</Project>
+    <Project name="Engineer.Interface">Engineer.Interface\Engineer.Interface.zpi</Project>
+    <Project name="Engineer.IO">Engineer.IO\Engineer.IO.zpi</Project>
+    <Project name="Engineer.Mathematics">Engineer.Mathematics\Engineer.Mathematics.zpi</Project>
+    <Project name="Engineer.Runner">ConsoleApplication1\Engineer.Runner.zpi</Project>
+    <Project name="ICSharpCode.TextEditor">ICSharpCode.TextEditor\Project\ICSharpCode.TextEditor.zpi</Project>
+    <Project name="Lib">Lib.zpi</Project>
+    <Project name="ShadySolutions.UI.Blockline">ShadySolutions.UI.Blockline\ShadySolutions.UI.Blockline.zpi</Project>
+    <Project name="ShadySolutions.UI.NodeEditor">ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.zpi</Project>
+    <Project name="Solution Items">Solution Items.zpi</Project>
+    <Project name="TakeOne.WindowSuite">TakeOne.WindowSuite\TakeOne.WindowSuite.zpi</Project>
+</Workspace>
