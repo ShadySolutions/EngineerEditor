@@ -1,4 +1,5 @@
 ﻿using Engineer.Engine;
+using Engineer.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,83 +13,98 @@ using TakeOne.WindowSuite;
 
 namespace Engineer.Editor
 {
-    public delegate void SceneSelection(int Index);
     public partial class GameWindow : ToolForm
     {
-        private Game _CurrentGame;
-        public event SceneSelection EntrySelection;
+        private bool _BlockEvents;
+        private Game_Interface _Interface;
         public GameWindow()
         {
             InitializeComponent();
         }
-        public GameWindow(Game CurrentGame)
+        public GameWindow(Game_Interface Interface)
         {
             InitializeComponent();
-            this._CurrentGame = CurrentGame;
+            Init(Interface);
+        }
+        public void Init(Game_Interface Interface)
+        {
+            _BlockEvents = false;
+            this._Interface = Interface;
+            _Interface.Update += new InterfaceUpdate(InterfaceUpdate);
             GenerateEntries();
         }
-        public void SetGame(Game CurrentGame)
+        public void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
-            this._CurrentGame = CurrentGame;
-            GenerateEntries();
+            _BlockEvents = true;
+            if(Message == InterfaceUpdateMessage.GameUpdated)
+            {
+                GameName.Text = _Interface.CurrentGame.Name;
+            }
+            else if (Message == InterfaceUpdateMessage.SceneUpdated)
+            {
+                GenerateEntries();
+            }
+            _BlockEvents = false;
         }
-        public void OnEntrySelection(int Index)
-        {
-
-        }
+        //Service
         public void GenerateEntries()
         {
             Entries.Controls.Clear();
-            this.GameName.Text = _CurrentGame.Name;
-            for (int i = 0; i < _CurrentGame.Scenes.Count; i++)
+            this.GameName.Text = _Interface.CurrentGame.Name;
+            for (int i = 0; i < _Interface.CurrentGame.Scenes.Count; i++)
             {
-                Button NewButton = new Button();
-                NewButton.Text = _CurrentGame.Scenes[i].Name;
-                NewButton.TextAlign = ContentAlignment.MiddleCenter;
-                NewButton.Tag = i;
-                NewButton.FlatStyle = FlatStyle.Flat;
-                NewButton.Dock = DockStyle.Top;
-                NewButton.FlatAppearance.BorderSize = 0;
-                NewButton.BackColor = Color.FromArgb(20, 20, 20);
-                NewButton.ForeColor = Color.White;
-                NewButton.Click += new EventHandler(EntryClick);
+                Button NewButton = GenerateButton(_Interface.CurrentGame.Scenes[i].Name, Color.White, i);
+                NewButton.Click += new EventHandler(SceneSelectClick);
                 Entries.Controls.Add(NewButton);
                 NewButton.BringToFront();
             }
-            Button New2DButton = new Button();
-            New2DButton.Text = "New 2D Scene";
-            New2DButton.TextAlign = ContentAlignment.MiddleCenter;
-            New2DButton.Tag = -1;
-            New2DButton.Dock = DockStyle.Top;
-            New2DButton.FlatAppearance.BorderSize = 0;
-            New2DButton.FlatStyle = FlatStyle.Flat;
-            New2DButton.BackColor = Color.FromArgb(20, 20, 20);
-            New2DButton.ForeColor = Color.OrangeRed;
-            New2DButton.Click += new EventHandler(EntryClick);
+            Button New2DButton = GenerateButton("New 2D Scene", Color.OrangeRed, SceneType.Scene2D);
+            New2DButton.Click += new EventHandler(NewSceneClick);
             Entries.Controls.Add(New2DButton);
             New2DButton.BringToFront();
-            Button New3DButton = new Button();
-            New3DButton.Text = "New 3D Scene";
-            New3DButton.TextAlign = ContentAlignment.MiddleCenter;
-            New3DButton.Tag = -2;
-            New3DButton.Dock = DockStyle.Top;
-            New3DButton.FlatAppearance.BorderSize = 0;
-            New3DButton.FlatStyle = FlatStyle.Flat;
-            New3DButton.BackColor = Color.FromArgb(20, 20, 20);
-            New3DButton.ForeColor = Color.CadetBlue;
-            New3DButton.Click += new EventHandler(EntryClick);
+            Button New3DButton = GenerateButton("New 3D Scene", Color.CadetBlue, SceneType.Scene3D);
+            New3DButton.Click += new EventHandler(NewSceneClick);
             Entries.Controls.Add(New3DButton);
             New3DButton.BringToFront();
         }
-        private void EntryClick(object sender, EventArgs e)
+        private Button GenerateButton(string Text, Color TextColor, object Tag)
         {
-            Button CurrentButton = sender as Button;
-            this.EntrySelection.Invoke(Convert.ToInt32(CurrentButton.Tag));
+            Button NewButton = new Button();
+            NewButton.Text = Text;
+            NewButton.TextAlign = ContentAlignment.MiddleCenter;
+            NewButton.FlatStyle = FlatStyle.Flat;
+            NewButton.Dock = DockStyle.Top;
+            NewButton.FlatAppearance.BorderSize = 0;
+            NewButton.BackColor = Color.FromArgb(20, 20, 20);
+            NewButton.ForeColor = TextColor;
+            NewButton.Tag = Tag;
+            return NewButton;
         }
-
+        //Events
+        private void NewSceneClick(object sender, EventArgs e)
+        {
+            if (_BlockEvents) return;
+            Button CurrentButton = sender as Button;
+            string ErrorString = "";
+            if(!_Interface.AddEmptyScene((SceneType)CurrentButton.Tag, ref ErrorString))
+            {
+                MessageBox.Show(ErrorString, "Error");
+            }
+        }
+        private void SceneSelectClick(object sender, EventArgs e)
+        {
+            if (_BlockEvents) return;
+            Button CurrentButton = sender as Button;
+            string ErrorString = "";
+            if (!_Interface.SelectScene((int)CurrentButton.Tag, ref ErrorString))
+            {
+                MessageBox.Show(ErrorString, "Error");
+            }
+        }
         private void GameName_TextChanged(object sender, EventArgs e)
         {
-            this._CurrentGame.Name = GameName.Text;
+            if (_BlockEvents) return;
+            _Interface.SetGameName(GameName.Text);
         }
     }
 }

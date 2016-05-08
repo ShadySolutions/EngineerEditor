@@ -13,49 +13,119 @@ using System.Xml;
 
 namespace Engineer.Interface
 {
+    public enum InterfaceUpdateMessage
+    {
+        GameUpdated,
+        SceneUpdated,
+        SceneObjectsUpdated,
+        SelectionUpdated,
+        AssetsUpdated,
+        LibraryUpdated
+    }
+    public delegate void InterfaceUpdate(InterfaceUpdateMessage Message);
     public class Game_Interface
     {
+        private object _CurrentSelection;
+        private SceneObject _CurrentSceneObject;
         private Scene _CurrentScene;
         private Game _CurrentGame;
         private List<OBJContainer> _Scene3DContainers;
+        public event InterfaceUpdate Update;
+        public object CurrentSelection
+        {
+            get
+            {
+                return _CurrentSelection;
+            }
+
+            set
+            {
+                _CurrentSelection = value;
+            }
+        }
+        public SceneObject CurrentSceneObject
+        {
+            get
+            {
+                return _CurrentSceneObject;
+            }
+
+            set
+            {
+                _CurrentSceneObject = value;
+            }
+        }
+        public Scene CurrentScene
+        {
+            get
+            {
+                return _CurrentScene;
+            }
+
+            set
+            {
+                _CurrentScene = value;
+            }
+        }
+        public Game CurrentGame
+        {
+            get
+            {
+                return _CurrentGame;
+            }
+
+            set
+            {
+                _CurrentGame = value;
+            }
+        }
         public Game_Interface(Game CurrentGame)
         {
-            if (CurrentGame != null) _CurrentGame = CurrentGame;
-            else _CurrentGame = new Game();
+            if (CurrentGame != null) this.CurrentGame = CurrentGame;
+            else
+            {
+                this.CurrentGame = new Game();
+                this.CurrentGame.Name = "New Game";
+            }
             AcquireData();
+        }
+        public void SetGameName(string NewName)
+        {
+            _CurrentGame.Name = NewName;
         }
         public bool AddSceneItem(GenericSceneObjectType Type, ref string ErrorString)
         {
+            bool ReturnValue = false;
             try
             {
-                if (this._CurrentScene.Type == SceneType.Scene2D)
+                if (this.CurrentScene.Type == SceneType.Scene2D)
                 {
                     if (Type == GenericSceneObjectType.Sprite)
                     {
                         Sprite NewSprite = new Sprite();
                         DrawnSceneObject New_Object = new DrawnSceneObject("New Sprite", NewSprite);
-                        this._CurrentScene.AddSceneObject(New_Object);
+                        this.CurrentScene.AddSceneObject(New_Object);
                     }
-                    return true;
+                    ReturnValue = true;
                 }
-                else if (this._CurrentScene.Type == SceneType.Scene3D)
+                else if (this.CurrentScene.Type == SceneType.Scene3D)
                 {
                     if (Type == GenericSceneObjectType.Floor || Type == GenericSceneObjectType.Cube || Type == GenericSceneObjectType.Soldier)
                     {
                         Actor New_Actor = new Actor(_Scene3DContainers[(int)Type], _Scene3DContainers[(int)Type].Geometries[0].Name);
                         New_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
                         DrawnSceneObject New_Object = new DrawnSceneObject(_Scene3DContainers[(int)Type].Geometries[0].Name, New_Actor);
-                        this._CurrentScene.AddSceneObject(New_Object);
+                        this.CurrentScene.AddSceneObject(New_Object);
                     }
-                    return true;
+                    ReturnValue = true;
                 }
                 if (Type == GenericSceneObjectType.Event)
                 {
                     ScriptSceneObject New_Object = new ScriptSceneObject("New Event");
-                    this._CurrentScene.AddSceneObject(New_Object);
-                    return true;
+                    this.CurrentScene.AddSceneObject(New_Object);
+                    ReturnValue = true;
                 }
-                return false;
+                ReturnValue = false;
             }
             catch (Exception ex)
             {
@@ -64,8 +134,9 @@ namespace Engineer.Interface
                     ErrorString = ex.InnerException.ToString();
                 }
                 else ErrorString = ex.Message;
-                return false;
+                ReturnValue = false;
             }
+            return ReturnValue;
         }
         public bool AddEmptyScene(SceneType Type, ref string ErrorString)
         {
@@ -83,11 +154,11 @@ namespace Engineer.Interface
                     Light1_Light.Color = Color.White;
                     Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
                     Light1_Light.Intensity = 0.3f;
-                    Scene2D NewScene = new Scene2D("Scene_" + (_CurrentGame.Scenes.Count + 1).ToString("000"));
+                    Scene2D NewScene = new Scene2D("Scene_" + (CurrentGame.Scenes.Count + 1).ToString("000"));
                     NewScene.BackColor = Color.FromArgb(40, 40, 40);
                     NewScene.Type = SceneType.Scene2D;
-                    this._CurrentScene = NewScene;
-                    this._CurrentGame.Scenes.Add(NewScene);
+                    this.CurrentScene = NewScene;
+                    this.CurrentGame.Scenes.Add(NewScene);
                     return true;
                 }
                 else if (Type == SceneType.Scene3D)
@@ -102,7 +173,7 @@ namespace Engineer.Interface
                     Light1_Light.Color = Color.White;
                     Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
                     Light1_Light.Intensity = 0.3f;
-                    Scene3D NewScene = new Scene3D("Scene_" + (_CurrentGame.Scenes.Count + 1).ToString("000"));
+                    Scene3D NewScene = new Scene3D("Scene_" + (CurrentGame.Scenes.Count + 1).ToString("000"));
                     NewScene.BackColor = Color.FromArgb(40, 40, 40);
                     NewScene.Type = SceneType.Scene3D;
                     DrawnSceneObject Floor_Object = new DrawnSceneObject("Floor", Floor_Actor);
@@ -113,8 +184,8 @@ namespace Engineer.Interface
                     NewScene.AddSceneObject(Light_Object);
                     NewScene.ActiveCamera = new Camera(MainCamera_Camera);
                     NewScene.EditorCamera = new Camera(MainCamera_Camera);
-                    this._CurrentScene = NewScene;
-                    this._CurrentGame.Scenes.Add(NewScene);
+                    this.CurrentScene = NewScene;
+                    this.CurrentGame.Scenes.Add(NewScene);
                     return true;
                 }
                 else return false;
@@ -129,7 +200,7 @@ namespace Engineer.Interface
                 return false;
             }
         }
-        public bool SceneSelection(int Index, ref string ErrorString)
+        public bool SelectScene(int Index, ref string ErrorString)
         {
             bool Value;
             if (Index == -1)
@@ -142,9 +213,9 @@ namespace Engineer.Interface
             }
             else
             {
-                if (this._CurrentGame.Scenes.Count > Index)
+                if (this.CurrentGame.Scenes.Count > Index)
                 {
-                    this._CurrentScene = this._CurrentGame.Scenes[Index];
+                    this.CurrentScene = this.CurrentGame.Scenes[Index];
                     Value = true;
                 }
                 else

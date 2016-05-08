@@ -10,11 +10,13 @@ using System.Windows.Forms;
 using Engineer.Engine;
 using WeifenLuo.WinFormsUI.Docking;
 using TakeOne.WindowSuite;
+using Engineer.Interface;
 
 namespace Engineer.Editor
 {
     public partial class Properties_Actor : UserControl
     {
+        private bool _BlockEvents;
         private bool _Toggled;
         private int _TotalHeight;
         private DockPanel _Dock;
@@ -32,7 +34,6 @@ namespace Engineer.Editor
             this._Dock = Dock;
             this._OpenForms = OpenForms;
             this._CurrentActor = CurrentActor;
-            this.Value_Modified.Checked = CurrentActor.Modified;
             for (int i = 0; i < CurrentActor.Materials.Count; i++)
             {
                 Panel NewPanel = new Panel();
@@ -61,6 +62,12 @@ namespace Engineer.Editor
                 this.Controls.Add(NewPanel);
             }
             this._TotalHeight = 62 + CurrentActor.Materials.Count * 30;
+        }
+        private void InterfaceUpdate(InterfaceUpdateMessage Message)
+        {
+            _BlockEvents = true;
+
+            _BlockEvents = false;
         }
         public void EditMaterial(object sender, EventArgs e)
         {
