@@ -1,0 +1,293 @@
+<!-- Project file for the Zeus IDE - http://www.zeusedit.com -->
+<Project name="ICSharpCode.TextEditor" sorted="Yes" autosynch="Yes" type="" filename="ICSharpCode.TextEditor.csproj" st_mtime="1457782534">
+    <SccEnable>On</SccEnable>
+    <SccUserID></SccUserID>
+    <SccComment></SccComment>
+    <SccProject></SccProject>
+    <SccAuxPath></SccAuxPath>
+    <SccLocalPath></SccLocalPath>
+    <TagEnable>On</TagEnable>
+    <TagNone>Off</TagNone>
+    <TagBuildNone>Off</TagBuildNone>
+    <TagBuildOnOpen>On</TagBuildOnOpen>
+    <TagBuildOnSave>On</TagBuildOnSave>
+    <TagNoIntellisense>Off</TagNoIntellisense>
+    <TagWorkspace>On</TagWorkspace>
+    <TagOutputDir>$zudzTags</TagOutputDir>
+    <TagInterval>20</TagInterval>
+    <TagBuildTimed></TagBuildTimed>
+    <Tags />
+    <Server></Server>
+    <UserID></UserID>
+    <Password></Password>
+    <LocalDir></LocalDir>
+    <RemoteDir></RemoteDir>
+    <Classes>Classes</Classes>
+    <Enumerations>Enumerations</Enumerations>
+    <Files>Project Files</Files>
+    <Functions>Functions</Functions>
+    <Imports>Imports</Imports>
+    <Interfaces>Interfaces</Interfaces>
+    <Macros>Macros</Macros>
+    <Packages>Packages</Packages>
+    <Prototypes>Prototypes</Prototypes>
+    <References>References</References>
+    <Structures>Structures</Structures>
+    <Typedefs>Typedefs</Typedefs>
+    <Variables>Variables</Variables>
+    <MakeFile>ICSharpCode.TextEditor.csproj</MakeFile>
+    <SearchPath></SearchPath>
+    <RegexFile></RegexFile>
+    <RegexLine></RegexLine>
+    <RegexInfo></RegexInfo>
+    <RegexError></RegexError>
+    <RegexWarning></RegexWarning>
+    <EnvLib></EnvLib>
+    <EnvPath>$MsBuildPath</EnvPath>
+    <EnvInclude></EnvInclude>
+    <EnvClassPath></EnvClassPath>
+    <DoxygenAsJava>On</DoxygenAsJava>
+    <DebugCaptureStdOut>Off</DebugCaptureStdOut>
+    <DebugCaptureStdErr>Off</DebugCaptureStdErr>
+    <DebugExecutable>$pb.exe</DebugExecutable>
+    <DebugArguments></DebugArguments>
+    <DebugDirectory>$pdd\bin\Debug\</DebugDirectory>
+    <DebugDebugger></DebugDebugger>
+    <ReleaseCaptureStdOut>Off</ReleaseCaptureStdOut>
+    <ReleaseCaptureStdErr>Off</ReleaseCaptureStdErr>
+    <ReleaseExecutable>$pb.exe</ReleaseExecutable>
+    <ReleaseArguments></ReleaseArguments>
+    <ReleaseDirectory>$pdd\bin\Release\</ReleaseDirectory>
+    <ReleaseDebugger></ReleaseDebugger>
+    <DebugMake>MsBuild.exe $PDD$PF /t:Build /p:Configuration=Debug /p:OutputPath=./bin/Debug/ /v:m</DebugMake>
+    <DebugClean>MsBuild.exe $PDD$PF /t:Clean /p:Configuration=Debug /p:OutputPath=./bin/Debug/ /v:m</DebugClean>
+    <DebugCompile>MsBuild.exe $PDD$PF /p:SelectedFiles=&quot;$FR&quot; /t:Compile /p:Configuration=Debug /p:OutputPath=./bin/Debug/ /v:m</DebugCompile>
+    <DebugRebuild>MsBuild.exe $PDD$PF /t:Rebuild /p:Configuration=Debug /p:OutputPath=./bin/Debug/ /v:m</DebugRebuild>
+    <DebugProjectOutput>Warnings</DebugProjectOutput>
+    <DebugCompilerOutput>Warnings</DebugCompilerOutput>
+    <DebugCompilerStdOut>On</DebugCompilerStdOut>
+    <DebugCompilerStdErr>On</DebugCompilerStdErr>
+    <DebugCompilerSaveAll>Off</DebugCompilerSaveAll>
+    <DebugCompilerReload>Off</DebugCompilerReload>
+    <DebugProjectStdOut>On</DebugProjectStdOut>
+    <DebugProjectStdErr>On</DebugProjectStdErr>
+    <DebugProjectSaveAll>On</DebugProjectSaveAll>
+    <DebugProjectReload>Off</DebugProjectReload>
+    <DebugClangUsePCH>On</DebugClangUsePCH>
+    <DebugClangExtension>.zpch</DebugClangExtension>
+    <ReleaseMake>MsBuild.exe $PDD$PF /t:Build /p:Configuration=Release /p:OutputPath=./bin/Release/ /v:m</ReleaseMake>
+    <ReleaseClean>MsBuild.exe $PDD$PF /t:Clean /p:Configuration=Release /p:OutputPath=./bin/Release/ /v:m</ReleaseClean>
+    <ReleaseCompile>MsBuild.exe $PDD$PF /p:SelectedFiles=&quot;$FR&quot; /t:Compile /p:Configuration=Release /p:OutputPath=./bin/Release/ /v:m</ReleaseCompile>
+    <ReleaseRebuild>MsBuild.exe $PDD$PF /t:Rebuild /p:Configuration=Release /p:OutputPath=./bin/Release/ /v:m</ReleaseRebuild>
+    <ReleaseProjectOutput>Warnings</ReleaseProjectOutput>
+    <ReleaseCompilerOutput>Warnings</ReleaseCompilerOutput>
+    <ReleaseCompilerStdOut>On</ReleaseCompilerStdOut>
+    <ReleaseCompilerStdErr>On</ReleaseCompilerStdErr>
+    <ReleaseCompilerSaveAll>Off</ReleaseCompilerSaveAll>
+    <ReleaseCompilerReload>Off</ReleaseCompilerReload>
+    <ReleaseProjectStdOut>On</ReleaseProjectStdOut>
+    <ReleaseProjectStdErr>On</ReleaseProjectStdErr>
+    <ReleaseProjectSaveAll>On</ReleaseProjectSaveAll>
+    <ReleaseProjectReload>Off</ReleaseProjectReload>
+    <ReleaseClangUsePCH>On</ReleaseClangUsePCH>
+    <ReleaseClangExtension>.zpch</ReleaseClangExtension>
+    <File>Article1.cd</File>
+    <File>Article2.cd</File>
+    <File>GlobalAssemblyInfo.cs</File>
+    <File>ICSharpCode.TextEditor.cd</File>
+    <Folder name="Configuration" sorted="Yes">
+        <File>Configuration\AssemblyInfo.cs</File>
+    </Folder>
+    <Folder name="Resources" sorted="Yes">
+        <File>Resources\ASPX.xshd</File>
+        <File>Resources\BAT-Mode.xshd</File>
+        <File>Resources\Boo.xshd</File>
+        <File>Resources\Coco-Mode.xshd</File>
+        <File>Resources\CPP-Mode.xshd</File>
+        <File>Resources\CSharp-Mode.xshd</File>
+        <File>Resources\HTML-Mode.xshd</File>
+        <File>Resources\ICSharpCode.TextEditor.snk</File>
+        <File>Resources\Java-Mode.xshd</File>
+        <File>Resources\JavaScript-Mode.xshd</File>
+        <File>Resources\Mode.xsd</File>
+        <File>Resources\Patch-Mode.xshd</File>
+        <File>Resources\PHP-Mode.xshd</File>
+        <File>Resources\RightArrow.cur</File>
+        <File>Resources\SyntaxModes.xml</File>
+        <File>Resources\Tex-Mode.xshd</File>
+        <File>Resources\TextEditorControl.bmp</File>
+        <File>Resources\VBNET-Mode.xshd</File>
+        <File>Resources\XML-Mode.xshd</File>
+    </Folder>
+    <Folder name="Src" sorted="Yes">
+        <File>Src\ThemeHardcode.cs</File>
+        <Folder name="Actions" sorted="Yes">
+            <File>Src\Actions\BookmarkActions.cs</File>
+            <File>Src\Actions\CaretActions.cs</File>
+            <File>Src\Actions\ClipBoardActions.cs</File>
+            <File>Src\Actions\FoldActions.cs</File>
+            <File>Src\Actions\FormatActions.cs</File>
+            <File>Src\Actions\HomeEndActions.cs</File>
+            <File>Src\Actions\IEditAction.cs</File>
+            <File>Src\Actions\MiscActions.cs</File>
+            <File>Src\Actions\SelectionActions.cs</File>
+        </Folder>
+        <Folder name="Document" sorted="Yes">
+            <File>Src\Document\AbstractSegment.cs</File>
+            <File>Src\Document\DefaultDocument.cs</File>
+            <File>Src\Document\DefaultTextEditorProperties.cs</File>
+            <File>Src\Document\DocumentEventArgs.cs</File>
+            <File>Src\Document\DocumentFactory.cs</File>
+            <File>Src\Document\IDocument.cs</File>
+            <File>Src\Document\ISegment.cs</File>
+            <File>Src\Document\ITextEditorProperties.cs</File>
+            <File>Src\Document\TextAnchor.cs</File>
+            <File>Src\Document\TextLocation.cs</File>
+            <File>Src\Document\TextUtilities.cs</File>
+            <Folder name="BookmarkManager" sorted="Yes">
+                <File>Src\Document\BookmarkManager\Bookmark.cs</File>
+                <File>Src\Document\BookmarkManager\BookmarkEventHandler.cs</File>
+                <File>Src\Document\BookmarkManager\BookmarkManager.cs</File>
+                <File>Src\Document\BookmarkManager\BookmarkManagerMemento.cs</File>
+            </Folder>
+            <Folder name="FoldingStrategy" sorted="Yes">
+                <File>Src\Document\FoldingStrategy\FoldingManager.cs</File>
+                <File>Src\Document\FoldingStrategy\FoldMarker.cs</File>
+                <File>Src\Document\FoldingStrategy\IFoldingStrategy.cs</File>
+                <File>Src\Document\FoldingStrategy\IndentFoldingStrategy.cs</File>
+            </Folder>
+            <Folder name="FormattingStrategy" sorted="Yes">
+                <File>Src\Document\FormattingStrategy\DefaultFormattingStrategy.cs</File>
+                <File>Src\Document\FormattingStrategy\IFormattingStrategy.cs</File>
+            </Folder>
+            <Folder name="HighlightingStrategy" sorted="Yes">
+                <File>Src\Document\HighlightingStrategy\DefaultHighlightingStrategy.cs</File>
+                <File>Src\Document\HighlightingStrategy\FontContainer.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightBackground.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightColor.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightInfo.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightingColorNotFoundException.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightingDefinitionInvalidException.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightingDefinitionParser.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightingManager.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightingStrategyFactory.cs</File>
+                <File>Src\Document\HighlightingStrategy\HighlightRuleSet.cs</File>
+                <File>Src\Document\HighlightingStrategy\IHighlightingStrategy.cs</File>
+                <File>Src\Document\HighlightingStrategy\NextMarker.cs</File>
+                <File>Src\Document\HighlightingStrategy\PrevMarker.cs</File>
+                <File>Src\Document\HighlightingStrategy\Span.cs</File>
+                <File>Src\Document\HighlightingStrategy\SpanStack.cs</File>
+                <File>Src\Document\HighlightingStrategy\TextWord.cs</File>
+                <Folder name="SyntaxModes" sorted="Yes">
+                    <File>Src\Document\HighlightingStrategy\SyntaxModes\FileSyntaxModeProvider.cs</File>
+                    <File>Src\Document\HighlightingStrategy\SyntaxModes\ISyntaxModeFileProvider.cs</File>
+                    <File>Src\Document\HighlightingStrategy\SyntaxModes\ResourceSyntaxModeProvider.cs</File>
+                    <File>Src\Document\HighlightingStrategy\SyntaxModes\SyntaxMode.cs</File>
+                </Folder>
+            </Folder>
+            <Folder name="LineManager" sorted="Yes">
+                <File>Src\Document\LineManager\DeferredEventList.cs</File>
+                <File>Src\Document\LineManager\LineManager.cs</File>
+                <File>Src\Document\LineManager\LineManagerEventArgs.cs</File>
+                <File>Src\Document\LineManager\LineSegment.cs</File>
+                <File>Src\Document\LineManager\LineSegmentTree.cs</File>
+            </Folder>
+            <Folder name="MarkerStrategy" sorted="Yes">
+                <File>Src\Document\MarkerStrategy\MarkerStrategy.cs</File>
+                <File>Src\Document\MarkerStrategy\TextMarker.cs</File>
+            </Folder>
+            <Folder name="Selection" sorted="Yes">
+                <File>Src\Document\Selection\ColumnRange.cs</File>
+                <File>Src\Document\Selection\DefaultSelection.cs</File>
+                <File>Src\Document\Selection\ISelection.cs</File>
+                <File>Src\Document\Selection\SelectionManager.cs</File>
+            </Folder>
+            <Folder name="TextBufferStrategy" sorted="Yes">
+                <File>Src\Document\TextBufferStrategy\GapTextBufferStrategy.cs</File>
+                <File>Src\Document\TextBufferStrategy\ITextBufferStrategy.cs</File>
+                <File>Src\Document\TextBufferStrategy\StringTextBufferStrategy.cs</File>
+            </Folder>
+        </Folder>
+        <Folder name="Gui" sorted="Yes">
+            <File>Src\Gui\AbstractMargin.cs</File>
+            <File>Src\Gui\BracketHighlighter.cs</File>
+            <File>Src\Gui\BrushRegistry.cs</File>
+            <File>Src\Gui\Caret.cs</File>
+            <File>Src\Gui\DrawableLine.cs</File>
+            <File>Src\Gui\FoldMargin.cs</File>
+            <File>Src\Gui\GutterMargin.cs</File>
+            <File>Src\Gui\IconBarMargin.cs</File>
+            <File>Src\Gui\Ime.cs</File>
+            <File>Src\Gui\TextAreaClipboardHandler.cs</File>
+            <File>Src\Gui\TextAreaDragDropHandler.cs</File>
+            <File>Src\Gui\TextAreaMouseHandler.cs</File>
+            <File>Src\Gui\TextAreaUpdate.cs</File>
+            <File>Src\Gui\TextView.cs</File>
+            <File>Src\Gui\ToolTipRequestEventArgs.cs</File>
+            <Folder name="CompletionWindow" sorted="Yes">
+                <File>Src\Gui\CompletionWindow\ICompletionData.cs</File>
+                <File>Src\Gui\CompletionWindow\ICompletionDataProvider.cs</File>
+                <Folder name="{!*} AbstractCompletionWindow" sorted="Yes">
+                    <File>Src\Gui\CompletionWindow\AbstractCompletionWindow.cs</File>
+                </Folder>
+                <Folder name="{!*} CodeCompletionWindow" sorted="Yes">
+                    <File>Src\Gui\CompletionWindow\CodeCompletionWindow.cs</File>
+                </Folder>
+                <Folder name="{!*} DeclarationViewWindow" sorted="Yes">
+                    <File>Src\Gui\CompletionWindow\DeclarationViewWindow.cs</File>
+                </Folder>
+                <Folder name="{!~} CodeCompletionListView" sorted="Yes">
+                    <File>Src\Gui\CompletionWindow\CodeCompletionListView.cs</File>
+                </Folder>
+            </Folder>
+            <Folder name="InsightWindow" sorted="Yes">
+                <File>Src\Gui\InsightWindow\IInsightDataProvider.cs</File>
+                <Folder name="{!*} InsightWindow" sorted="Yes">
+                    <File>Src\Gui\InsightWindow\InsightWindow.cs</File>
+                </Folder>
+            </Folder>
+            <Folder name="{!^} HRuler" sorted="Yes">
+                <File>Src\Gui\HRuler.cs</File>
+            </Folder>
+            <Folder name="{!^} TextArea" sorted="Yes">
+                <File>Src\Gui\TextArea.cs</File>
+            </Folder>
+            <Folder name="{!^} TextAreaControl" sorted="Yes">
+                <File>Src\Gui\TextAreaControl.cs</File>
+            </Folder>
+            <Folder name="{!~} TextEditorControl" sorted="Yes">
+                <File>Src\Gui\TextEditorControl.cs</File>
+            </Folder>
+            <Folder name="{!~} TextEditorControlBase" sorted="Yes">
+                <File>Src\Gui\TextEditorControlBase.cs</File>
+                <File>Src\Gui\TextEditorControlBase.resx</File>
+            </Folder>
+        </Folder>
+        <Folder name="Undo" sorted="Yes">
+            <File>Src\Undo\IUndoableOperation.cs</File>
+            <File>Src\Undo\UndoableDelete.cs</File>
+            <File>Src\Undo\UndoableInsert.cs</File>
+            <File>Src\Undo\UndoableReplace.cs</File>
+            <File>Src\Undo\UndoQueue.cs</File>
+            <File>Src\Undo\UndoStack.cs</File>
+        </Folder>
+        <Folder name="Util" sorted="Yes">
+            <File>Src\Util\AugmentableRedBlackTree.cs</File>
+            <File>Src\Util\CheckedList.cs</File>
+            <File>Src\Util\FileReader.cs</File>
+            <File>Src\Util\LoggingService.cs</File>
+            <File>Src\Util\LookupTable.cs</File>
+            <File>Src\Util\MouseWheelHandler.cs</File>
+            <File>Src\Util\RedBlackTreeIterator.cs</File>
+            <File>Src\Util\RtfWriter.cs</File>
+            <File>Src\Util\TextUtility.cs</File>
+            <File>Src\Util\TipPainter.cs</File>
+            <File>Src\Util\TipPainterTools.cs</File>
+            <File>Src\Util\TipSection.cs</File>
+            <File>Src\Util\TipSpacer.cs</File>
+            <File>Src\Util\TipSplitter.cs</File>
+            <File>Src\Util\TipText.cs</File>
+            <File>Src\Util\WeakCollection.cs</File>
+        </Folder>
+    </Folder>
+</Project>

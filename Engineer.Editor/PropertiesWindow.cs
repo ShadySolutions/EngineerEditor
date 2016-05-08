@@ -10,34 +10,75 @@ using System.Windows.Forms;
 using TakeOne.WindowSuite;
 using Engineer.Engine;
 using WeifenLuo.WinFormsUI.Docking;
+using Engineer.Interface;
 
 namespace Engineer.Editor
 {
+    public enum SelectedObjectType
+    {
+        SceneObject = 0,
+        Scene = 1
+    }
     public partial class PropertiesWindow : ToolForm
     {
+        private bool _BlockEvents;
+        private object _Selected;
+        private SelectedObjectType _Type;
         private DockPanel _Dock;
-        private Scene _CurrentScene;
-        private SceneObject _CurrentObject;
+        private Game_Interface _Interface;
         private List<ToolForm> _OpenForms;
         public PropertiesWindow()
         {
             InitializeComponent();
             this.ContentPanel.Padding = new Padding(10);
         }
-        public PropertiesWindow(DockPanel Dock, List<ToolForm> OpenForms)
+        public PropertiesWindow(Game_Interface Interface, DockPanel Dock, List<ToolForm> OpenForms)
         {
             InitializeComponent();
+            Init(Interface, Dock, OpenForms);
+        }
+        public void Init(Game_Interface Interface, DockPanel Dock, List<ToolForm> OpenForms)
+        {
+            _Interface = Interface;
+            _Interface.Update += new InterfaceUpdate(InterfaceUpdate);
             this.ContentPanel.Padding = new Padding(10);
             this._Dock = Dock;
             this._OpenForms = OpenForms;
         }
-        public void SetSceneObject(SceneObject CurrentObject)
+        private void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
-            this._CurrentScene = null;
-            this._CurrentObject = CurrentObject;
+            _BlockEvents = true;
+            if (Message == InterfaceUpdateMessage.SelectionUpdated)
+            {
+                SetObject(_Interface.CurrentSelection);
+            }
+            else if (Message == InterfaceUpdateMessage.SceneObjectsUpdated && _Type == SelectedObjectType.SceneObject)
+            {
+                SetSceneObject(_Interface.CurrentSceneObject);
+            }
+            else if (Message == InterfaceUpdateMessage.SceneUpdated && _Type == SelectedObjectType.Scene)
+            {
+                SetScene(_Interface.CurrentScene);
+            }
+            _BlockEvents = false;
+        }
+        private void SetObject(object SelectedObject)
+        {
+            if(SelectedObject.GetType().IsSubclassOf(typeof(SceneObject)))
+            {
+                _Type = SelectedObjectType.SceneObject;
+                SetSceneObject((SceneObject)SelectedObject);
+            }
+            else if (SelectedObject.GetType().IsSubclassOf(typeof(Scene)))
+            {
+                _Type = SelectedObjectType.Scene;
+                SetScene((Scene)SelectedObject);
+            }
+        }
+        private void SetSceneObject(SceneObject CurrentObject)
+        {
             this.ContentPanel.Controls.Clear();
             if (CurrentObject == null) return;
-
             Properties_SceneObject PSO = new Properties_SceneObject();
             PSO.Init(CurrentObject);
             PSO.Dock = DockStyle.Top;
@@ -92,10 +133,8 @@ namespace Engineer.Editor
             this.ContentPanel.Controls.Add(ScriptProperties);
             ScriptProperties.BringToFront();
         }
-        public void SetScene(Scene CurrentScene)
+        private void SetScene(Scene CurrentScene)
         {
-            this._CurrentScene = CurrentScene;
-            this._CurrentObject = null;
             this.ContentPanel.Controls.Clear();
             NameLabel.Visible = true;
             NameLabel.Text = CurrentScene.Name;

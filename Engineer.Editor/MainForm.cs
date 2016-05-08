@@ -25,26 +25,20 @@ namespace Engineer.Editor
     {
         public static string Version = "0.0.1.0";
         public static List<ToolForm> OpenForms;
-
         private GameWindow _GameW;
         private ContentLibrary _Library;
         private PropertiesWindow _Properties;
         private SceneWindow _Scene;
         private WorldOptions _World;
         private ViewWindow _View;
-
-        private Game _Game;
-        private Scene _CurrentScene;
-        private SceneType _CurrentSceneType;
-        private List<OBJContainer> _Scene3DContainers;
+        private Game_Interface _Interface;
 
         public _Parent()
         {
             InitializeComponent();
             if (OpenForms == null) OpenForms = new List<ToolForm>();
             AcquireData();
-            this._Game = new Game();
-            this._Game.Name = "New Project";
+            this._Interface = new Game_Interface(null);
             this._GameW = new GameWindow(this._Game);
             this._GameW.Show(MainDock, DockState.Document);
             this._GameW.EntrySelection += new Editor.SceneSelection(SceneSelection);
