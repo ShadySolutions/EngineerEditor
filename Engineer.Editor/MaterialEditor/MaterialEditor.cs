@@ -25,7 +25,7 @@ namespace Engineer.Editor
             InitializeComponent();
             this.Text = CurrentMaterial.Name + " - Material";
             this.Title = CurrentMaterial.Name + " - Material";
-            UIGenerator.MaterialToUI(CurrentMaterial, this.Editor);
+            MaterialEditorUIGenerator.MaterialToUI(CurrentMaterial, this.Editor);
             this._CurrentMaterial = CurrentMaterial;
             for(int i = 0; i < ShaderMaterialTranslator.Translator.Entries.Count; i++)
             {
@@ -48,12 +48,10 @@ namespace Engineer.Editor
                 }
             }
         }
-
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _CurrentMaterial.Modified = true;
         }
-
         private void Editor_NodeUpdate(ShadySolutions.UI.NodeEditor.NodeValue sender)
         {
             MaterialNodeValue Source = (MaterialNodeValue)sender.Source;
@@ -76,14 +74,13 @@ namespace Engineer.Editor
                 Source.InputTarget = (MaterialNodeValue)sender.Input.Source;
             }
         }
-
         private void AddMaterialNode(object sender, EventArgs e)
         {
             ToolStripMenuItem Item = sender as ToolStripMenuItem;
             int Index = Convert.ToInt32(Item.Tag);
             MaterialNode NewNode = ShaderMaterialTranslator.Translator.Entries[Index].ToMaterialNode(_CurrentMaterial);
             _CurrentMaterial.Nodes.Add(NewNode);
-            UIGenerator.MaterialNodeToUI(_CurrentMaterial, NewNode, this.Editor);
+            MaterialEditorUIGenerator.MaterialNodeToUI(_CurrentMaterial, NewNode, this.Editor);
         }
     }
 }

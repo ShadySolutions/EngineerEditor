@@ -35,6 +35,7 @@ namespace Engineer.Editor
         }
         public void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
+            if (_BlockEvents) return;
             _BlockEvents = true;
             if(Message == InterfaceUpdateMessage.GameUpdated)
             {
@@ -43,10 +44,11 @@ namespace Engineer.Editor
             else if (Message == InterfaceUpdateMessage.SceneUpdated)
             {
                 GenerateEntries();
+                this.Visible = _Interface.CurrentScene == null;
             }
             _BlockEvents = false;
         }
-        //Service
+        //Services
         public void GenerateEntries()
         {
             Entries.Controls.Clear();
@@ -96,7 +98,7 @@ namespace Engineer.Editor
             if (_BlockEvents) return;
             Button CurrentButton = sender as Button;
             string ErrorString = "";
-            if (!_Interface.SelectScene((int)CurrentButton.Tag, ref ErrorString))
+            if (!_Interface.SetCurrentScene((int)CurrentButton.Tag, ref ErrorString))
             {
                 MessageBox.Show(ErrorString, "Error");
             }

@@ -22,7 +22,6 @@ namespace Engineer.Editor
     public partial class PropertiesWindow : ToolForm
     {
         private bool _BlockEvents;
-        private object _Selected;
         private SelectedObjectType _Type;
         private DockPanel _Dock;
         private Game_Interface _Interface;
@@ -47,21 +46,15 @@ namespace Engineer.Editor
         }
         private void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
+            if (_BlockEvents) return;
             _BlockEvents = true;
             if (Message == InterfaceUpdateMessage.SelectionUpdated)
             {
                 SetObject(_Interface.CurrentSelection);
             }
-            else if (Message == InterfaceUpdateMessage.SceneObjectsUpdated && _Type == SelectedObjectType.SceneObject)
-            {
-                SetSceneObject(_Interface.CurrentSceneObject);
-            }
-            else if (Message == InterfaceUpdateMessage.SceneUpdated && _Type == SelectedObjectType.Scene)
-            {
-                SetScene(_Interface.CurrentScene);
-            }
             _BlockEvents = false;
         }
+        //Services
         private void SetObject(object SelectedObject)
         {
             if(SelectedObject.GetType().IsSubclassOf(typeof(SceneObject)))
@@ -79,8 +72,7 @@ namespace Engineer.Editor
         {
             this.ContentPanel.Controls.Clear();
             if (CurrentObject == null) return;
-            Properties_SceneObject PSO = new Properties_SceneObject();
-            PSO.Init(CurrentObject);
+            Properties_SceneObject PSO = new Properties_SceneObject(_Interface, CurrentObject);
             PSO.Dock = DockStyle.Top;
             this.ContentPanel.Controls.Add(PSO);
             PSO.BringToFront();
@@ -89,15 +81,9 @@ namespace Engineer.Editor
         }
         private void SetDrawObject(SceneObject CurrentObject)
         {
-            NameLabel.Visible = true;
-            NameLabel.Text = CurrentObject.Name;
-            NameLabel.Dock = DockStyle.Top;
-            this.ContentPanel.Controls.Add(NameLabel);
-            NameLabel.SendToBack();
             if (CurrentObject.Type == SceneObjectType.DrawnSceneObject)
             {
-                Properties_DrawObject PDO = new Properties_DrawObject();
-                PDO.Init(((DrawnSceneObject)CurrentObject).Representation);
+                Properties_DrawObject PDO = new Properties_DrawObject(_Interface, ((DrawnSceneObject)CurrentObject).Representation);
                 PDO.Dock = DockStyle.Top;
                 this.ContentPanel.Controls.Add(PDO);
                 PDO.BringToFront();
@@ -105,7 +91,7 @@ namespace Engineer.Editor
                 if(((DrawnSceneObject)CurrentObject).Representation.Type == DrawObjectType.Actor)
                 {
                     Properties_Actor ActorProperties = new Properties_Actor();
-                    ActorProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Actor, _Dock, _OpenForms);
+                    //ActorProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Actor, _Dock, _OpenForms);
                     ActorProperties.Dock = DockStyle.Top;
                     this.ContentPanel.Controls.Add(ActorProperties);
                     ActorProperties.BringToFront();
@@ -122,11 +108,6 @@ namespace Engineer.Editor
         }
         private void SetScriptObject(SceneObject CurrentObject)
         {
-            NameLabel.Visible = true;
-            NameLabel.Text = CurrentObject.Name;
-            NameLabel.Dock = DockStyle.Top;
-            this.ContentPanel.Controls.Add(NameLabel);
-            NameLabel.SendToBack();
             Properties_Script ScriptProperties = new Properties_Script();
             ScriptProperties.Init(CurrentObject as ScriptSceneObject, _Dock, _OpenForms);
             ScriptProperties.Dock = DockStyle.Top;
@@ -136,13 +117,11 @@ namespace Engineer.Editor
         private void SetScene(Scene CurrentScene)
         {
             this.ContentPanel.Controls.Clear();
-            NameLabel.Visible = true;
-            NameLabel.Text = CurrentScene.Name;
-            NameLabel.Dock = DockStyle.Top;
-            this.ContentPanel.Controls.Add(NameLabel);
-            NameLabel.SendToBack();
-            Properties_Scene PSC = new Properties_Scene();
-            PSC.Init(CurrentScene);
+            if (CurrentScene == null)
+            {
+                return;
+            }
+            Properties_Scene PSC = new Properties_Scene(_Interface, CurrentScene);
             PSC.Dock = DockStyle.Top;
             this.ContentPanel.Controls.Add(PSC);
             PSC.BringToFront();

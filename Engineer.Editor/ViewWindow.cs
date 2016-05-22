@@ -16,11 +16,13 @@ using Engineer.Draw.OpenGL.GLSL;
 using Engineer.Mathematics;
 using Engineer.Data;
 using System.IO;
+using Engineer.Interface;
 
 namespace Engineer.Editor
 {
     public partial class ViewWindow : ToolForm
     {
+        private bool _BlockEvents;
         private bool _MouseDown;
         private bool _GLControlLoaded;
         private object _MouseMoved;
@@ -28,8 +30,7 @@ namespace Engineer.Editor
         private Point _CurrentPoint;
         private Vertex _OriginalTranslation;
         private Vertex _OriginalRotation;
-        private Game _CurrentGame;
-        private Scene _CurrentScene;
+        private Game_Interface _Interface;
         private DrawEngine _Engine;
         public DrawEngine Engine
         {
@@ -46,13 +47,26 @@ namespace Engineer.Editor
         public ViewWindow()
         {
             InitializeComponent();
+        }
+        public ViewWindow(Game_Interface Interface, RenderTechType RenderType)
+        {
+            InitializeComponent();
+            Init(Interface, RenderType);
+        }
+        public void Init(Game_Interface Interface, RenderTechType RenderType)
+        {
+            this._BlockEvents = false;
+            this._Interface = Interface;
+            _Interface.Update += new Engineer.Interface.InterfaceUpdate(InterfaceUpdate);
             this._MouseDown = false;
         }
-        public void SetScene(SceneType Type, Scene CurrentScene, Game CurrentGame)
+        public void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
-            this._CurrentScene = CurrentScene;
-            this._CurrentGame = CurrentGame;
+            if (_BlockEvents) return;
+            _BlockEvents = true;
+            _BlockEvents = false;
         }
+        //Events
         private void Time_Tick(object sender, EventArgs e)
         {
             GLControl_Paint(null, null);
@@ -74,15 +88,15 @@ namespace Engineer.Editor
         {
             if (!this._GLControlLoaded) return;
             GLControl.MakeCurrent();
-            if (_CurrentScene == null) return;
-            if (_CurrentScene.Type == SceneType.Scene3D)
+            if (_Interface.CurrentScene == null) return;
+            if (_Interface.CurrentScene.Type == SceneType.Scene3D)
             {
-                Engine.Draw3DScene((_CurrentScene as Scene3D), this.GLControl.Width, this.GLControl.Height);
+                Engine.Draw3DScene((_Interface.CurrentScene as Scene3D), this.GLControl.Width, this.GLControl.Height);
                 GLControl.SwapBuffers();
             }
-            else if (_CurrentScene.Type == SceneType.Scene2D)
+            else if (_Interface.CurrentScene.Type == SceneType.Scene2D)
             {
-                Engine.Draw2DScene((_CurrentScene as Scene2D), this.GLControl.Width, this.GLControl.Height);
+                Engine.Draw2DScene((_Interface.CurrentScene as Scene2D), this.GLControl.Width, this.GLControl.Height);
                 GLControl.SwapBuffers();
             }
         }
@@ -92,13 +106,14 @@ namespace Engineer.Editor
         }
         private void GLControl_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_CurrentScene.Type == SceneType.Scene2D)
+            if (_BlockEvents) return;
+            if (_Interface.CurrentScene.Type == SceneType.Scene2D)
             {
                 this._MouseDown = true;
                 this._OriginalPoint = e.Location;
-                Vertex Translation = (this._CurrentScene as Scene2D).Transformation.Translation;
+                Vertex Translation = (_Interface.CurrentScene as Scene2D).Transformation.Translation;
                 this._OriginalTranslation = new Vertex(Translation.X, Translation.Y, Translation.Z);
-                List<Sprite> Sprites = (this._CurrentScene as Scene2D).Sprites;
+                List<Sprite> Sprites = (_Interface.CurrentScene as Scene2D).Sprites;
                 _MouseMoved = null;
                 for (int i = Sprites.Count - 1; i >= 0; i--)
                 {
@@ -114,18 +129,19 @@ namespace Engineer.Editor
                     }
                 }
             }
-            else if (_CurrentScene.Type == SceneType.Scene3D)
+            else if (_Interface.CurrentScene.Type == SceneType.Scene3D)
             {
                 this._MouseDown = true;
                 this._OriginalPoint = e.Location;
-                this._OriginalTranslation = (_CurrentScene as Scene3D).EditorCamera.Translation;
-                this._OriginalRotation = (_CurrentScene as Scene3D).EditorCamera.Rotation;
+                this._OriginalTranslation = (_Interface.CurrentScene as Scene3D).EditorCamera.Translation;
+                this._OriginalRotation = (_Interface.CurrentScene as Scene3D).EditorCamera.Rotation;
                 _MouseMoved = null;
             }
         }
         private void GLControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_CurrentScene.Type == SceneType.Scene2D)
+            if (_BlockEvents) return;
+            if (_Interface.CurrentScene.Type == SceneType.Scene2D)
             {
                 if (this._MouseDown)
                 {
@@ -134,45 +150,49 @@ namespace Engineer.Editor
                     float YIntensity = this._CurrentPoint.Y - this._OriginalPoint.Y;
                     if (_MouseMoved == null)
                     {
-                        (this._CurrentScene as Scene2D).Transformation.Translation = new Vertex(this._OriginalTranslation.X + XIntensity, this._OriginalTranslation.Y + YIntensity, 0);
+                        (_Interface.CurrentScene as Scene2D).Transformation.Translation = new Vertex(this._OriginalTranslation.X + XIntensity, this._OriginalTranslation.Y + YIntensity, 0);
                     }
                     else
                     {
                         Sprite CurrentSprite = _MouseMoved as Sprite;
                         CurrentSprite.Translation = new Vertex(this._OriginalTranslation.X + XIntensity, this._OriginalTranslation.Y + YIntensity, this._OriginalTranslation.Z);
+                        _Interface.ForceUpdate(InterfaceUpdateMessage.SceneObjectsUpdated);
                     }
                 }
             }
-            else if (_CurrentScene.Type == SceneType.Scene3D)
+            else if (_Interface.CurrentScene.Type == SceneType.Scene3D)
             {
                 if (this._MouseDown)
                 {
                     this._CurrentPoint = e.Location;
                     float XIntensity = this._CurrentPoint.X - this._OriginalPoint.X;
                     float YIntensity = this._CurrentPoint.Y - this._OriginalPoint.Y;
-                    (_CurrentScene as Scene3D).EditorCamera.Rotation = new Vertex(this._OriginalRotation.X, this._OriginalRotation.Y + XIntensity, this._OriginalRotation.Z);
-                    (_CurrentScene as Scene3D).EditorCamera.Translation = MatrixTransformer.TransformVertex(MatrixTransformer.MTRotate(1, XIntensity), this._OriginalTranslation);
+                    (_Interface.CurrentScene as Scene3D).EditorCamera.Rotation = new Vertex(this._OriginalRotation.X, this._OriginalRotation.Y + XIntensity, this._OriginalRotation.Z);
+                    (_Interface.CurrentScene as Scene3D).EditorCamera.Translation = MatrixTransformer.TransformVertex(MatrixTransformer.MTRotate(1, XIntensity), this._OriginalTranslation);
                 }
             }
         }
         private void GLControl_MouseUp(object sender, MouseEventArgs e)
         {
-            if (_CurrentScene.Type == SceneType.Scene2D)
+            if (_BlockEvents) return;
+            if (_Interface.CurrentScene.Type == SceneType.Scene2D)
             {
                 this._MouseDown = false;
             }
-            else if (_CurrentScene.Type == SceneType.Scene3D)
+            else if (_Interface.CurrentScene.Type == SceneType.Scene3D)
             {
                 this._MouseDown = false;
             }
         }
         private void GLControl_DragEnter(object sender, DragEventArgs e)
         {
+            if (_BlockEvents) return;
             e.Effect = DragDropEffects.Copy;
         }
         private void GLControl_DragDrop(object sender, DragEventArgs e)
         {
-            if(e.Data!=null)
+            if (_BlockEvents) return;
+            if (e.Data!=null)
             {
                 object LVData = e.Data.GetData("System.Windows.Forms.ListView+SelectedListViewItemCollection");
                 ListView.SelectedListViewItemCollection Collection = (ListView.SelectedListViewItemCollection)LVData;
@@ -183,16 +203,24 @@ namespace Engineer.Editor
                     {
                         int Index = (int)Info[1];
                         SceneObject New = null;
-                        if (_CurrentGame.Assets[Index].Type == SceneObjectType.DrawnSceneObject) New = new DrawnSceneObject((DrawnSceneObject)_CurrentGame.Assets[Index], _CurrentScene);
-                        else if (_CurrentGame.Assets[Index].Type == SceneObjectType.ScriptSceneObject) New = new ScriptSceneObject((ScriptSceneObject)_CurrentGame.Assets[Index], _CurrentScene);
-                        if (New != null) _CurrentScene.Objects.Add(New);
+                        if (_Interface.CurrentGame.Assets[Index].Type == SceneObjectType.DrawnSceneObject) New = new DrawnSceneObject((DrawnSceneObject)_Interface.CurrentGame.Assets[Index], _Interface.CurrentScene);
+                        else if (_Interface.CurrentGame.Assets[Index].Type == SceneObjectType.ScriptSceneObject) New = new ScriptSceneObject((ScriptSceneObject)_Interface.CurrentGame.Assets[Index], _Interface.CurrentScene);
+                        if (New != null)
+                        {
+                            _Interface.CurrentScene.Objects.Add(New);
+                            _Interface.ForceUpdate(InterfaceUpdateMessage.SceneObjectsUpdated);
+                        }
                         else MessageBox.Show("File type not supported for this scene type", "Not Supported");
                     }
                     if (Info[0].ToString() == "Library")
                     {
                         string Path = (string)Info[1];
-                        SceneObject New = SceneObject.FromFile(Path, _CurrentScene);
-                        if (New != null) _CurrentScene.Objects.Add(New);
+                        SceneObject New = SceneObject.FromFile(Path, _Interface.CurrentScene);
+                        if (New != null)
+                        {
+                            _Interface.CurrentScene.Objects.Add(New);
+                            _Interface.ForceUpdate(InterfaceUpdateMessage.SceneObjectsUpdated);
+                        }
                         else MessageBox.Show("File type not supported for this scene type","Not Supported");
                     }
                 }

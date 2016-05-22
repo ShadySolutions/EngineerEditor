@@ -1,13 +1,13 @@
 ﻿namespace Engineer.Editor
 {
-    partial class PropertiesWindow
+    partial class PropertiesInput_Label
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,35 +20,40 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
+            this.ValueLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // ContentPanel
+            // ValueLabel
             // 
-            this.ContentPanel.AutoScroll = true;
+            this.ValueLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ValueLabel.ForeColor = System.Drawing.Color.White;
+            this.ValueLabel.Location = new System.Drawing.Point(100, 0);
+            this.ValueLabel.Name = "ValueLabel";
+            this.ValueLabel.Size = new System.Drawing.Size(200, 30);
+            this.ValueLabel.TabIndex = 9;
+            this.ValueLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // PropertiesWindow
+            // PropertiesInput_Label
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 400);
-            this.CloseVisible = true;
-            this.ControlsVisible = true;
-            this.MaximiseVisible = true;
-            this.Name = "PropertiesWindow";
-            this.Text = "Properties";
-            this.Title = "Properties";
+            this.Controls.Add(this.ValueLabel);
+            this.Name = "PropertiesInput_Label";
+            this.Controls.SetChildIndex(this.ValueLabel, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label ValueLabel;
     }
 }

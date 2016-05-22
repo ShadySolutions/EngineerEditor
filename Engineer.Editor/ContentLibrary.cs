@@ -29,9 +29,10 @@ namespace Engineer.Editor
         {
             InitializeComponent();
         }
-        public ContentLibrary(Game CurrentGame, string FileRoot)
+        public ContentLibrary(Game_Interface Interface, string FileRoot)
         {
             InitializeComponent();
+            Init(Interface, FileRoot);
         }
         public void Init(Game_Interface Interface, string FileRoot)
         {
@@ -43,6 +44,7 @@ namespace Engineer.Editor
         }
         private void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
+            if (_BlockEvents) return;
             _BlockEvents = true;
             if (Message == InterfaceUpdateMessage.LibraryUpdated)
             {
@@ -54,7 +56,7 @@ namespace Engineer.Editor
             }
             _BlockEvents = false;
         }
-        //Service
+        //Services
         private void SetLibraryView(LibraryViewType Type)
         {
             if (Type == LibraryViewType.Library)
@@ -233,10 +235,5 @@ namespace Engineer.Editor
             if (_BlockEvents) return;
             FileList.DoDragDrop(FileList.SelectedItems, DragDropEffects.Copy);
         }
-    }
-    public enum ContentLibraryType
-    {
-        Content = 0,
-        Assets = 1
     }
 }

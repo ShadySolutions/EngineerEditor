@@ -31,11 +31,34 @@ namespace Engineer.Editor
         public void Init(Game_Interface Interface, PropertiesWindow Properties)
         {
             this._Interface = Interface;
+            _Interface.Update += new Engineer.Interface.InterfaceUpdate(InterfaceUpdate);
             this._Properties = Properties;
             AssembleTree();
         }
+        private void InterfaceUpdate(InterfaceUpdateMessage Message)
+        {
+            if (_BlockEvents) return;
+            _BlockEvents = true;
+            if (Message == InterfaceUpdateMessage.SelectionUpdated)
+            {
+                RefreshSelection();
+            }
+            else if (Message == InterfaceUpdateMessage.SceneUpdated)
+            {
+                AssembleTree();
+                RefreshSelection();
+            }
+            else if (Message == InterfaceUpdateMessage.SceneObjectsUpdated)
+            {
+                AssembleTree();
+                RefreshSelection();
+            }
+            _BlockEvents = false;
+        }
+        //Services
         private void AssembleTree()
         {
+            if (_Interface.CurrentScene == null) return;
             Scene CurrentScene = this._Interface.CurrentScene;
             TreeNode SceneNode = new TreeNode(CurrentScene.Name, 0, 0);
             this._SceneNode = SceneNode;
@@ -85,20 +108,23 @@ namespace Engineer.Editor
         }
         private void RefreshSelection()
         {
+            if (SceneTree.Nodes.Count == 0) return;
             TreeNode SceneNode = SceneTree.Nodes[0];
             if (_Interface.CurrentSceneObject != null)
             {
                 for (int i = 0; i < SceneNode.Nodes.Count; i++)
                 {
                     object[] Tags = (object[])SceneNode.Nodes[i].Tag;
-                    string ID = (string)Tags[i];
+                    string ID = (string)Tags[2];
                     if (ID == _Interface.CurrentSceneObject.ID) SceneTree.SelectedNode = SceneNode.Nodes[i];
                 }
             }
             else if (_Interface.CurrentSelection != null) SceneTree.SelectedNode = SceneNode;
         }
+        //Events
         private void SceneTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (_BlockEvents) return;
             if(SceneTree.SelectedNode != null)
             {
                 if (SceneTree.Nodes[0] == SceneTree.SelectedNode)
@@ -113,6 +139,7 @@ namespace Engineer.Editor
                         if (_Interface.CurrentScene.Objects[i].ID == ((object[])SceneTree.SelectedNode.Tag)[2].ToString())
                         {
                             _Interface.CurrentSceneObject = _Interface.CurrentScene.Objects[i];
+                            _Interface.CurrentSelection = _Interface.CurrentScene.Objects[i];
                         }
                     }
                     DrawObjectType Type = (DrawObjectType)((object[])SceneTree.SelectedNode.Tag)[0];
@@ -129,41 +156,6 @@ namespace Engineer.Editor
             {
                 SetAsCurrentToolStripMenuItem.Visible = false;
                 deleteToolStripMenuItem.Visible = false;
-            }
-        }
-        private void SetAsCurrentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (_Interface.CurrentScene.Type == SceneType.Scene3D)
-            {
-                Scene3D Current3DScene = this._CurrentScene as Scene3D;
-                if (SceneTree.SelectedNode == null) return;
-                for (int i = 0; i < Current3DScene.Objects.Count; i++)
-                {
-                    if(Current3DScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)Current3DScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
-                    {
-                        if(Current3DScene.Objects[i].ID == ((object[])SceneTree.SelectedNode.Tag)[1].ToString())
-                        {
-                            Current3DScene.EditorCamera = new Camera(((DrawnSceneObject)Current3DScene.Objects[i]).Representation as Camera);
-                        }
-                    }
-                }
-            }
-        }
-        private void PropertiesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (SceneTree.SelectedNode == null) return;
-            if (SceneTree.SelectedNode == this._SceneNode)
-            {
-                this._Properties.SetScene(this._CurrentScene);
-                return;
-            }
-            for (int i = 0; i < this._CurrentScene.Objects.Count; i++)
-            {
-                if (((object[])SceneTree.SelectedNode.Tag)[2].ToString() == this._CurrentScene.Objects[i].ID)
-                {
-                    if((SceneObjectType)((object[])SceneTree.SelectedNode.Tag)[0] == SceneObjectType.DrawnSceneObject) this._Properties.SetSceneObject(this._CurrentScene.Objects[i]);
-                    else if ((SceneObjectType)((object[])SceneTree.SelectedNode.Tag)[0] == SceneObjectType.ScriptSceneObject) this._Properties.SetSceneObject(this._CurrentScene.Objects[i]);
-                }
             }
         }
     }

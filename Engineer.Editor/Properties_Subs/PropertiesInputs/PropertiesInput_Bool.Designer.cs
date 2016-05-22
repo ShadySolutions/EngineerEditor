@@ -1,13 +1,13 @@
 ﻿namespace Engineer.Editor
 {
-    partial class PropertiesWindow
+    partial class PropertiesInput_Bool
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,35 +20,41 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
+            this.ValueCheck = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // ContentPanel
+            // ValueCheck
             // 
-            this.ContentPanel.AutoScroll = true;
+            this.ValueCheck.AutoSize = true;
+            this.ValueCheck.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ValueCheck.Location = new System.Drawing.Point(100, 16);
+            this.ValueCheck.Name = "ValueCheck";
+            this.ValueCheck.Size = new System.Drawing.Size(200, 14);
+            this.ValueCheck.TabIndex = 9;
+            this.ValueCheck.UseVisualStyleBackColor = true;
             // 
-            // PropertiesWindow
+            // PropertiesInput_Bool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 400);
-            this.CloseVisible = true;
-            this.ControlsVisible = true;
-            this.MaximiseVisible = true;
-            this.Name = "PropertiesWindow";
-            this.Text = "Properties";
-            this.Title = "Properties";
+            this.Controls.Add(this.ValueCheck);
+            this.Name = "PropertiesInput_Bool";
+            this.Controls.SetChildIndex(this.ValueCheck, 0);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.CheckBox ValueCheck;
     }
 }

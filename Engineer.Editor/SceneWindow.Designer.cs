@@ -78,7 +78,6 @@
             this.SetAsCurrentToolStripMenuItem.Name = "SetAsCurrentToolStripMenuItem";
             this.SetAsCurrentToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.SetAsCurrentToolStripMenuItem.Text = "Set as Current";
-            this.SetAsCurrentToolStripMenuItem.Click += new System.EventHandler(this.SetAsCurrentToolStripMenuItem_Click);
             // 
             // PropertiesToolStripMenuItem1
             // 
@@ -87,7 +86,6 @@
             this.PropertiesToolStripMenuItem1.Name = "PropertiesToolStripMenuItem1";
             this.PropertiesToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.PropertiesToolStripMenuItem1.Text = "Properties";
-            this.PropertiesToolStripMenuItem1.Click += new System.EventHandler(this.PropertiesToolStripMenuItem1_Click);
             // 
             // deleteToolStripMenuItem
             // 
@@ -115,7 +113,6 @@
             // 
             this.RefreshView.Enabled = true;
             this.RefreshView.Interval = 1000;
-            this.RefreshView.Tick += new System.EventHandler(this.RefreshView_Tick);
             // 
             // SceneWindow
             // 

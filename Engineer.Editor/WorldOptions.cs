@@ -1,4 +1,5 @@
 ﻿using Engineer.Engine;
+using Engineer.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,46 +13,34 @@ using TakeOne.WindowSuite;
 
 namespace Engineer.Editor
 {
-    public delegate void AddToSceeneEventHandler(int Index);
     public partial class WorldOptions : ToolForm
     {
-        public int _FilterType;
-        public SceneType _Type;
-        public event AddToSceeneEventHandler AddItem;
-        public WorldOptions()
+        private bool _BlockEvents;
+        private int _FilterType;
+        private SceneType _Type;
+        private Game_Interface _Interface;
+        public WorldOptions(Game_Interface Interface)
         {
             InitializeComponent();
-            AddItem = new AddToSceeneEventHandler(OnAddItem);
+            Init(Interface);
+        }
+        public void Init(Game_Interface Interface)
+        {
+            this._Interface = Interface;
+            _Interface.Update += new Engineer.Interface.InterfaceUpdate(InterfaceUpdate);
+            this._BlockEvents = false;
             this._FilterType = 1;
             this._Type = SceneType.Scene2D;
             UpdateColors(1);
             UpdateVisibleOptions();
         }
-        private void OnAddItem(int Index)
+        public void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
+            if (_BlockEvents) return;
+            _BlockEvents = true;
+            _BlockEvents = false;
         }
-        private void Floor_MouseEnter(object sender, EventArgs e)
-        {
-            Button CurrentButton = sender as Button;
-            CurrentButton.BackColor = Color.FromArgb(50,50,50);
-        }
-        private void Floor_MouseLeave(object sender, EventArgs e)
-        {
-            Button CurrentButton = sender as Button;
-            CurrentButton.BackColor = Color.FromArgb(20, 20, 20);
-        }
-        private void Floor_Click(object sender, EventArgs e)
-        {
-            Button CurrentButton = sender as Button;
-            int Index = Convert.ToInt32(CurrentButton.Tag);
-            AddItem.Invoke(Index);
-        }
-        public void UpdateSceneType(SceneType Type)
-        {
-            this._Type = Type;
-            this._FilterType = 0;
-            UpdateVisibleOptions();
-        }
+        //Services
         private void UpdateColors(int Index)
         {
             All.BackColor = Color.FromArgb(30, 30, 30);
@@ -60,7 +49,7 @@ namespace Engineer.Editor
             Cameras.BackColor = Color.FromArgb(30, 30, 30);
             Lights.BackColor = Color.FromArgb(30, 30, 30);
             Events.BackColor = Color.FromArgb(30, 30, 30);
-            if (Index == 0) All.BackColor = Color.FromArgb(20,20,20);
+            if (Index == 0) All.BackColor = Color.FromArgb(20, 20, 20);
             else if (Index == 1) Primitives.BackColor = Color.FromArgb(20, 20, 20);
             else if (Index == 2) Characters.BackColor = Color.FromArgb(20, 20, 20);
             else if (Index == 3) Cameras.BackColor = Color.FromArgb(20, 20, 20);
@@ -133,9 +122,37 @@ namespace Engineer.Editor
                 }
             }
         }
-
+        //Events
+        private void Floor_MouseEnter(object sender, EventArgs e)
+        {
+            if (_BlockEvents) return;
+            Button CurrentButton = sender as Button;
+            CurrentButton.BackColor = Color.FromArgb(50,50,50);
+        }
+        private void Floor_MouseLeave(object sender, EventArgs e)
+        {
+            if (_BlockEvents) return;
+            Button CurrentButton = sender as Button;
+            CurrentButton.BackColor = Color.FromArgb(20, 20, 20);
+        }
+        private void Floor_Click(object sender, EventArgs e)
+        {
+            if (_BlockEvents) return;
+            Button CurrentButton = sender as Button;
+            int Index = Convert.ToInt32(CurrentButton.Tag);
+            string ErrorString = "";
+            _Interface.AddSceneItem((GenericSceneObjectType)Index, ref ErrorString);
+        }
+        public void UpdateSceneType(SceneType Type)
+        {
+            if (_BlockEvents) return;
+            this._Type = Type;
+            this._FilterType = 0;
+            UpdateVisibleOptions();
+        }
         private void All_Click(object sender, EventArgs e)
         {
+            if (_BlockEvents) return;
             Button Current = sender as Button;
             int Index = Convert.ToInt32(Current.Tag);
             this._FilterType = Index;

@@ -10,7 +10,7 @@ using System.Drawing;
 
 namespace Engineer.Editor
 {
-    public class UIGenerator
+    public class MaterialEditorUIGenerator
     {
         public static void MaterialToUI(Material Mat, NodeEditor Editor)
         {

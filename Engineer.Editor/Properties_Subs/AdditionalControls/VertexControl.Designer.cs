@@ -44,6 +44,16 @@
             this.X.Dock = System.Windows.Forms.DockStyle.Left;
             this.X.ForeColor = System.Drawing.Color.White;
             this.X.Location = new System.Drawing.Point(0, 0);
+            this.X.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.X.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
             this.X.Name = "X";
             this.X.Size = new System.Drawing.Size(120, 16);
             this.X.TabIndex = 0;
@@ -57,6 +67,16 @@
             this.Z.Dock = System.Windows.Forms.DockStyle.Right;
             this.Z.ForeColor = System.Drawing.Color.White;
             this.Z.Location = new System.Drawing.Point(240, 0);
+            this.Z.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.Z.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
             this.Z.Name = "Z";
             this.Z.Size = new System.Drawing.Size(120, 16);
             this.Z.TabIndex = 1;
@@ -70,6 +90,16 @@
             this.Y.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Y.ForeColor = System.Drawing.Color.White;
             this.Y.Location = new System.Drawing.Point(120, 0);
+            this.Y.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.Y.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
             this.Y.Name = "Y";
             this.Y.Size = new System.Drawing.Size(120, 16);
             this.Y.TabIndex = 2;

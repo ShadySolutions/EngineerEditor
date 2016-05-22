@@ -1,13 +1,13 @@
 ﻿namespace Engineer.Editor
 {
-    partial class PropertiesWindow
+    partial class PropertiesInput_Vertex
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,35 +20,38 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
+            this.ValueVertex = new Engineer.Editor.VertexControl();
             this.SuspendLayout();
             // 
-            // ContentPanel
+            // ValueVertex
             // 
-            this.ContentPanel.AutoScroll = true;
+            this.ValueVertex.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ValueVertex.Location = new System.Drawing.Point(100, 14);
+            this.ValueVertex.Name = "ValueVertex";
+            this.ValueVertex.Size = new System.Drawing.Size(200, 16);
+            this.ValueVertex.TabIndex = 9;
             // 
-            // PropertiesWindow
+            // PropertiesInput_Vertex
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 400);
-            this.CloseVisible = true;
-            this.ControlsVisible = true;
-            this.MaximiseVisible = true;
-            this.Name = "PropertiesWindow";
-            this.Text = "Properties";
-            this.Title = "Properties";
+            this.Controls.Add(this.ValueVertex);
+            this.Name = "PropertiesInput_Vertex";
+            this.Controls.SetChildIndex(this.ValueVertex, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private VertexControl ValueVertex;
     }
 }

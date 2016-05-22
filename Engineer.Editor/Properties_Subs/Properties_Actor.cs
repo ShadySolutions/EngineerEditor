@@ -21,15 +21,22 @@ namespace Engineer.Editor
         private int _TotalHeight;
         private DockPanel _Dock;
         private Actor _CurrentActor;
+        private Game_Interface _Interface;
         private List<ToolForm> _OpenForms;
         public Properties_Actor()
         {
             InitializeComponent();
             this._Toggled = true;
         }
-        public void Init(Actor CurrentActor, DockPanel Dock, List<ToolForm> OpenForms)
+        public Properties_Actor(Game_Interface Interface, Actor CurrentActor, DockPanel Dock, List<ToolForm> OpenForms)
         {
             InitializeComponent();
+            Init(Interface, CurrentActor, Dock, OpenForms);
+        }
+        public void Init(Game_Interface Interface, Actor CurrentActor, DockPanel Dock, List<ToolForm> OpenForms)
+        {
+            InitializeComponent();
+            this._Toggled = true;
             this.Margin = new Padding(10, 0, 0, 0);
             this._Dock = Dock;
             this._OpenForms = OpenForms;
@@ -62,12 +69,6 @@ namespace Engineer.Editor
                 this.Controls.Add(NewPanel);
             }
             this._TotalHeight = 62 + CurrentActor.Materials.Count * 30;
-        }
-        private void InterfaceUpdate(InterfaceUpdateMessage Message)
-        {
-            _BlockEvents = true;
-
-            _BlockEvents = false;
         }
         public void EditMaterial(object sender, EventArgs e)
         {
