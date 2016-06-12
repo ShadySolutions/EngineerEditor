@@ -25,6 +25,7 @@ namespace Engineer.Runner
         private bool _GameInit;
         private bool _EngineInit;
         private Timer _Time;
+        private EventManager _Events;
         private Scene _CurrentScene;
         private Game _CurrentGame;
         private DrawEngine _Engine;
@@ -63,6 +64,11 @@ namespace Engineer.Runner
             this.MouseUp += new EventHandler<MouseButtonEventArgs>(Event_MouseUp);
             this.MouseMove += new EventHandler<MouseMoveEventArgs>(Event_MouseMove);
             this.MouseWheel += new EventHandler<MouseWheelEventArgs>(Event_MouseWheel);
+            _Events = new EventManager();
+            for (int i = 0; i < CurrentScene.Events.EventList.Count; i++)
+            {
+                _Events.AddEvents(CurrentScene.Events.EventList[i].ID, CurrentScene.Events.EventList[i].Events);
+            }
             this._Time.Enabled = true;
             Event_Load();
         }
@@ -87,7 +93,7 @@ namespace Engineer.Runner
         private void Event_Closing(object sender, EventArgs e)
         {
             EventArguments Arguments = new EventArguments();
-            CallEvents("Closing", _CurrentScene.Events.Events("Closing"), Arguments);
+            CallEvents("Closing", Arguments);
         }
         private void Event_KeyDown(object sender, KeyboardKeyEventArgs e)
         {
@@ -96,7 +102,7 @@ namespace Engineer.Runner
             Arguments.Control = e.Control;
             Arguments.Alt = e.Alt;
             Arguments.Shift = e.Shift;
-            CallEvents("KeyDown", _CurrentScene.Events.Events("KeyDown"), Arguments);
+            CallEvents("KeyDown", Arguments);
         }
         private void Event_KeyUp(object sender, KeyboardKeyEventArgs e)
         {
@@ -105,7 +111,7 @@ namespace Engineer.Runner
             Arguments.Control = e.Control;
             Arguments.Alt = e.Alt;
             Arguments.Shift = e.Shift;
-            CallEvents("KeyUp", _CurrentScene.Events.Events("KeyUp"), Arguments);
+            CallEvents("KeyUp", Arguments);
         }
         private void Event_KeyPress(object sender, KeyboardKeyEventArgs e)
         {
@@ -114,51 +120,51 @@ namespace Engineer.Runner
             Arguments.Control = e.Control;
             Arguments.Alt = e.Alt;
             Arguments.Shift = e.Shift;
-            CallEvents("KeyPress", _CurrentScene.Events.Events("KeyPress"), Arguments);
+            CallEvents("KeyPress", Arguments);
         }
         private void Event_Load()
         {
             EventArguments Arguments = new EventArguments();
-            CallEvents("Load", _CurrentScene.Events.Events("Load"), Arguments);
+            CallEvents("Load", Arguments);
         }
         private void Event_MouseDown(object sender, MouseButtonEventArgs e)
         {
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
             Arguments.ButtonDown = (MouseClickType)e.Button;
-            CallEvents("MouseDown", _CurrentScene.Events.Events("MouseDown"), Arguments);
+            CallEvents("MouseDown", Arguments);
         }
         private void Event_MouseUp(object sender, MouseButtonEventArgs e)
         {
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
             Arguments.ButtonDown = (MouseClickType)e.Button;
-            CallEvents("MouseUp", _CurrentScene.Events.Events("MouseUp"), Arguments);
+            CallEvents("MouseUp", Arguments);
         }
         private void Event_MouseClick(object sender, MouseButtonEventArgs e)
         {
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
             Arguments.ButtonDown = (MouseClickType)e.Button;
-            CallEvents("MouseClick", _CurrentScene.Events.Events("MouseClick"), Arguments);
+            CallEvents("MouseClick", Arguments);
         }
         private void Event_MouseMove(object sender, MouseMoveEventArgs e)
         {
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
-            CallEvents("MouseMove", _CurrentScene.Events.Events("MouseMove"), Arguments);
+            CallEvents("MouseMove", Arguments);
         }
         private void Event_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
             Arguments.Delta = e.Delta;
-            CallEvents("MouseWheel", _CurrentScene.Events.Events("MouseWheel"), Arguments);
+            CallEvents("MouseWheel", Arguments);
         }
         private void Event_RenderFrame(object sender, EventArgs e)
         {
             EventArguments Arguments = new EventArguments();
-            CallEvents("RenderFrame", _CurrentScene.Events.Events("RenderFrame"), Arguments);
+            CallEvents("RenderFrame", Arguments);
         }
         private void Event_TimerTick(object sender, ElapsedEventArgs e)
         {
@@ -171,31 +177,11 @@ namespace Engineer.Runner
                 } 
             }
             EventArguments Arguments = new EventArguments();
-            CallEvents("TimerTick", _CurrentScene.Events.Events("TimerTick"), Arguments);
+            CallEvents("TimerTick", Arguments);
         }
-        private void CallEvents(string EventName, List<ScriptSceneObject> Events, EventArguments Args)
+        private void CallEvents(string EventName, EventArguments Args)
         {
-            for (int i = 0; i < Events.Count; i++)
-            {
-                dynamic Script = CSScript.Evaluator.LoadCode(Events[i].Script);
-                Script.Invoke(EventName, _CurrentScene, Args);
-                //Script.Load(_CurrentGame, Args);
-                /*try
-                {
-                    
-                }
-                catch (Exception ex)
-                {
-                    string ErrorString = "";
-                    if (ex.InnerException != null)
-                    {
-                        ErrorString = ex.InnerException.ToString();
-                    }
-                    else ErrorString = ex.Message;
-                    if(ErrorString == "") Console.WriteLine(Events[i].Name + " FAILED!");
-                    else Console.WriteLine(Events[i].Name + " FAILED!\n"+ErrorString);
-                }*/
-            }
+            _Events.Run(EventName, _CurrentGame, Args);
         }
     }
 }

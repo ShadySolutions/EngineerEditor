@@ -32,28 +32,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.emptyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eventToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.standardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.formToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.onEverySecondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renderFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keyboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keyPressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keyDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keyUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mouseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mousePressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mouseMoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mouseDownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mouseUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mouseWheelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eventToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eventToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -106,186 +87,11 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.newToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.emptyToolStripMenuItem,
-            this.standardToolStripMenuItem,
-            this.eventToolStripMenuItem});
             this.newToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "New";
-            // 
-            // emptyToolStripMenuItem
-            // 
-            this.emptyToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.emptyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.emptyToolStripMenuItem.Name = "emptyToolStripMenuItem";
-            this.emptyToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.emptyToolStripMenuItem.Text = "Empty";
-            // 
-            // standardToolStripMenuItem
-            // 
-            this.standardToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.standardToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
-            this.standardToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.standardToolStripMenuItem.Text = "Standard";
-            // 
-            // eventToolStripMenuItem
-            // 
-            this.eventToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.eventToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.standardToolStripMenuItem1,
-            this.formToolStripMenuItem,
-            this.keyboardToolStripMenuItem,
-            this.mouseToolStripMenuItem});
-            this.eventToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.eventToolStripMenuItem.Name = "eventToolStripMenuItem";
-            this.eventToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.eventToolStripMenuItem.Text = "Event";
-            // 
-            // standardToolStripMenuItem1
-            // 
-            this.standardToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.standardToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
-            this.standardToolStripMenuItem1.Name = "standardToolStripMenuItem1";
-            this.standardToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
-            this.standardToolStripMenuItem1.Text = "Standard";
-            // 
-            // formToolStripMenuItem
-            // 
-            this.formToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.formToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadToolStripMenuItem,
-            this.closingToolStripMenuItem,
-            this.onEverySecondToolStripMenuItem,
-            this.renderFrameToolStripMenuItem});
-            this.formToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.formToolStripMenuItem.Name = "formToolStripMenuItem";
-            this.formToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.formToolStripMenuItem.Text = "Window";
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.loadToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.loadToolStripMenuItem.Text = "Load";
-            // 
-            // closingToolStripMenuItem
-            // 
-            this.closingToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.closingToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.closingToolStripMenuItem.Name = "closingToolStripMenuItem";
-            this.closingToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.closingToolStripMenuItem.Text = "Closing";
-            // 
-            // onEverySecondToolStripMenuItem
-            // 
-            this.onEverySecondToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.onEverySecondToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.onEverySecondToolStripMenuItem.Name = "onEverySecondToolStripMenuItem";
-            this.onEverySecondToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.onEverySecondToolStripMenuItem.Text = "OnEverySecond";
-            // 
-            // renderFrameToolStripMenuItem
-            // 
-            this.renderFrameToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.renderFrameToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.renderFrameToolStripMenuItem.Name = "renderFrameToolStripMenuItem";
-            this.renderFrameToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.renderFrameToolStripMenuItem.Text = "OnRenderFrame";
-            // 
-            // keyboardToolStripMenuItem
-            // 
-            this.keyboardToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.keyboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.keyPressToolStripMenuItem,
-            this.keyDownToolStripMenuItem,
-            this.keyUpToolStripMenuItem});
-            this.keyboardToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.keyboardToolStripMenuItem.Name = "keyboardToolStripMenuItem";
-            this.keyboardToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.keyboardToolStripMenuItem.Text = "Keyboard";
-            // 
-            // keyPressToolStripMenuItem
-            // 
-            this.keyPressToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.keyPressToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.keyPressToolStripMenuItem.Name = "keyPressToolStripMenuItem";
-            this.keyPressToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.keyPressToolStripMenuItem.Text = "KeyPress";
-            // 
-            // keyDownToolStripMenuItem
-            // 
-            this.keyDownToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.keyDownToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.keyDownToolStripMenuItem.Name = "keyDownToolStripMenuItem";
-            this.keyDownToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.keyDownToolStripMenuItem.Text = "KeyDown";
-            // 
-            // keyUpToolStripMenuItem
-            // 
-            this.keyUpToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.keyUpToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.keyUpToolStripMenuItem.Name = "keyUpToolStripMenuItem";
-            this.keyUpToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.keyUpToolStripMenuItem.Text = "KeyUp";
-            // 
-            // mouseToolStripMenuItem
-            // 
-            this.mouseToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.mouseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mousePressToolStripMenuItem,
-            this.mouseMoveToolStripMenuItem,
-            this.mouseDownToolStripMenuItem,
-            this.mouseUpToolStripMenuItem,
-            this.mouseWheelToolStripMenuItem});
-            this.mouseToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.mouseToolStripMenuItem.Name = "mouseToolStripMenuItem";
-            this.mouseToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.mouseToolStripMenuItem.Text = "Mouse";
-            // 
-            // mousePressToolStripMenuItem
-            // 
-            this.mousePressToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.mousePressToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.mousePressToolStripMenuItem.Name = "mousePressToolStripMenuItem";
-            this.mousePressToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.mousePressToolStripMenuItem.Text = "MousePress";
-            // 
-            // mouseMoveToolStripMenuItem
-            // 
-            this.mouseMoveToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.mouseMoveToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.mouseMoveToolStripMenuItem.Name = "mouseMoveToolStripMenuItem";
-            this.mouseMoveToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.mouseMoveToolStripMenuItem.Text = "MouseMove";
-            // 
-            // mouseDownToolStripMenuItem
-            // 
-            this.mouseDownToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.mouseDownToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.mouseDownToolStripMenuItem.Name = "mouseDownToolStripMenuItem";
-            this.mouseDownToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.mouseDownToolStripMenuItem.Text = "MouseDown";
-            // 
-            // mouseUpToolStripMenuItem
-            // 
-            this.mouseUpToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.mouseUpToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.mouseUpToolStripMenuItem.Name = "mouseUpToolStripMenuItem";
-            this.mouseUpToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.mouseUpToolStripMenuItem.Text = "MouseUp";
-            // 
-            // mouseWheelToolStripMenuItem
-            // 
-            this.mouseWheelToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.mouseWheelToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.mouseWheelToolStripMenuItem.Name = "mouseWheelToolStripMenuItem";
-            this.mouseWheelToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.mouseWheelToolStripMenuItem.Text = "MouseWheel";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -296,13 +102,6 @@
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // eventToolStripMenuItem1
-            // 
-            this.eventToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
-            this.eventToolStripMenuItem1.Name = "eventToolStripMenuItem1";
-            this.eventToolStripMenuItem1.Size = new System.Drawing.Size(48, 20);
-            this.eventToolStripMenuItem1.Text = "Event";
-            // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
@@ -311,6 +110,13 @@
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
+            // eventToolStripMenuItem1
+            // 
+            this.eventToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
+            this.eventToolStripMenuItem1.Name = "eventToolStripMenuItem1";
+            this.eventToolStripMenuItem1.Size = new System.Drawing.Size(48, 20);
+            this.eventToolStripMenuItem1.Text = "Event";
             // 
             // ScriptEditor
             // 
@@ -338,26 +144,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem emptyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem standardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem eventToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem standardToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem formToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem closingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem keyboardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem keyPressToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem keyDownToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem keyUpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mouseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mousePressToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mouseMoveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mouseDownToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mouseUpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem onEverySecondToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem renderFrameToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mouseWheelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eventToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
     }

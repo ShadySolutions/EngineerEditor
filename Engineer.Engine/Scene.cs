@@ -224,7 +224,7 @@ namespace Engineer.Engine
             EventList.Add(new SceneEventHandlers("Load"));
             EventList.Add(new SceneEventHandlers("MouseDown"));
             EventList.Add(new SceneEventHandlers("MouseUp"));
-            EventList.Add(new SceneEventHandlers("MousePress"));
+            EventList.Add(new SceneEventHandlers("MouseClick"));
             EventList.Add(new SceneEventHandlers("MouseMove"));
             EventList.Add(new SceneEventHandlers("MouseWheel"));
             EventList.Add(new SceneEventHandlers("RenderFrame"));

@@ -14,8 +14,21 @@ namespace Engineer.Engine
     }
     public class ScriptSceneObject : SceneObject
     {
+        private bool _Enabled;
         private string _Script;
         private ScriptObjectType _ScriptType;
+        public bool Enabled
+        {
+            get
+            {
+                return _Enabled;
+            }
+
+            set
+            {
+                _Enabled = value;
+            }
+        }
         public string Script
         {
             get
@@ -42,16 +55,19 @@ namespace Engineer.Engine
         }
         public ScriptSceneObject() : base()
         {
+            this._Enabled = true;
             this.ScriptType = ScriptObjectType.CSScript;
             this.Type = SceneObjectType.ScriptSceneObject;
         }
         public ScriptSceneObject(string Name) : base(Name)
         {
+            this._Enabled = true;
             this.ScriptType = ScriptObjectType.CSScript;
             this.Type = SceneObjectType.ScriptSceneObject;
         }
         public ScriptSceneObject(ScriptSceneObject SSO, Scene ParentScene) : base(SSO, ParentScene)
         {
+            this._Enabled = true;
             this._Script = SSO._Script;
             this._ScriptType = SSO.ScriptType;
         }
