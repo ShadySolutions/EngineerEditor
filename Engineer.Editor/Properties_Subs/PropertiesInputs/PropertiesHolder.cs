@@ -55,6 +55,7 @@ namespace Engineer.Editor
             NewControl.Dock = DockStyle.Top;
             this.Controls.Add(NewControl);
             NewControl.BringToFront();
+            object Test = NewControl.GetType();
             if(NewControl.GetType() == typeof(PropertiesHolder))
             {
                 PropertiesHolder ChildHolder = NewControl as PropertiesHolder;

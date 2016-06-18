@@ -90,8 +90,7 @@ namespace Engineer.Editor
 
                 if(((DrawnSceneObject)CurrentObject).Representation.Type == DrawObjectType.Actor)
                 {
-                    Properties_Actor ActorProperties = new Properties_Actor();
-                    //ActorProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Actor, _Dock, _OpenForms);
+                    Properties_Actor ActorProperties = new Properties_Actor(_Interface, ((DrawnSceneObject)CurrentObject).Representation as Actor, _Dock, _OpenForms);
                     ActorProperties.Dock = DockStyle.Top;
                     this.ContentPanel.Controls.Add(ActorProperties);
                     ActorProperties.BringToFront();

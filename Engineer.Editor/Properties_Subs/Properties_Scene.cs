@@ -16,6 +16,7 @@ namespace Engineer.Editor
     {
         private Scene _Scene;
         private Game_Interface _Interface;
+        PropertiesInput_String _SceneName;
         PropertiesInput_Button _AddNewEvent;
         public Properties_Scene()
         {
@@ -30,6 +31,8 @@ namespace Engineer.Editor
         {
             this._Scene = CurrentScene;
             this._Interface = Interface;
+            _SceneName = new PropertiesInput_String("Name", CurrentScene.Name, new EventHandler(Name_Update));
+            HolderScene.AddControl(_SceneName);
             for(int i = 0; i < _Scene.Events.EventList.Count; i++)
             {
                 for(int j = 0; j < _Scene.Events.EventList[i].Events.Count; j++)
@@ -41,6 +44,11 @@ namespace Engineer.Editor
             }
             _AddNewEvent = new PropertiesInput_Button("", "Add New Event", new EventHandler(AddNewEvent_Click));
             HolderScene.AddControl(_AddNewEvent);
+        }
+        private void Name_Update(object sender, EventArgs e)
+        {
+            _Interface.CurrentScene.Name = _SceneName.GetValue().ToString();
+            _Interface.ForceUpdate(InterfaceUpdateMessage.SceneUpdated);
         }
         private void AddNewEvent_Click(object sender, EventArgs e)
         {

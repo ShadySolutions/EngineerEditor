@@ -179,6 +179,18 @@
     <Compile Include="Properties_Subs\Properties_Event.Designer.cs">
       <DependentUpon>Properties_Event.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties_Subs\Properties_Geometry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Properties_Subs\Properties_Geometry.Designer.cs">
+      <DependentUpon>Properties_Geometry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties_Subs\Properties_Material.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Properties_Subs\Properties_Material.Designer.cs">
+      <DependentUpon>Properties_Material.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties_Subs\Properties_Scene.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -202,6 +214,12 @@
     </Compile>
     <Compile Include="Properties_Subs\Properties_Sprite.Designer.cs">
       <DependentUpon>Properties_Sprite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties_Subs\Properties_Test.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Properties_Subs\Properties_Test.Designer.cs">
+      <DependentUpon>Properties_Test.cs</DependentUpon>
     </Compile>
     <Compile Include="SceneWindow.cs">
       <SubType>Form</SubType>
@@ -315,6 +333,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties_Subs\Properties_Event.resx">
       <DependentUpon>Properties_Event.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties_Subs\Properties_Geometry.resx">
+      <DependentUpon>Properties_Geometry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties_Subs\Properties_Material.resx">
+      <DependentUpon>Properties_Material.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties_Subs\Properties_Scene.resx">
       <DependentUpon>Properties_Scene.cs</DependentUpon>
