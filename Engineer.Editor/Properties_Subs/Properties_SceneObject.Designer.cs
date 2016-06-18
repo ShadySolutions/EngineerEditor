@@ -28,35 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.HolderSceneObject = new Engineer.Editor.PropertiesHolder();
             this.SuspendLayout();
-            // 
-            // HolderSceneObject
-            // 
-            this.HolderSceneObject.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.HolderSceneObject.Dock = System.Windows.Forms.DockStyle.Top;
-            this.HolderSceneObject.Location = new System.Drawing.Point(0, 0);
-            this.HolderSceneObject.Name = "HolderSceneObject";
-            this.HolderSceneObject.Size = new System.Drawing.Size(300, 20);
-            this.HolderSceneObject.TabIndex = 0;
-            this.HolderSceneObject.Title = "SceneObject";
-            this.HolderSceneObject.Toggled = true;
-            this.HolderSceneObject.Resize += new System.EventHandler(this.HolderSceneObject_Resize);
             // 
             // Properties_SceneObject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Controls.Add(this.HolderSceneObject);
             this.Name = "Properties_SceneObject";
-            this.Size = new System.Drawing.Size(300, 20);
+            this.Title = "SceneObject";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private PropertiesHolder HolderSceneObject;
     }
 }

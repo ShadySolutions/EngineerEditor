@@ -14,7 +14,7 @@ using Engineer.Interface;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_Actor : UserControl
+    public partial class Properties_Actor : PropertiesHolder
     {
         private DockPanel _Dock;
         private Actor _CurrentActor;
@@ -39,36 +39,34 @@ namespace Engineer.Editor
             this._Dock = Dock;
             this._OpenForms = OpenForms;
             PropertiesHolder Geometries = new PropertiesHolder();
+            Geometries.SetTitleColor(Color.FromArgb(80, 80, 80));
             Geometries.Title = "Geometries";
             Geometries.Toggled = false;
             for(int i = 0; i < CurrentActor.Geometries.Count; i++)
             {
                 Properties_Geometry NewGeometry = new Properties_Geometry(Interface, CurrentActor, i);
-                //Geometries.AddControl(NewGeometry);
+                Geometries.AddControl(NewGeometry);
             }
-            HolderActor.AddControl(Geometries);
+            this.AddControl(Geometries);
             _Materials = new PropertiesHolder();
+            _Materials.SetTitleColor(Color.FromArgb(80, 80, 80));
             _Materials.Title = "Materials";
             _Materials.Toggled = false;
             for(int i = 0; i < CurrentActor.Materials.Count; i++)
             {
                 Properties_Material NewMaterial = new Properties_Material(Interface, CurrentActor, Dock, OpenForms, i);
-                //_Materials.AddControl(NewMaterial);
+                _Materials.AddControl(NewMaterial);
             }
             _AddMaterial = new PropertiesInput_Button("", "Add Material", new EventHandler(AddMaterial));
             _Materials.AddControl(_AddMaterial);
-            HolderActor.AddControl(_Materials);
+            this.AddControl(_Materials);
         }
         public void AddMaterial(object sender, EventArgs e)
         {
             _CurrentActor.Materials.Add(new Material("New Material", Material.Default));
             Properties_Material NewMaterial = new Properties_Material(_Interface, _CurrentActor, _Dock, _OpenForms, _CurrentActor.Materials.Count-1);
-            //_Materials.AddControl(NewMaterial);
-            //_AddMaterial.BringToFront();
-        }
-        private void HolderActor_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderActor.Height;
+            _Materials.AddControl(NewMaterial);
+            _AddMaterial.BringToFront();
         }
     }
 }

@@ -12,7 +12,7 @@ using Engineer.Interface;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_Scene : UserControl
+    public partial class Properties_Scene : PropertiesHolder
     {
         private Scene _Scene;
         private Game_Interface _Interface;
@@ -32,18 +32,18 @@ namespace Engineer.Editor
             this._Scene = CurrentScene;
             this._Interface = Interface;
             _SceneName = new PropertiesInput_String("Name", CurrentScene.Name, new EventHandler(Name_Update));
-            HolderScene.AddControl(_SceneName);
+            this.AddControl(_SceneName);
             for(int i = 0; i < _Scene.Events.EventList.Count; i++)
             {
                 for(int j = 0; j < _Scene.Events.EventList[i].Events.Count; j++)
                 {
                     Properties_Event NewEvent = new Properties_Event(_Interface, _Scene, i,
                         Scene_Interface.GetPossibleEventNames(_Scene, _Scene.Events.EventList[i].ID).IndexOf(_Scene.Events.EventList[i].Events[j].ID), true);
-                    HolderScene.AddControl(NewEvent);
+                    this.AddControl(NewEvent);
                 }
             }
             _AddNewEvent = new PropertiesInput_Button("", "Add New Event", new EventHandler(AddNewEvent_Click));
-            HolderScene.AddControl(_AddNewEvent);
+            this.AddControl(_AddNewEvent);
         }
         private void Name_Update(object sender, EventArgs e)
         {
@@ -53,12 +53,8 @@ namespace Engineer.Editor
         private void AddNewEvent_Click(object sender, EventArgs e)
         {
             Properties_Event NewEvent = new Properties_Event(_Interface, _Scene);
-            HolderScene.AddControl(NewEvent);
+            this.AddControl(NewEvent);
             _AddNewEvent.BringToFront();
-        }
-        private void HolderScene_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderScene.Height;
         }
     }
 }

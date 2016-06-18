@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.Panel_SpriteSets = new System.Windows.Forms.Panel();
-            this.Button_SpriteSets = new System.Windows.Forms.Button();
             this.Label_SpriteSets = new System.Windows.Forms.Label();
             this.ToggleHeader = new System.Windows.Forms.Button();
+            this.Button_SpriteSets = new System.Windows.Forms.Button();
             this.Panel_SpriteSets.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,20 +45,6 @@
             this.Panel_SpriteSets.Name = "Panel_SpriteSets";
             this.Panel_SpriteSets.Size = new System.Drawing.Size(320, 30);
             this.Panel_SpriteSets.TabIndex = 2;
-            // 
-            // Button_SpriteSets
-            // 
-            this.Button_SpriteSets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.Button_SpriteSets.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Button_SpriteSets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_SpriteSets.ForeColor = System.Drawing.Color.White;
-            this.Button_SpriteSets.Location = new System.Drawing.Point(100, 5);
-            this.Button_SpriteSets.Name = "Button_SpriteSets";
-            this.Button_SpriteSets.Size = new System.Drawing.Size(220, 25);
-            this.Button_SpriteSets.TabIndex = 1;
-            this.Button_SpriteSets.Text = "Edit";
-            this.Button_SpriteSets.UseVisualStyleBackColor = false;
-            this.Button_SpriteSets.Click += new System.EventHandler(this.Button_SpriteSets_Click);
             // 
             // Label_SpriteSets
             // 
@@ -74,7 +60,7 @@
             // 
             // ToggleHeader
             // 
-            this.ToggleHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.ToggleHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.ToggleHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.ToggleHeader.FlatAppearance.BorderSize = 0;
             this.ToggleHeader.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -86,6 +72,20 @@
             this.ToggleHeader.Text = "Sprite";
             this.ToggleHeader.UseVisualStyleBackColor = false;
             this.ToggleHeader.Click += new System.EventHandler(this.ToggleHeader_Click);
+            // 
+            // Button_SpriteSets
+            // 
+            this.Button_SpriteSets.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.Button_SpriteSets.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Button_SpriteSets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_SpriteSets.ForeColor = System.Drawing.Color.White;
+            this.Button_SpriteSets.Location = new System.Drawing.Point(100, 5);
+            this.Button_SpriteSets.Name = "Button_SpriteSets";
+            this.Button_SpriteSets.Size = new System.Drawing.Size(220, 25);
+            this.Button_SpriteSets.TabIndex = 1;
+            this.Button_SpriteSets.Text = "Edit";
+            this.Button_SpriteSets.UseVisualStyleBackColor = false;
+            this.Button_SpriteSets.Click += new System.EventHandler(this.Button_SpriteSets_Click);
             // 
             // Properties_Sprite
             // 
@@ -104,8 +104,8 @@
         #endregion
 
         private System.Windows.Forms.Panel Panel_SpriteSets;
-        private System.Windows.Forms.Button Button_SpriteSets;
         private System.Windows.Forms.Label Label_SpriteSets;
         private System.Windows.Forms.Button ToggleHeader;
+        private System.Windows.Forms.Button Button_SpriteSets;
     }
 }

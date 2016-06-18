@@ -12,7 +12,7 @@ using Engineer.Interface;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_SceneObject : UserControl
+    public partial class Properties_SceneObject : PropertiesHolder
     {
         private SceneObject _CurrentSceneObject;
         private Game_Interface _Interface;
@@ -35,19 +35,15 @@ namespace Engineer.Editor
             else if (CurrentSceneObject.Type == SceneObjectType.ScriptSceneObject) SceneObjectTypeString = "ScriptSceneObject";
             else SceneObjectTypeString = "Undefined";
             _Name = new PropertiesInput_String("Name", CurrentSceneObject.Name, new EventHandler(NameChanged));
-            HolderSceneObject.AddControl(_Name);
+            this.AddControl(_Name);
             PropertiesInput_Label Type = new PropertiesInput_Label("Type", SceneObjectTypeString);
-            HolderSceneObject.AddControl(Type);
+            this.AddControl(Type);
         }
         private void NameChanged(object sender, EventArgs e)
         {
             if (this._CurrentSceneObject == null) return;
             _CurrentSceneObject.Name = (string)_Name.GetValue();
             _Interface.ForceUpdate(InterfaceUpdateMessage.SceneObjectsUpdated);
-        }
-        private void HolderSceneObject_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderSceneObject.Height;
         }
     }
 }

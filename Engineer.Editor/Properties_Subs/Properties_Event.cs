@@ -12,7 +12,7 @@ using Engineer.Engine;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_Event : UserControl
+    public partial class Properties_Event : PropertiesHolder
     {
         private int _Type;
         private int _Index;
@@ -45,23 +45,24 @@ namespace Engineer.Editor
             for (int i = 0; i < CurrentScene.Events.EventList.Count; i++) _EventTypeString.Add(CurrentScene.Events.EventList[i].ID);
             List<string> EventScriptString = new List<string>();
             EventScriptString = Scene_Interface.GetPossibleEventNames(CurrentScene, CurrentScene.Events.EventList[Type].ID);
-            HolderEvent.ClearControls();
+            this.ClearControls();
             _EventTypes = new PropertiesInput_Combo("Type", _EventTypeString, Type, new EventHandler(EventTypeUpdate));
-            HolderEvent.AddControl(_EventTypes);
+            this.AddControl(_EventTypes);
             _PossibleEvents = new PropertiesInput_Combo("Event", EventScriptString, Index, new EventHandler(EventScriptUpdate));
-            HolderEvent.AddControl(_PossibleEvents);
+            this.AddControl(_PossibleEvents);
             if (Locked)
             {
                 _EventTypes.Lock();
                 _PossibleEvents.Lock();
                 PropertiesInput_Button Delete = new PropertiesInput_Button("", "Remove Event", new EventHandler(RemoveEvent));
-                HolderEvent.AddControl(Delete);
+                this.AddControl(Delete);
             }
             else
             {
                 PropertiesInput_Button Lock = new PropertiesInput_Button("", "Lock", new EventHandler(LockEvent));
-                HolderEvent.AddControl(Lock);
+                this.AddControl(Lock);
             }
+            this.SetTitleColor(Color.FromArgb(80,80,80));
         }
         private void EventTypeUpdate(object sender, EventArgs e)
         {
@@ -83,10 +84,6 @@ namespace Engineer.Editor
             if (_Index == -1) return;
             _Scene.Events.Events(_EventTypeString[_Type]).Add(Scene_Interface.GetPossibleEvents(_Scene, _EventTypeString[_Type])[_Index]);
             Init(_Interface, _Scene, _Type, _Index, true);
-        }
-        private void HolderEvent_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderEvent.Height;
         }
     }
 }

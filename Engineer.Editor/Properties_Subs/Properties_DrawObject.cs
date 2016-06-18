@@ -13,7 +13,7 @@ using Engineer.Mathematics;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_DrawObject : UserControl
+    public partial class Properties_DrawObject : PropertiesHolder
     {
         private DrawObject _CurrentDrawObject;
         private Game_Interface _Interface;
@@ -35,15 +35,15 @@ namespace Engineer.Editor
             this._Interface = Interface;
             this._CurrentDrawObject = CurrentDrawObject;
             PropertiesInput_Label Type = new PropertiesInput_Label("Type", _CurrentDrawObject.Type.ToString());
-            HolderDraw.AddControl(Type);
+            this.AddControl(Type);
             _Active = new PropertiesInput_Bool("Active", _CurrentDrawObject.Active, new EventHandler(ActiveChanged));
-            HolderDraw.AddControl(_Active);
+            this.AddControl(_Active);
             _Translation = new PropertiesInput_Vertex("Translation", _CurrentDrawObject.Translation, new EventHandler(TranslationChanged));
-            HolderDraw.AddControl(_Translation);
+            this.AddControl(_Translation);
             _Rotation = new PropertiesInput_Vertex("Rotation", _CurrentDrawObject.Rotation, new EventHandler(RotationChanged));
-            HolderDraw.AddControl(_Rotation);
+            this.AddControl(_Rotation);
             _Scale = new PropertiesInput_Vertex("Scale", _CurrentDrawObject.Scale, new EventHandler(ScaleChanged));
-            HolderDraw.AddControl(_Scale);
+            this.AddControl(_Scale);
         }
         private void ActiveChanged(object sender, EventArgs e)
         {
@@ -68,10 +68,6 @@ namespace Engineer.Editor
             if (this._CurrentDrawObject == null) return;
             _CurrentDrawObject.Scale = (Vertex)_Scale.GetValue();
             _Interface.ForceUpdate(InterfaceUpdateMessage.SceneObjectsUpdated);
-        }
-        private void HolderDraw_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderDraw.Height;
         }
     }
 }

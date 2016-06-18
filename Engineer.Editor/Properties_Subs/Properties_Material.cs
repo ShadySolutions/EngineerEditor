@@ -14,7 +14,7 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_Material : UserControl
+    public partial class Properties_Material : PropertiesHolder
     {
         private int _Index;
         private Actor _CurrentActor;
@@ -33,20 +33,17 @@ namespace Engineer.Editor
         {
             this._Interface = Interface;
             this._CurrentActor = CurrentActor;
-            this.HolderMaterial.Title = this._CurrentActor.Materials[Index].Name;
+            this.Title = this._CurrentActor.Materials[Index].Name;
             this._Index = Index;
             _Name = new PropertiesInput_String("Name", _CurrentActor.Materials[Index].Name, new EventHandler(Name_Update));
-            HolderMaterial.AddControl(_Name);
+            this.AddControl(_Name);
             PropertiesInput_Material Material = new PropertiesInput_Material("Material", _CurrentActor.Materials[Index], Dock, OpenForms);
-            HolderMaterial.AddControl(Material);
+            this.AddControl(Material);
+            this.SetTitleColor(Color.FromArgb(50, 50, 50));
         }
         private void Name_Update(object sender, EventArgs e)
         {
             _CurrentActor.Materials[_Index].Name = _Name.GetValue().ToString();
-        }
-        private void HolderMaterial_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderMaterial.Height;
         }
     }
 }

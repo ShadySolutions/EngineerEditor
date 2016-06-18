@@ -33,7 +33,7 @@
             // 
             // TitleLabel
             // 
-            this.TitleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.TitleLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.TitleLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TitleLabel.FlatAppearance.BorderSize = 0;
             this.TitleLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

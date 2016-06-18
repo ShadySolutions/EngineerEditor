@@ -13,7 +13,7 @@ using TakeOne.WindowSuite;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_Script : UserControl
+    public partial class Properties_Script : PropertiesHolder
     {
         private DockPanel _Dock;
         private ScriptSceneObject _CurrentScript;
@@ -33,11 +33,7 @@ namespace Engineer.Editor
             this._OpenForms = OpenForms;
             this._CurrentScript = CurrentScript;
             PropertiesInput_Script SE = new PropertiesInput_Script("Code", CurrentScript, Dock, OpenForms);
-            HolderScript.AddControl(SE);
-        }
-        private void HolderScript_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderScript.Height;
+            this.AddControl(SE);
         }
     }
 }

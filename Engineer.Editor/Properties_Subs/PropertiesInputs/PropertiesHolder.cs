@@ -56,7 +56,7 @@ namespace Engineer.Editor
             this.Controls.Add(NewControl);
             NewControl.BringToFront();
             object Test = NewControl.GetType();
-            if(NewControl.GetType() == typeof(PropertiesHolder))
+            if(NewControl.GetType().IsSubclassOf(typeof(PropertiesHolder)) || NewControl.GetType() == typeof(PropertiesHolder))
             {
                 PropertiesHolder ChildHolder = NewControl as PropertiesHolder;
                 ChildHolder.ToggleChanged += new EventHandler(ChildToggleChanged);
@@ -81,18 +81,19 @@ namespace Engineer.Editor
             int HolderHeight = 0;
             for(int i = 0; i < this.Controls.Count; i++)
             {
-                if(this.Controls[i].GetType() == typeof(PropertiesHolder))
-                {
-                    HolderHeight += ((PropertiesHolder)this.Controls[i]).CalculateHeight() + 10;
-                }
-                else HolderHeight += this.Controls[i].Height;
+                HolderHeight += this.Controls[i].Height;
             }
-            return HolderHeight;
+            if (Toggled )return HolderHeight + 10;
+            else return this.Height = 20;
         }
         private void ChangeToggle(bool Toggle)
         {
-            if (!Toggled) this.Height = this.Controls[this.Controls.Count - 1].Height;
-            else this.Height = CalculateHeight() + 10;
+            this.Height = CalculateHeight();
+            this.ToggleChanged.Invoke(this, null);
+        }
+        public void SetTitleColor(Color TitleColor)
+        {
+            TitleLabel.BackColor = TitleColor;
         }
     }
 }

@@ -28,35 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.HolderScript = new Engineer.Editor.PropertiesHolder();
             this.SuspendLayout();
-            // 
-            // HolderScript
-            // 
-            this.HolderScript.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.HolderScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HolderScript.Location = new System.Drawing.Point(0, 0);
-            this.HolderScript.Name = "HolderScript";
-            this.HolderScript.Size = new System.Drawing.Size(300, 20);
-            this.HolderScript.TabIndex = 0;
-            this.HolderScript.Title = "Script";
-            this.HolderScript.Toggled = true;
-            this.HolderScript.Resize += new System.EventHandler(this.HolderScript_Resize);
             // 
             // Properties_Script
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Controls.Add(this.HolderScript);
             this.Name = "Properties_Script";
-            this.Size = new System.Drawing.Size(300, 20);
+            this.Title = "Script";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private PropertiesHolder HolderScript;
     }
 }

@@ -12,7 +12,7 @@ using Engineer.Interface;
 
 namespace Engineer.Editor
 {
-    public partial class Properties_Geometry : UserControl
+    public partial class Properties_Geometry : PropertiesHolder
     {
         private int _Index;
         private Actor _CurrentActor;
@@ -31,11 +31,12 @@ namespace Engineer.Editor
         {
             this._Interface = Interface;
             this._CurrentActor = CurrentActor;
-            this.HolderGeometry.Title = this._CurrentActor.Geometries[Index].Name;
+            this.Title = this._CurrentActor.Geometries[Index].Name;
             this._Index = Index;
             PropertiesInput_Label Name = new PropertiesInput_Label("Name", _CurrentActor.Geometries[Index].Name);
-            HolderGeometry.AddControl(Name);
+            this.AddControl(Name);
             GenerateMaterialList();
+            this.SetTitleColor(Color.FromArgb(50, 50, 50));
         }
         private void GenerateMaterialList()
         {
@@ -45,15 +46,11 @@ namespace Engineer.Editor
                 Names.Add(_CurrentActor.Materials[i].Name);
             }
             _MatList = new PropertiesInput_Combo("Material", Names, _CurrentActor.GeometryMaterialIndices[_Index], new EventHandler(MatList_Update));
-            HolderGeometry.AddControl(_MatList);
+            this.AddControl(_MatList);
         }
         private void MatList_Update(object sender, EventArgs e)
         {
             _CurrentActor.GeometryMaterialIndices[_Index] = (int)_MatList.GetValue();
-        }
-        private void HolderGeometry_Resize(object sender, EventArgs e)
-        {
-            this.Height = HolderGeometry.Height;
         }
     }
 }

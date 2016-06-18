@@ -26,6 +26,7 @@ namespace Engineer.Editor
         {
             InitializeComponent();
             this._CurrentMaterial = CurrentMaterial;
+            this._Dock = Dock;
             this._OpenForms = OpenForms;
         }
         private void Preview_Click(object sender, EventArgs e)
