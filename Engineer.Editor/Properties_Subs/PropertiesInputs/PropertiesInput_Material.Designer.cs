@@ -35,6 +35,7 @@
             // Preview
             // 
             this.Preview.BackgroundImage = global::Engineer.Editor.Properties.Resources.Disabled;
+            this.Preview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Preview.Dock = System.Windows.Forms.DockStyle.Left;
             this.Preview.Location = new System.Drawing.Point(100, 0);
             this.Preview.Name = "Preview";

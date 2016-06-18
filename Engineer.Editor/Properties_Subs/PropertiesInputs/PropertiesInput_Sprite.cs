@@ -25,6 +25,7 @@ namespace Engineer.Editor
         public PropertiesInput_Sprite(string Title, Sprite CurrentSprite, DockPanel Dock, List<ToolForm> OpenForms) : base(Title)
         {
             InitializeComponent();
+            this._Dock = Dock;
             this._CurrentSprite = CurrentSprite;
             this._OpenForms = OpenForms;
             if (CurrentSprite.SpriteSets.Count > 0 && _CurrentSprite.SpriteSets[0].Sprite.Count > 0) Preview.BackgroundImage = _CurrentSprite.SpriteSets[0].Sprite[0];

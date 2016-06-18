@@ -97,8 +97,7 @@ namespace Engineer.Editor
                 }
                 if (((DrawnSceneObject)CurrentObject).Representation.Type == DrawObjectType.Sprite)
                 {
-                    Properties_Sprite SpriteProperties = new Properties_Sprite();
-                    SpriteProperties.Init(((DrawnSceneObject)CurrentObject).Representation as Sprite, _Dock, _OpenForms);
+                    Properties_Sprite SpriteProperties = new Properties_Sprite(_Interface, ((DrawnSceneObject)CurrentObject).Representation as Sprite, _Dock, _OpenForms);
                     SpriteProperties.Dock = DockStyle.Top;
                     this.ContentPanel.Controls.Add(SpriteProperties);
                     SpriteProperties.BringToFront();
