@@ -64,8 +64,8 @@ namespace Engineer.Engine
         public void RaiseIndex()
         {
             _CurrentIndex++;
-            if (_SpriteSets.Count < 0) _CurrentIndex = -1;
-            if (_CurrentIndex >= _SpriteSets[_CurrentSpriteSet].Sprite.Count) _CurrentIndex = 0;
+            if (_SpriteSets.Count <= 0) _CurrentIndex = -1;
+            else if (_CurrentIndex >= _SpriteSets[_CurrentSpriteSet].Sprite.Count) _CurrentIndex = 0;
         }
         public void SetSpriteSet(int Index)
         {

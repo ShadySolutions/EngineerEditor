@@ -40,6 +40,8 @@ namespace Engineer.Editor
             if(Message == InterfaceUpdateMessage.GameUpdated)
             {
                 GameName.Text = _Interface.CurrentGame.Name;
+                GenerateEntries();
+                this.Visible = _Interface.CurrentScene == null;
             }
             else if (Message == InterfaceUpdateMessage.SceneUpdated)
             {

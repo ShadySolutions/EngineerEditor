@@ -79,7 +79,7 @@
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // gameToolStripMenuItem
@@ -121,6 +121,7 @@
             this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
             this.newToolStripMenuItem1.Size = new System.Drawing.Size(172, 22);
             this.newToolStripMenuItem1.Text = "New";
+            this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -175,7 +176,7 @@
             this.addCurrentItemToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.addCurrentItemToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.addCurrentItemToolStripMenuItem.Name = "addCurrentItemToolStripMenuItem";
-            this.addCurrentItemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addCurrentItemToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.addCurrentItemToolStripMenuItem.Text = "Add To Assets";
             this.addCurrentItemToolStripMenuItem.Click += new System.EventHandler(this.addCurrentItemToolStripMenuItem_Click);
             // 
@@ -184,7 +185,7 @@
             this.createToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.createToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.createToolStripMenuItem.Text = "Add To Library";
             this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
             // 

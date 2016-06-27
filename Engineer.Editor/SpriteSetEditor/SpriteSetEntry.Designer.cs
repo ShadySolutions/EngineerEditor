@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.List = new System.Windows.Forms.ListView();
+            this.EntryTileList = new System.Windows.Forms.ImageList(this.components);
             this.Name_Panel = new System.Windows.Forms.Panel();
             this.Name_Box = new System.Windows.Forms.TextBox();
-            this.EntryTileList = new System.Windows.Forms.ImageList(this.components);
             this.Name_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +55,12 @@
             this.List.DragDrop += new System.Windows.Forms.DragEventHandler(this.List_DragDrop);
             this.List.DragEnter += new System.Windows.Forms.DragEventHandler(this.SpriteSetEntry_DragEnter);
             // 
+            // EntryTileList
+            // 
+            this.EntryTileList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.EntryTileList.ImageSize = new System.Drawing.Size(100, 100);
+            this.EntryTileList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // Name_Panel
             // 
             this.Name_Panel.Controls.Add(this.Name_Box);
@@ -75,12 +81,7 @@
             this.Name_Box.Name = "Name_Box";
             this.Name_Box.Size = new System.Drawing.Size(498, 22);
             this.Name_Box.TabIndex = 0;
-            // 
-            // EntryTileList
-            // 
-            this.EntryTileList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.EntryTileList.ImageSize = new System.Drawing.Size(100, 100);
-            this.EntryTileList.TransparentColor = System.Drawing.Color.Transparent;
+            this.Name_Box.TextChanged += new System.EventHandler(this.Name_Box_TextChanged);
             // 
             // SpriteSetEntry
             // 

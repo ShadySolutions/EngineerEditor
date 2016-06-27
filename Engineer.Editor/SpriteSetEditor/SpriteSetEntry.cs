@@ -51,5 +51,9 @@ namespace Engineer.Editor
             }
             UpdateItems();
         }
+        private void Name_Box_TextChanged(object sender, EventArgs e)
+        {
+            if (_CurrentSet != null) _CurrentSet.Name = Name_Box.Text;
+        }
     }
 }

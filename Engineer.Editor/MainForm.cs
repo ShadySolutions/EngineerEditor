@@ -193,5 +193,11 @@ namespace Engineer.Editor
                 MessageBox.Show("No SceneObject Selected", " Warning");
             }
         }
+        private void newToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (_BlockEvents) return;
+            closeToolStripMenuItem_Click(sender, e);
+            _Interface.NewGame();
+        }
     }
 }

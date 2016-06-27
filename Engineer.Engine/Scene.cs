@@ -203,6 +203,11 @@ namespace Engineer.Engine
                 _Events = value;
             }
         }
+        public SceneEventHandlers()
+        {
+            this.ID = Guid.NewGuid().ToString();
+            this.Events = new List<ScriptSceneObject>();
+        }
         public SceneEventHandlers(string ID)
         {
             this.ID = ID;

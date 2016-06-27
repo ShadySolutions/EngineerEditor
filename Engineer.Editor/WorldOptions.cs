@@ -38,6 +38,14 @@ namespace Engineer.Editor
         {
             if (_BlockEvents) return;
             _BlockEvents = true;
+            if(Message == InterfaceUpdateMessage.SceneUpdated)
+            {
+                if (_Interface.CurrentScene != null)
+                {
+                    this._Type = _Interface.CurrentScene.Type;
+                    UpdateVisibleOptions();
+                }
+            }
             _BlockEvents = false;
         }
         //Services

@@ -103,6 +103,15 @@ namespace Engineer.Interface
             _CurrentGame.Name = NewName;
             Update.Invoke(InterfaceUpdateMessage.GameUpdated);
         }
+        public void NewGame()
+        {
+            _CurrentSelection = null;
+            _CurrentScene = null;
+            _CurrentSceneObject = null;
+            _CurrentGame = new Game();
+            _CurrentGame.Name = "New Game";
+            ForceUpdate(InterfaceUpdateMessage.GameUpdated);
+        }
         public bool AddSceneItem(GenericSceneObjectType Type, ref string ErrorString)
         {
             bool ReturnValue = false;
