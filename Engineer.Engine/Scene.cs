@@ -24,6 +24,7 @@ namespace Engineer.Engine
         protected Color _BackColor;
         private EventsPackage _Events;
         protected List<SceneObject> _Objects;
+        private Dictionary<string, object> _Data;
         public string ID
         {
             get
@@ -90,6 +91,38 @@ namespace Engineer.Engine
             get
             {
                 return _Objects;
+            }
+        }
+        [XmlIgnore]
+        public Dictionary<string, object> Data
+        {
+            get
+            {
+                return _Data;
+            }
+
+            set
+            {
+                _Data = value;
+            }
+        }
+        public List<KeyValuePair<string, object>> IO_DataList
+        {
+            get
+            {
+                if (_Data == null) return null;
+                List<KeyValuePair<string, object>> NewList = _Data.ToList();
+                return NewList;
+            }
+            set
+            {
+                foreach (KeyValuePair<string, object> Pair in value)
+                {
+                    if (!_Data.ContainsKey(Pair.Key))
+                    {
+                        _Data.Add(Pair.Key, Pair.Value);
+                    }
+                }
             }
         }
         public List<ScriptSceneObject> Scripts
