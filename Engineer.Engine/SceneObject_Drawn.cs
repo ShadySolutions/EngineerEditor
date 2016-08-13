@@ -33,11 +33,13 @@ namespace Engineer.Engine
         {
             this.Type = SceneObjectType.DrawnSceneObject;
             this.Representation = null;
+            this.Events = new EventsPackage(EventHandlersPackage.NewDrawnSceneObjectEventsPackage());
         }
         public DrawnSceneObject(string Name, DrawObject Representation) : base(Name)
         {
             this.Type = SceneObjectType.DrawnSceneObject;
             this.Representation = Representation;
+            this.Events = new EventsPackage(EventHandlersPackage.NewDrawnSceneObjectEventsPackage());
         }
         public DrawnSceneObject(DrawnSceneObject DSO, Scene ParentScene) : base(DSO, ParentScene)
         {
@@ -46,6 +48,7 @@ namespace Engineer.Engine
             else if (DSO._Representation.Type == DrawObjectType.Camera) this._Representation = new Camera((Camera)DSO._Representation);
             else if (DSO._Representation.Type == DrawObjectType.Light) this._Representation = new Light((Light)DSO._Representation);
             else if (DSO._Representation.Type == DrawObjectType.Sprite) this._Representation = new Sprite((Sprite)DSO._Representation);
+            this.Events = new EventsPackage(DSO.Events, ParentScene);
         }
         public static void Serialize(DrawnSceneObject CurrentDrawnSceneObject, string Path)
         {

@@ -17,6 +17,7 @@ namespace Engineer.Editor
         private int _Type;
         private int _Index;
         private Scene _Scene;
+        private SceneObject _SceneObject;
         private Game_Interface _Interface;
         private PropertiesInput_Combo _EventTypes;
         private PropertiesInput_Combo _PossibleEvents;
@@ -25,26 +26,35 @@ namespace Engineer.Editor
         {
             InitializeComponent();
         }
-        public Properties_Event(Game_Interface Interface, Scene CurrentScene)
+        public Properties_Event(Game_Interface Interface, object EventCaller)
         {
             InitializeComponent();
-            Init(Interface, CurrentScene, 0, -1, false);
+            Init(Interface, EventCaller, 0, -1, false);
         }
-        public Properties_Event(Game_Interface Interface, Scene CurrentScene, int Type, int Index, bool Locked)
+        public Properties_Event(Game_Interface Interface, object EventCaller, int Type, int Index, bool Locked)
         {
             InitializeComponent();
-            Init(Interface, CurrentScene, Type, Index, Locked);
+            Init(Interface, EventCaller, Type, Index, Locked);
         }
-        public void Init(Game_Interface Interface, Scene CurrentScene, int Type, int Index, bool Locked)
+        public void Init(Game_Interface Interface, object EventCaller, int Type, int Index, bool Locked)
         {
             this._Type = Type;
             this._Index = Index;
-            this._Scene = CurrentScene;
             this._Interface = Interface;
             _EventTypeString = new List<string>();
-            for (int i = 0; i < CurrentScene.Events.EventList.Count; i++) _EventTypeString.Add(CurrentScene.Events.EventList[i].ID);
             List<string> EventScriptString = new List<string>();
-            EventScriptString = Scene_Interface.GetPossibleEventNames(CurrentScene, CurrentScene.Events.EventList[Type].ID);
+            if (EventCaller.GetType().IsSubclassOf(typeof(Scene)))
+            {
+                this._Scene = (Scene)EventCaller;
+                for (int i = 0; i < _Scene.Events.EventList.Count; i++) _EventTypeString.Add(_Scene.Events.EventList[i].ID);
+                EventScriptString = Scene_Interface.GetPossibleEventNames(_Scene, _Scene.Events.EventList[Type].ID);
+            }
+            else if (EventCaller.GetType().IsSubclassOf(typeof(SceneObject)))
+            {
+                this._SceneObject = (SceneObject)EventCaller;
+                for (int i = 0; i < _SceneObject.Events.EventList.Count; i++) _EventTypeString.Add(_SceneObject.Events.EventList[i].ID);
+                EventScriptString = Scene_Interface.GetPossibleEventNames(_SceneObject.ParentScene, _SceneObject.Events.EventList[Type].ID);
+            }
             this.ClearControls();
             _EventTypes = new PropertiesInput_Combo("Type", _EventTypeString, Type, new EventHandler(EventTypeUpdate));
             this.AddControl(_EventTypes);
@@ -67,7 +77,8 @@ namespace Engineer.Editor
         private void EventTypeUpdate(object sender, EventArgs e)
         {
             this._Type = (int)_EventTypes.GetValue();
-            Init(_Interface, _Scene, _Type, _Index, false);
+            if(_Scene!=null) Init(_Interface, _Scene, _Type, _Index, false);
+            else Init(_Interface, _SceneObject, _Type, _Index, false);
         }
         private void EventScriptUpdate(object sender, EventArgs e)
         {
@@ -75,15 +86,31 @@ namespace Engineer.Editor
         }
         private void RemoveEvent(object sender, EventArgs e)
         {
-            _Scene.Events.Events(_EventTypeString[_Type]).RemoveAt(_Scene.Events.Events(_EventTypeString[_Type]).IndexOf(
+            if (_Scene != null)
+            {
+                _Scene.Events.Events(_EventTypeString[_Type]).RemoveAt(_Scene.Events.Events(_EventTypeString[_Type]).IndexOf(
                 Scene_Interface.GetPossibleEvents(_Scene, _EventTypeString[_Type])[_Index]));
+            }
+            else
+            {
+                _SceneObject.Events.Events(_EventTypeString[_Type]).RemoveAt(_SceneObject.Events.Events(_EventTypeString[_Type]).IndexOf(
+                Scene_Interface.GetPossibleEvents(_SceneObject.ParentScene, _EventTypeString[_Type])[_Index]));
+            }
             this.Visible = false;
         }
         private void LockEvent(object sender, EventArgs e)
         {
             if (_Index == -1) return;
-            _Scene.Events.Events(_EventTypeString[_Type]).Add(Scene_Interface.GetPossibleEvents(_Scene, _EventTypeString[_Type])[_Index]);
-            Init(_Interface, _Scene, _Type, _Index, true);
+            if (_Scene != null)
+            {
+                _Scene.Events.Events(_EventTypeString[_Type]).Add(Scene_Interface.GetPossibleEvents(_Scene, _EventTypeString[_Type])[_Index]);
+                Init(_Interface, _Scene, _Type, _Index, true);
+            }
+            else
+            {
+                _SceneObject.Events.Events(_EventTypeString[_Type]).Add(Scene_Interface.GetPossibleEvents(_SceneObject.ParentScene, _EventTypeString[_Type])[_Index]);
+                Init(_Interface, _SceneObject, _Type, _Index, true);
+            }
         }
     }
 }

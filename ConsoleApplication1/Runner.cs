@@ -26,6 +26,7 @@ namespace Engineer.Runner
         private bool _EngineInit;
         private Timer _Time;
         private EventManager _Events;
+        private List<EventManager> _ObjectEvents;
         private Scene _CurrentScene;
         private Game _CurrentGame;
         private DrawEngine _Engine;
@@ -68,6 +69,15 @@ namespace Engineer.Runner
             for (int i = 0; i < CurrentScene.Events.EventList.Count; i++)
             {
                 _Events.AddEvents(CurrentScene.Events.EventList[i].ID, CurrentScene.Events.EventList[i].Events);
+            }
+            _ObjectEvents = new List<EventManager>();
+            for(int i = 0; i < CurrentScene.Objects.Count; i++)
+            {
+                _ObjectEvents.Add(new EventManager());
+                for (int j = 0; j < CurrentScene.Objects[i].Events.EventList.Count; j++)
+                {
+                    _ObjectEvents[i].AddEvents(CurrentScene.Objects[i].Events.EventList[j].ID, CurrentScene.Objects[i].Events.EventList[j].Events);
+                }
             }
             this._Time.Enabled = true;
             Event_Load();
@@ -132,6 +142,29 @@ namespace Engineer.Runner
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
             Arguments.ButtonDown = (MouseClickType)e.Button;
+            Arguments.Handled = false;
+            if (_CurrentScene.Type == SceneType.Scene2D)
+            {
+                Scene2D Current2DScene = (Scene2D)_CurrentScene;
+                Vertex STrans = Current2DScene.Transformation.Translation;
+                for (int i = _CurrentScene.Objects.Count - 1; i >= 0; i--)
+                {
+                    if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject)
+                    {
+                        DrawnSceneObject Current = (DrawnSceneObject)_CurrentScene.Objects[i];
+                        Vertex Trans = Current.Representation.Translation;
+                        Vertex Scale = Current.Representation.Scale;
+                        if (STrans.X + Trans.X < e.X && e.X < STrans.X + Trans.X + Scale.X &&
+                            STrans.Y + Trans.Y < e.Y && e.Y < STrans.Y + Trans.Y + Scale.Y)
+                        {
+                            Arguments.Target = Current;
+                            CallObjectEvents(i, "MouseDown", Arguments);
+                            Arguments.Handled = true;
+                        }
+                    }
+                }
+            }
+            Arguments.Target = null;
             CallEvents("MouseDown", Arguments);
         }
         private void Event_MouseUp(object sender, MouseButtonEventArgs e)
@@ -139,6 +172,29 @@ namespace Engineer.Runner
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
             Arguments.ButtonDown = (MouseClickType)e.Button;
+            Arguments.Handled = false;
+            if (_CurrentScene.Type == SceneType.Scene2D)
+            {
+                Scene2D Current2DScene = (Scene2D)_CurrentScene;
+                Vertex STrans = Current2DScene.Transformation.Translation;
+                for (int i = _CurrentScene.Objects.Count - 1; i >= 0; i--)
+                {
+                    if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject)
+                    {
+                        DrawnSceneObject Current = (DrawnSceneObject)_CurrentScene.Objects[i];
+                        Vertex Trans = Current.Representation.Translation;
+                        Vertex Scale = Current.Representation.Scale;
+                        if (STrans.X + Trans.X < e.X && e.X < STrans.X + Trans.X + Scale.X &&
+                            STrans.Y + Trans.Y < e.Y && e.Y < STrans.Y + Trans.Y + Scale.Y)
+                        {
+                            Arguments.Target = Current;
+                            CallObjectEvents(i, "MouseUp", Arguments);
+                            Arguments.Handled = true;
+                        }
+                    }
+                }
+            }
+            Arguments.Target = null;
             CallEvents("MouseUp", Arguments);
         }
         private void Event_MouseClick(object sender, MouseButtonEventArgs e)
@@ -146,12 +202,58 @@ namespace Engineer.Runner
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
             Arguments.ButtonDown = (MouseClickType)e.Button;
+            Arguments.Handled = false;
+            if (_CurrentScene.Type == SceneType.Scene2D)
+            {
+                Scene2D Current2DScene = (Scene2D)_CurrentScene;
+                Vertex STrans = Current2DScene.Transformation.Translation;
+                for (int i = _CurrentScene.Objects.Count - 1; i >= 0; i--)
+                {
+                    if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject)
+                    {
+                        DrawnSceneObject Current = (DrawnSceneObject)_CurrentScene.Objects[i];
+                        Vertex Trans = Current.Representation.Translation;
+                        Vertex Scale = Current.Representation.Scale;
+                        if (STrans.X + Trans.X < e.X && e.X < STrans.X + Trans.X + Scale.X &&
+                            STrans.Y + Trans.Y < e.Y && e.Y < STrans.Y + Trans.Y + Scale.Y)
+                        {
+                            Arguments.Target = Current;
+                            CallObjectEvents(i, "MouseClick", Arguments);
+                            Arguments.Handled = true;
+                        }
+                    }
+                }
+            }
+            Arguments.Target = null;
             CallEvents("MouseClick", Arguments);
         }
         private void Event_MouseMove(object sender, MouseMoveEventArgs e)
         {
             EventArguments Arguments = new EventArguments();
             Arguments.Location = new Vertex(e.X, e.Y, 0);
+            Arguments.Handled = false;
+            if (_CurrentScene.Type == SceneType.Scene2D)
+            {
+                Scene2D Current2DScene = (Scene2D)_CurrentScene;
+                Vertex STrans = Current2DScene.Transformation.Translation;
+                for (int i = _CurrentScene.Objects.Count - 1; i >= 0; i--)
+                {
+                    if (_CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject)
+                    {
+                        DrawnSceneObject Current = (DrawnSceneObject)_CurrentScene.Objects[i];
+                        Vertex Trans = Current.Representation.Translation;
+                        Vertex Scale = Current.Representation.Scale;
+                        if (STrans.X + Trans.X < e.X && e.X < STrans.X + Trans.X + Scale.X &&
+                            STrans.Y + Trans.Y < e.Y && e.Y < STrans.Y + Trans.Y + Scale.Y)
+                        {
+                            Arguments.Target = Current;
+                            CallObjectEvents(i, "MouseMove", Arguments);
+                            Arguments.Handled = true;
+                        }
+                    }
+                }
+            }
+            Arguments.Target = null;
             CallEvents("MouseMove", Arguments);
         }
         private void Event_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -182,6 +284,10 @@ namespace Engineer.Runner
         private void CallEvents(string EventName, EventArguments Args)
         {
             _Events.Run(EventName, _CurrentGame, Args);
+        }
+        private void CallObjectEvents(int Index, string EventName, EventArguments Args)
+        {
+            _ObjectEvents[Index].Run(EventName, _CurrentGame, Args);
         }
     }
 }

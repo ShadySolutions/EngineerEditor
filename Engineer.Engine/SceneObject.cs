@@ -23,6 +23,7 @@ namespace Engineer.Engine
         private string _ID;
         private SceneObjectType _Type;
         private Scene _ParentScene;
+        private EventsPackage _Events;
         private Dictionary<string, object> _Data;
         public string Name
         {
@@ -73,6 +74,18 @@ namespace Engineer.Engine
                 _ParentScene = value;
             }
         }
+        public EventsPackage Events
+        {
+            get
+            {
+                return _Events;
+            }
+
+            set
+            {
+                _Events = value;
+            }
+        }
         [XmlIgnore]
         public Dictionary<string, object> Data
         {
@@ -110,6 +123,7 @@ namespace Engineer.Engine
             this._ID = Guid.NewGuid().ToString();
             this._Name = this._ID;
             this._Type = SceneObjectType.Undefined;
+            this._Events = new EventsPackage();
             this._Data = new Dictionary<string, object>();
         }
         public SceneObject(string Name)
@@ -117,6 +131,7 @@ namespace Engineer.Engine
             this._Name = Name;
             this._ID = Guid.NewGuid().ToString();
             this._Type = SceneObjectType.Undefined;
+            this._Events = new EventsPackage();
             this._Data = new Dictionary<string, object>();
         }
         public SceneObject(SceneObject SO, Scene ParentScene)
@@ -125,6 +140,7 @@ namespace Engineer.Engine
             this._ID = Guid.NewGuid().ToString();
             this._Type = SO._Type;
             this._ParentScene = ParentScene;
+            this._Events = new EventsPackage();
             this._Data = new Dictionary<string, object>(SO._Data);
         }
         public static SceneObject FromFile(string FilePath, Scene CurrentScene)

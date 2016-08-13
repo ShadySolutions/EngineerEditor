@@ -189,7 +189,7 @@ namespace TakeOne.WindowSuite
             this._OperationIndex = -1;
             this._Parent.Location = new Point(this._Parent.Location.X + this._AppliedLocationDifference.X, this._Parent.Location.Y + this._AppliedLocationDifference.Y);
             this._Parent.Size = new Size(this._Parent.Size.Width + this._AppliedSizeDifference.X, this._Parent.Size.Height + this._AppliedSizeDifference.Y);
-            this._ActiveResizeDisplayForm.Close();
+            if(this._ActiveResizeDisplayForm != null) this._ActiveResizeDisplayForm.Close();
         }
         private void FormResize_MouseMove(object sender, MouseEventArgs e)
         {

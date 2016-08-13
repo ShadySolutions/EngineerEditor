@@ -12,23 +12,27 @@ namespace Engineer.Draw
         protected static bool _Binded = false;
         protected static uint _Index = 0;
         protected bool _Active;
+        protected bool _Loaded;
         protected int _TexturesNumber;
         protected byte[] _Textures;
         public ShaderTexturePackage()
         {
             this._Active = false;
+            this._Loaded = false;
             this._TexturesNumber = 0;
             this._Textures = null;
         }
         public ShaderTexturePackage(ShaderTexturePackage Package)
         {
             this._Active = false;
+            this._Loaded = false;
             this._TexturesNumber = Package._TexturesNumber;
             Array.Copy(Package._Textures, this._Textures, Package._Textures.Length);
         }
         public virtual void SetData(int TexturesNumber, byte[] Textures)
         {
             this._Active = false;
+            this._Loaded = false;
             this._TexturesNumber = TexturesNumber;
             this._Textures = Textures;
         }

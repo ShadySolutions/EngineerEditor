@@ -22,22 +22,29 @@ namespace Engineer.Draw.OpenGL
         }
         public override bool Activate()
         {
-            if(GLSLShaderTexturePackage._Binded) GL.DeleteTexture(GLSLShaderTexturePackage._Index);
+            if (GLSLShaderTexturePackage._Binded && GLSLShaderTexturePackage._Index == TexturesPointer) return true;
+            //if (GLSLShaderTexturePackage._Binded)GL.DeleteTexture(GLSLShaderTexturePackage._Index);
             if (this._TexturesNumber == 0) return true;
-            GL.GenTextures(1, out TexturesPointer);
-            GLSLShaderTexturePackage._Index = TexturesPointer;
-            GL.BindTexture(TextureTarget.Texture2DArray, TexturesPointer);
-            GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Modulate);
-            GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapS, (float)All.Clamp);
-            GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapT, (float)All.Clamp);
-            GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMagFilter, (float)All.Nearest);
-            GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMinFilter, (float)All.Nearest);
-            GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
-            _BufferPointer = GCHandle.Alloc(this._Textures, GCHandleType.Pinned);
-            IntPtr TextureBuffer = _BufferPointer.AddrOfPinnedObject();
-            GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.Rgba, 256, 256, this._TexturesNumber, 0, PixelFormat.Bgra, PixelType.UnsignedByte, TextureBuffer);
+            if (!this._Loaded)
+            {
+                GL.GenTextures(1, out TexturesPointer);
+                GLSLShaderTexturePackage._Index = TexturesPointer;
+                GL.BindTexture(TextureTarget.Texture2DArray, TexturesPointer);
+                GL.TexEnv(TextureEnvTarget.TextureEnv, TextureEnvParameter.TextureEnvMode, (float)TextureEnvMode.Modulate);
+                GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapS, (float)All.Clamp);
+                GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureWrapT, (float)All.Clamp);
+                GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMagFilter, (float)All.Nearest);
+                GL.TexParameter(TextureTarget.Texture2DArray, TextureParameterName.TextureMinFilter, (float)All.Nearest);
+                GL.PixelStore(PixelStoreParameter.UnpackAlignment, 1);
+                _BufferPointer = GCHandle.Alloc(this._Textures, GCHandleType.Pinned);
+                IntPtr TextureBuffer = _BufferPointer.AddrOfPinnedObject();
+                GL.TexImage3D(TextureTarget.Texture2DArray, 0, PixelInternalFormat.Rgba, 256, 256, this._TexturesNumber, 0, PixelFormat.Bgra, PixelType.UnsignedByte, TextureBuffer);
+                this._Loaded = true;
+            }
+            else GL.BindTexture(TextureTarget.Texture2DArray, TexturesPointer);
             this._Active = true;
             GLSLShaderTexturePackage._Binded = true;
+            ShaderTexturePackage._Index = TexturesPointer;
             return true;
         }
         public override void ClearData()

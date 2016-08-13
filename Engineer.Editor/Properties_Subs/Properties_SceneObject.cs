@@ -17,6 +17,7 @@ namespace Engineer.Editor
         private SceneObject _CurrentSceneObject;
         private Game_Interface _Interface;
         private PropertiesInput_String _Name;
+        private PropertiesInput_Button _AddNewEvent;
         public Properties_SceneObject()
         {
             InitializeComponent();
@@ -38,12 +39,29 @@ namespace Engineer.Editor
             this.AddControl(_Name);
             PropertiesInput_Label Type = new PropertiesInput_Label("Type", SceneObjectTypeString);
             this.AddControl(Type);
+            for (int i = 0; i < CurrentSceneObject.Events.EventList.Count; i++)
+            {
+                for (int j = 0; j < CurrentSceneObject.Events.EventList[i].Events.Count; j++)
+                {
+                    Properties_Event NewEvent = new Properties_Event();
+                    NewEvent.Init(_Interface, _CurrentSceneObject, Scene_Interface.GetPossibleEventNames(_Interface.CurrentScene, _Interface.CurrentScene.Events.EventList[i].ID).IndexOf(_Interface.CurrentScene.Events.EventList[i].Events[j].ID), i, true);
+                    this.AddControl(NewEvent);
+                }
+            }
+            _AddNewEvent = new PropertiesInput_Button("", "Add New Event", new EventHandler(AddNewEvent_Click));
+            this.AddControl(_AddNewEvent);
         }
         private void NameChanged(object sender, EventArgs e)
         {
             if (this._CurrentSceneObject == null) return;
             _CurrentSceneObject.Name = (string)_Name.GetValue();
             _Interface.ForceUpdate(InterfaceUpdateMessage.SceneObjectsUpdated);
+        }
+        private void AddNewEvent_Click(object sender, EventArgs e)
+        {
+            Properties_Event NewEvent = new Properties_Event(_Interface, _CurrentSceneObject);
+            this.AddControl(NewEvent);
+            _AddNewEvent.BringToFront();
         }
     }
 }

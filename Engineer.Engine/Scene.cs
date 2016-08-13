@@ -22,7 +22,7 @@ namespace Engineer.Engine
         protected string _Name;
         protected SceneType _Type;
         protected Color _BackColor;
-        private SceneEvents _Events;
+        private EventsPackage _Events;
         protected List<SceneObject> _Objects;
         public string ID
         {
@@ -73,7 +73,7 @@ namespace Engineer.Engine
                 _BackColor = value;
             }
         }
-        public SceneEvents Events
+        public EventsPackage Events
         {
             get
             {
@@ -119,7 +119,7 @@ namespace Engineer.Engine
             this._Name = this._ID;
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();
-            this._Events = new SceneEvents();
+            this._Events = new EventsPackage(EventHandlersPackage.NewSceneEventsPackage());
         }
         public Scene(string Name)
         {
@@ -127,7 +127,7 @@ namespace Engineer.Engine
             this._Name = Name;
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();
-            this._Events = new SceneEvents();
+            this._Events = new EventsPackage(EventHandlersPackage.NewSceneEventsPackage());
         }
         public Scene(Scene S)
         {
@@ -135,106 +135,13 @@ namespace Engineer.Engine
             this._Name = S.Name;
             this._Type = S._Type;
             this._BackColor = S._BackColor;
-            this._Events = new SceneEvents(S._Events, this);
+            this._Events = new EventsPackage(S._Events, this);
             this._Objects = new List<SceneObject>();
             for(int i = 0; i < S._Objects.Count; i++)
             {
                 if (S._Objects[i].Type == SceneObjectType.DrawnSceneObject) this._Objects.Add(new DrawnSceneObject((DrawnSceneObject)S._Objects[i], this));
                 else if (S._Objects[i].Type == SceneObjectType.ScriptSceneObject) this._Objects.Add(new ScriptSceneObject((ScriptSceneObject)S._Objects[i], this));
             }
-        }
-    }
-    public class SceneEvents
-    {
-        private List<SceneEventHandlers> _EventList;
-        public List<SceneEventHandlers> EventList
-        {
-            get
-            {
-                return _EventList;
-            }
-            set
-            {
-                _EventList = value;
-            }
-        }
-        public SceneEvents()
-        {
-            this._EventList = SceneEventHandlers.NewSceneEvents();
-        }
-        public SceneEvents(SceneEvents SE, Scene ParentScene)
-        {
-            for (int i = 0; i < SE._EventList.Count; i++) _EventList.Add(new SceneEventHandlers(SE._EventList[i], ParentScene));
-        }
-        public List<ScriptSceneObject> Events(string ID)
-        {
-            for(int i = 0; i < _EventList.Count; i++)
-            {
-                if (_EventList[i].ID == ID) return _EventList[i].Events;
-            }
-            return null;
-        }
-    }
-    public class SceneEventHandlers
-    {
-        private string _ID;
-        private List<ScriptSceneObject> _Events;
-        public string ID
-        {
-            get
-            {
-                return _ID;
-            }
-
-            set
-            {
-                _ID = value;
-            }
-        }
-        public List<ScriptSceneObject> Events
-        {
-            get
-            {
-                return _Events;
-            }
-
-            set
-            {
-                _Events = value;
-            }
-        }
-        public SceneEventHandlers()
-        {
-            this.ID = Guid.NewGuid().ToString();
-            this.Events = new List<ScriptSceneObject>();
-        }
-        public SceneEventHandlers(string ID)
-        {
-            this.ID = ID;
-            this.Events = new List<ScriptSceneObject>();
-        }
-        public SceneEventHandlers(SceneEventHandlers SEH, Scene ParentScene)
-        {
-            this.ID = SEH.ID;
-            this._Events = new List<ScriptSceneObject>();
-            for(int i = 0; i < SEH._Events.Count; i++) _Events.Add(new ScriptSceneObject(SEH._Events[i], ParentScene));
-        }
-        public static List<SceneEventHandlers> NewSceneEvents()
-        {
-            List<SceneEventHandlers> EventList = new List<SceneEventHandlers>();
-            EventList.Add(new SceneEventHandlers("Closing"));
-            EventList.Add(new SceneEventHandlers("KeyDown"));
-            EventList.Add(new SceneEventHandlers("KeyUp"));
-            EventList.Add(new SceneEventHandlers("KeyPress"));
-            EventList.Add(new SceneEventHandlers("Load"));
-            EventList.Add(new SceneEventHandlers("MouseDown"));
-            EventList.Add(new SceneEventHandlers("MouseUp"));
-            EventList.Add(new SceneEventHandlers("MouseClick"));
-            EventList.Add(new SceneEventHandlers("MouseMove"));
-            EventList.Add(new SceneEventHandlers("MouseWheel"));
-            EventList.Add(new SceneEventHandlers("RenderFrame"));
-            EventList.Add(new SceneEventHandlers("TimerTick"));
-            return EventList;
         }
     }
 }

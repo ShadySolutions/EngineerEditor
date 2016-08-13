@@ -178,9 +178,11 @@ namespace Engineer.Engine
         public bool Control;
         public bool Alt;
         public bool Shift;
+        public bool Handled;
         public int Delta;
         public KeyType KeyDown;
         public MouseClickType ButtonDown;
         public Vertex Location;
+        public object Target;
     }
 }
