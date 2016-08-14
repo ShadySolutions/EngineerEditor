@@ -86,18 +86,26 @@ namespace Engineer.Draw
 
             for(int i = 0; i < CurrentScene.Sprites.Count; i++)
             {
-                if (CurrentScene.Sprites[i].Active)
+                DrawSprite(CurrentScene.Sprites[i]);
+            }
+        }
+        public virtual void DrawSprite(Sprite CurrentSprite)
+        {
+            if (CurrentSprite.Active)
+            {
+                this._Matrix.Translate(CurrentSprite.Translation.X, CurrentSprite.Translation.Y, CurrentSprite.Translation.Z);
+                this._Matrix.Scale(CurrentSprite.Scale.X, CurrentSprite.Scale.Y, CurrentSprite.Scale.Z);
+                this._Matrix.Rotate(CurrentSprite.Rotation.X, 1, 0, 0);
+                this._Matrix.Rotate(CurrentSprite.Rotation.Y, 0, 1, 0);
+                this._Matrix.Rotate(CurrentSprite.Rotation.Z, 0, 0, 1);
+                this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
+                this._CurrentRenderer.RenderSprite(CurrentSprite.ID, CurrentSprite.CollectiveLists(), (CurrentSprite.CollectiveLists().Count > 0) ? CurrentSprite.Index() : -1, CurrentSprite.Modified);
+                CurrentSprite.Modified = false;
+                for(int i = 0; i < CurrentSprite.SubSprites.Count; i++)
                 {
-                    this._Matrix.Translate(CurrentScene.Sprites[i].Translation.X, CurrentScene.Sprites[i].Translation.Y, CurrentScene.Sprites[i].Translation.Z);
-                    this._Matrix.Scale(CurrentScene.Sprites[i].Scale.X, CurrentScene.Sprites[i].Scale.Y, CurrentScene.Sprites[i].Scale.Z);
-                    this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.X, 1, 0, 0);
-                    this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.Y, 0, 1, 0);
-                    this._Matrix.Rotate(CurrentScene.Sprites[i].Rotation.Z, 0, 0, 1);
-                    this._CurrentRenderer.SetModelViewMatrix(_Matrix.ModelViewMatrix);
-                    this._CurrentRenderer.RenderSprite(CurrentScene.Sprites[i].ID, CurrentScene.Sprites[i].CollectiveLists(), (CurrentScene.Sprites[i].CollectiveLists().Count > 0) ? CurrentScene.Sprites[i].Index() : -1, CurrentScene.Sprites[i].Modified);
-                    CurrentScene.Sprites[i].Modified = false;
-                    this._Matrix.PopMatrix();
+                    DrawSprite(CurrentSprite.SubSprites[i]);
                 }
+                this._Matrix.PopMatrix();
             }
         }
         public virtual void Draw3DScene(Scene3D CurrentScene, int Width, int Height)

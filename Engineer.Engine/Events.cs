@@ -8,7 +8,20 @@ namespace Engineer.Engine
 {
     public class EventsPackage
     {
+        private ExternEventPackage _Extern;
         private List<EventHandlersPackage> _EventList;
+        public ExternEventPackage Extern
+        {
+            get
+            {
+                return _Extern;
+            }
+
+            set
+            {
+                _Extern = value;
+            }
+        }
         public List<EventHandlersPackage> EventList
         {
             get
@@ -22,14 +35,17 @@ namespace Engineer.Engine
         }
         public EventsPackage()
         {
+            this._Extern = new ExternEventPackage();
             this._EventList = new List<EventHandlersPackage>();
         }
         public EventsPackage(List<EventHandlersPackage> EventList)
         {
+            this._Extern = new ExternEventPackage();
             this._EventList = EventList;
         }
         public EventsPackage(EventsPackage SE, Scene ParentScene)
         {
+            this._Extern = SE._Extern;
             this._EventList = new List<EventHandlersPackage>();
             for (int i = 0; i < SE._EventList.Count; i++) _EventList.Add(new EventHandlersPackage(SE._EventList[i], ParentScene));
         }
@@ -109,6 +125,56 @@ namespace Engineer.Engine
             EventList.Add(new EventHandlersPackage("MouseClick"));
             EventList.Add(new EventHandlersPackage("MouseMove"));
             return EventList;
+        }
+    }
+    public delegate void GameEventHandler(Game CurrentGame, EventArguments Args);
+    public class ExternEventPackage
+    {
+        public event GameEventHandler Closing;
+        public event GameEventHandler KeyDown;
+        public event GameEventHandler KeyUp;
+        public event GameEventHandler KeyPress;
+        public event GameEventHandler Load;
+        public event GameEventHandler MouseDown;
+        public event GameEventHandler MouseUp;
+        public event GameEventHandler MouseClick;
+        public event GameEventHandler MouseMove;
+        public event GameEventHandler MouseWheel;
+        public event GameEventHandler RenderFrame;
+        public event GameEventHandler TimerTick;
+        public ExternEventPackage()
+        {
+            Closing = new GameEventHandler(OnInvoke);
+            KeyDown = new GameEventHandler(OnInvoke);
+            KeyUp = new GameEventHandler(OnInvoke);
+            KeyPress = new GameEventHandler(OnInvoke);
+            Load = new GameEventHandler(OnInvoke);
+            MouseDown = new GameEventHandler(OnInvoke);
+            MouseUp = new GameEventHandler(OnInvoke);
+            MouseClick = new GameEventHandler(OnInvoke);
+            MouseMove = new GameEventHandler(OnInvoke);
+            MouseWheel = new GameEventHandler(OnInvoke);
+            RenderFrame = new GameEventHandler(OnInvoke);
+            TimerTick = new GameEventHandler(OnInvoke);
+        }
+        public void OnInvoke(Game CurrentGame, EventArguments Args)
+        {
+
+        }
+        public void Invoke(string EventName, Game CurrentGame, EventArguments Args)
+        {
+            if (EventName == "Closing") Closing.Invoke(CurrentGame, Args);
+            if (EventName == "KeyDown") KeyDown.Invoke(CurrentGame, Args);
+            if (EventName == "KeyUp") KeyUp.Invoke(CurrentGame, Args);
+            if (EventName == "KeyPress") KeyPress.Invoke(CurrentGame, Args);
+            if (EventName == "Load") Load.Invoke(CurrentGame, Args);
+            if (EventName == "MouseDown") MouseDown.Invoke(CurrentGame, Args);
+            if (EventName == "MouseUp") MouseUp.Invoke(CurrentGame, Args);
+            if (EventName == "MouseClick") MouseClick.Invoke(CurrentGame, Args);
+            if (EventName == "MouseMove") MouseMove.Invoke(CurrentGame, Args);
+            if (EventName == "MouseWheel") MouseWheel.Invoke(CurrentGame, Args);
+            if (EventName == "RenderFrame") RenderFrame.Invoke(CurrentGame, Args);
+            if (EventName == "TimerTick") TimerTick.Invoke(CurrentGame, Args);
         }
     }
 }

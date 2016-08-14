@@ -15,6 +15,7 @@ namespace Engineer.Engine
         private int _CurrentIndex;
         private int _CurrentSpriteSet;
         private List<SpriteSet> _SpriteSets;
+        private List<Sprite> _SubSprites;
         public bool Modified
         {
             get
@@ -39,18 +40,36 @@ namespace Engineer.Engine
                 _SpriteSets = value;
             }
         }
+        public List<Sprite> SubSprites
+        {
+            get
+            {
+                return _SubSprites;
+            }
+
+            set
+            {
+                _SubSprites = value;
+            }
+        }
         public Sprite() : base()
         {
             this._CurrentIndex = 0;
             this.Type = DrawObjectType.Sprite;
             this._SpriteSets = new List<SpriteSet>();
             this.Scale = new Mathematics.Vertex(100,100,1);
+            this._SubSprites = new List<Sprite>();
         }
         public Sprite(Sprite S) : base(S)
         {
             this._CurrentIndex = 0;
             this._SpriteSets = new List<SpriteSet>();
             for (int i = 0; i < S._SpriteSets.Count; i++) this._SpriteSets.Add(new SpriteSet(S._SpriteSets[i]));
+            this._SubSprites = new List<Sprite>();
+            for(int i = 0; i <S.SubSprites.Count; i++)
+            {
+                _SubSprites.Add(new Sprite(S.SubSprites[i]));
+            }
         }
         public List<Bitmap> CollectiveLists()
         {

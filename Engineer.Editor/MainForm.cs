@@ -111,7 +111,7 @@ namespace Engineer.Editor
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_BlockEvents) return;
-            Runner.Runner Run = new Runner.Runner(800, 600, OpenTK.Graphics.GraphicsMode.Default, _Interface.CurrentGame.Name);
+            Runner.ScriptedRunner Run = new Runner.ScriptedRunner(800, 600, OpenTK.Graphics.GraphicsMode.Default, _Interface.CurrentGame.Name);
             Scene NewScene = null;
             if (_Interface.CurrentScene.Type == SceneType.Scene2D) NewScene = new Scene2D((Scene2D)_Interface.CurrentScene);
             else if (_Interface.CurrentScene.Type == SceneType.Scene3D) NewScene = new Scene3D((Scene3D)_Interface.CurrentScene);

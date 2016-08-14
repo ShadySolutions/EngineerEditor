@@ -15,21 +15,18 @@ using Engineer.Draw.OpenGL;
 using Engineer.Draw.OpenGL.FixedGL;
 using Engineer.Draw.OpenGL.GLSL;
 using Engineer.Engine;
-using CSScriptLibrary;
 using OpenTK.Input;
 
 namespace Engineer.Runner
 {
     public class Runner : OpenTK.GameWindow
     {
-        private bool _GameInit;
-        private bool _EngineInit;
-        private Timer _Time;
-        private EventManager _Events;
-        private List<EventManager> _ObjectEvents;
-        private Scene _CurrentScene;
-        private Game _CurrentGame;
-        private DrawEngine _Engine;
+        protected bool _GameInit;
+        protected bool _EngineInit;
+        protected Timer _Time;
+        protected Scene _CurrentScene;
+        protected Game _CurrentGame;
+        protected DrawEngine _Engine;
         public Runner(int width, int height, GraphicsMode mode, string title) : base(width, height, mode, title)
         {
             this._GameInit = false;
@@ -65,22 +62,13 @@ namespace Engineer.Runner
             this.MouseUp += new EventHandler<MouseButtonEventArgs>(Event_MouseUp);
             this.MouseMove += new EventHandler<MouseMoveEventArgs>(Event_MouseMove);
             this.MouseWheel += new EventHandler<MouseWheelEventArgs>(Event_MouseWheel);
-            _Events = new EventManager();
-            for (int i = 0; i < CurrentScene.Events.EventList.Count; i++)
-            {
-                _Events.AddEvents(CurrentScene.Events.EventList[i].ID, CurrentScene.Events.EventList[i].Events);
-            }
-            _ObjectEvents = new List<EventManager>();
-            for(int i = 0; i < CurrentScene.Objects.Count; i++)
-            {
-                _ObjectEvents.Add(new EventManager());
-                for (int j = 0; j < CurrentScene.Objects[i].Events.EventList.Count; j++)
-                {
-                    _ObjectEvents[i].AddEvents(CurrentScene.Objects[i].Events.EventList[j].ID, CurrentScene.Objects[i].Events.EventList[j].Events);
-                }
-            }
+            PrepareEvents();
             this._Time.Enabled = true;
             Event_Load();
+        }
+        protected virtual void PrepareEvents()
+        {
+
         }
         protected override void OnResize(EventArgs e)
         {
@@ -270,24 +258,22 @@ namespace Engineer.Runner
         }
         private void Event_TimerTick(object sender, ElapsedEventArgs e)
         {
-            if(_CurrentScene.Type == SceneType.Scene2D)
+            if (_CurrentScene.Type == SceneType.Scene2D)
             {
                 Scene2D C2DS = (Scene2D)_CurrentScene;
-                for(int i = 0; i < C2DS.Sprites.Count; i++)
+                for (int i = 0; i < C2DS.Sprites.Count; i++)
                 {
                     C2DS.Sprites[i].RaiseIndex();
-                } 
+                }
             }
             EventArguments Arguments = new EventArguments();
             CallEvents("TimerTick", Arguments);
         }
-        private void CallEvents(string EventName, EventArguments Args)
+        protected virtual void CallEvents(string EventName, EventArguments Args)
         {
-            _Events.Run(EventName, _CurrentGame, Args);
         }
-        private void CallObjectEvents(int Index, string EventName, EventArguments Args)
+        protected virtual void CallObjectEvents(int Index, string EventName, EventArguments Args)
         {
-            _ObjectEvents[Index].Run(EventName, _CurrentGame, Args);
         }
     }
 }
