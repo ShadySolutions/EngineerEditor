@@ -153,6 +153,7 @@ namespace Engineer.Engine
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();
             this._Events = new EventsPackage(EventHandlersPackage.NewSceneEventsPackage());
+            this._Data = new Dictionary<string, object>();
         }
         public Scene(string Name)
         {
@@ -161,6 +162,7 @@ namespace Engineer.Engine
             this._BackColor = Color.FromArgb(40, 40, 40);
             this._Objects = new List<SceneObject>();
             this._Events = new EventsPackage(EventHandlersPackage.NewSceneEventsPackage());
+            this._Data = new Dictionary<string, object>();
         }
         public Scene(Scene S)
         {
@@ -175,6 +177,7 @@ namespace Engineer.Engine
                 if (S._Objects[i].Type == SceneObjectType.DrawnSceneObject) this._Objects.Add(new DrawnSceneObject((DrawnSceneObject)S._Objects[i], this));
                 else if (S._Objects[i].Type == SceneObjectType.ScriptSceneObject) this._Objects.Add(new ScriptSceneObject((ScriptSceneObject)S._Objects[i], this));
             }
+            this._Data = new Dictionary<string, object>(S.Data);
         }
     }
 }

@@ -30,6 +30,7 @@ namespace Engineer.Engine
         }
         public EventsPackage(EventsPackage SE, Scene ParentScene)
         {
+            this._EventList = new List<EventHandlersPackage>();
             for (int i = 0; i < SE._EventList.Count; i++) _EventList.Add(new EventHandlersPackage(SE._EventList[i], ParentScene));
         }
         public List<ScriptSceneObject> Events(string ID)

@@ -10,16 +10,6 @@ using System.Threading.Tasks;
 
 namespace Engineer.Interface
 {
-    public enum GenericSceneObjectType
-    {
-        Floor = 0,
-        Soldier = 1,
-        Cube = 2,
-        Light = 3,
-        Camera = 4,
-        Sprite = 5,
-        Event = 6
-    }
     public class SceneObject_Interface
     {
         public static void PostLoad(SceneObject CurrentSceneObject, string DirPath, List<string> Files)

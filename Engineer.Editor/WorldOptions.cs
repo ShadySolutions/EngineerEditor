@@ -19,6 +19,8 @@ namespace Engineer.Editor
         private int _FilterType;
         private SceneType _Type;
         private Game_Interface _Interface;
+        private List<Button> _Filters;
+        private List<Button> _Options;
         public WorldOptions(Game_Interface Interface)
         {
             InitializeComponent();
@@ -31,7 +33,35 @@ namespace Engineer.Editor
             this._BlockEvents = false;
             this._FilterType = 1;
             this._Type = SceneType.Scene2D;
-            UpdateColors(1);
+            _Filters = new List<Button>();
+            _Filters.Add(Filter0);
+            _Filters.Add(Filter1);
+            _Filters.Add(Filter2);
+            _Filters.Add(Filter3);
+            _Filters.Add(Filter4);
+            _Filters.Add(Filter5);
+            _Filters.Add(Filter6);
+            _Filters.Add(Filter7);
+            _Filters.Add(Filter8);
+            Filter0.Tag = new int[3] { -1, -1, -1 };
+            Filter1.Tag = new int[3] { (int)SceneType.Scene3D, (int)SceneObjectType.DrawnSceneObject, (int)DrawObjectType.Actor };
+            Filter2.Tag = new int[3] { (int)SceneType.Scene3D, (int)SceneObjectType.DrawnSceneObject, (int)DrawObjectType.Figure };
+            Filter3.Tag = new int[3] { (int)SceneType.Scene3D, (int)SceneObjectType.DrawnSceneObject, (int)DrawObjectType.Camera };
+            Filter4.Tag = new int[3] { (int)SceneType.Scene3D, (int)SceneObjectType.DrawnSceneObject, (int)DrawObjectType.Light };
+            Filter5.Tag = new int[3] { (int)SceneType.Scene2D, (int)SceneObjectType.DrawnSceneObject, (int)DrawObjectType.Background };
+            Filter6.Tag = new int[3] { (int)SceneType.Scene2D, (int)SceneObjectType.DrawnSceneObject, (int)DrawObjectType.Sprite };
+            Filter7.Tag = new int[3] { -1, (int)SceneObjectType.ScriptSceneObject, -1 };
+            Filter8.Tag = new int[3] { -1, (int)SceneObjectType.SoundSceneObject, -1 };
+            _Options = new List<Button>();
+            _Options.Add(Option0);
+            _Options.Add(Option1);
+            _Options.Add(Option2);
+            _Options.Add(Option3);
+            _Options.Add(Option4);
+            _Options.Add(Option5);
+            _Options.Add(Option6);
+            UpdateVisibleFilters();
+            UpdateColors(0);
             UpdateVisibleOptions();
         }
         public void InterfaceUpdate(InterfaceUpdateMessage Message)
@@ -43,6 +73,7 @@ namespace Engineer.Editor
                 if (_Interface.CurrentScene != null)
                 {
                     this._Type = _Interface.CurrentScene.Type;
+                    UpdateVisibleFilters();
                     UpdateVisibleOptions();
                 }
             }
@@ -51,118 +82,86 @@ namespace Engineer.Editor
         //Services
         private void UpdateColors(int Index)
         {
-            All.BackColor = Color.FromArgb(30, 30, 30);
-            Primitives.BackColor = Color.FromArgb(30, 30, 30);
-            Characters.BackColor = Color.FromArgb(30, 30, 30);
-            Cameras.BackColor = Color.FromArgb(30, 30, 30);
-            Lights.BackColor = Color.FromArgb(30, 30, 30);
-            Events.BackColor = Color.FromArgb(30, 30, 30);
-            if (Index == 0) All.BackColor = Color.FromArgb(20, 20, 20);
-            else if (Index == 1) Primitives.BackColor = Color.FromArgb(20, 20, 20);
-            else if (Index == 2) Characters.BackColor = Color.FromArgb(20, 20, 20);
-            else if (Index == 3) Cameras.BackColor = Color.FromArgb(20, 20, 20);
-            else if (Index == 4) Lights.BackColor = Color.FromArgb(20, 20, 20);
-            else if (Index == 5) Events.BackColor = Color.FromArgb(20, 20, 20);
+            for(int i = 0; i < _Filters.Count; i++) _Filters[i].BackColor = Color.FromArgb(30, 30, 30);
+            _Filters[Index].BackColor = Color.FromArgb(20, 20, 20);
         }
         private void UpdateVisibleOptions()
         {
-            Floor.Visible = false;
-            Cube.Visible = false;
-            Soldier.Visible = false;
-            Light.Visible = false;
-            Camera.Visible = false;
-            Sprite.Visible = false;
-            Event.Visible = false;
-            if (this._Type == SceneType.Scene3D)
+            if (_FilterType == 0)
             {
-                Cameras.Visible = true;
-                Lights.Visible = true;
-                if (_FilterType == 0)
+                if (_Type == SceneType.Scene2D)
                 {
-                    Floor.Visible = true;
-                    Cube.Visible = true;
-                    Soldier.Visible = true;
-                    Light.Visible = true;
-                    Camera.Visible = true;
-                    Event.Visible = true;
+                    for (int j = 0; j < _Options.Count; j++) _Options[j].Visible = false;
+                    _Options[5].Visible = true;
+                    _Options[6].Visible = true;
                 }
-                else if (_FilterType == 1)
+                else if (_Type == SceneType.Scene3D)
                 {
-                    Floor.Visible = true;
-                    Cube.Visible = true;
-                }
-                else if (_FilterType == 2)
-                {
-                    Soldier.Visible = true;
-                }
-                else if (_FilterType == 3)
-                {
-                    Camera.Visible = true;
-                }
-                else if (_FilterType == 4)
-                {
-                    Light.Visible = true;
-                }
-                else if (_FilterType == 5)
-                {
-                    Event.Visible = true;
+                    for (int j = 0; j < _Options.Count; j++) _Options[j].Visible = true;
+                    _Options[5].Visible = false;
                 }
             }
-            else if (this._Type == SceneType.Scene2D)
+            else
             {
-                Cameras.Visible = false;
-                Lights.Visible = false;
-                if (_FilterType == 0)
+                int[] Tags = _Filters[_FilterType].Tag as int[];
+                for (int j = 0; j < _Options.Count; j++)
                 {
-                    Sprite.Visible = true;
-                    Event.Visible = true;
-                }
-                else if (_FilterType == 1)
-                {
-                    Sprite.Visible = true;
-                }
-                else if (_FilterType == 2)
-                {
-                }
-                else if (_FilterType == 5)
-                {
-                    Event.Visible = true;
+                    if (Tags[1] == -1 || (int)_Interface.GlobalSceneObjects[j].Type == Tags[1])
+                    {
+                        _Options[j].Visible = false;
+                        if (_Interface.GlobalSceneObjects[j].Type == SceneObjectType.DrawnSceneObject)
+                        {
+                            DrawnSceneObject DSO = (DrawnSceneObject)_Interface.GlobalSceneObjects[j];
+                            DrawObjectType DType = DSO.Representation.Type;
+                            if ((int)DType == Tags[2])
+                            {
+                                _Options[j].Visible = true;
+                            }
+                        }
+                        else _Options[j].Visible = true;
+                    }
+                    else _Options[j].Visible = false;
                 }
             }
         }
         //Events
-        private void Floor_MouseEnter(object sender, EventArgs e)
+        private void UpdateVisibleFilters()
+        {
+            for (int i = 0; i < _Filters.Count; i++)
+            {
+                _Filters[i].Visible = false;
+                int[] Tags = _Filters[i].Tag as int[];
+                if (Tags[0] == -1 || Tags[0] == (int)_Type) _Filters[i].Visible = true;
+            }
+            this._FilterType = 0;
+            UpdateColors(0);
+            UpdateVisibleOptions();
+        }
+        private void Option_MouseEnter(object sender, EventArgs e)
         {
             if (_BlockEvents) return;
             Button CurrentButton = sender as Button;
             CurrentButton.BackColor = Color.FromArgb(50,50,50);
         }
-        private void Floor_MouseLeave(object sender, EventArgs e)
+        private void Option_MouseLeave(object sender, EventArgs e)
         {
             if (_BlockEvents) return;
             Button CurrentButton = sender as Button;
             CurrentButton.BackColor = Color.FromArgb(20, 20, 20);
         }
-        private void Floor_Click(object sender, EventArgs e)
+        private void Option_Click(object sender, EventArgs e)
         {
             if (_BlockEvents) return;
             Button CurrentButton = sender as Button;
             int Index = Convert.ToInt32(CurrentButton.Tag);
             string ErrorString = "";
-            _Interface.AddSceneItem((GenericSceneObjectType)Index, ref ErrorString);
-        }
-        public void UpdateSceneType(SceneType Type)
-        {
-            if (_BlockEvents) return;
-            this._Type = Type;
-            this._FilterType = 0;
-            UpdateVisibleOptions();
+            _Interface.AddSceneItem(Index, ref ErrorString);
         }
         private void All_Click(object sender, EventArgs e)
         {
             if (_BlockEvents) return;
             Button Current = sender as Button;
-            int Index = Convert.ToInt32(Current.Tag);
+            int Index = _Filters.IndexOf(Current);
             this._FilterType = Index;
             UpdateColors(Index);
             UpdateVisibleOptions();

@@ -72,7 +72,7 @@ namespace Engineer.Editor
                     this._GameW.Hide();
                     this._View.Show(MainDock, DockState.Document);
                     this._World.Show(MainDock, DockState.DockLeft);
-                    this._Library.Show(this._World.Pane, DockAlignment.Bottom, 1.4 / 2);
+                    this._Library.Show(this._World.Pane, DockAlignment.Bottom, 1.0 / 2);
                     this._Scene.Show(MainDock, DockState.DockRight);
                     this._Properties.Show(this._Scene.Pane, DockAlignment.Bottom, 1.0 / 2);
                     sceneToolStripMenuItem.Visible = true;

@@ -30,6 +30,7 @@ namespace Engineer.Interface
         private Scene _CurrentScene;
         private Game _CurrentGame;
         private List<OBJContainer> _Scene3DContainers;
+        private List<SceneObject> _GlobalSceneObjects;
         public event InterfaceUpdate Update;
         public object CurrentSelection
         {
@@ -83,6 +84,18 @@ namespace Engineer.Interface
                 Update.Invoke(InterfaceUpdateMessage.GameUpdated);
             }
         }
+        public List<SceneObject> GlobalSceneObjects
+        {
+            get
+            {
+                return _GlobalSceneObjects;
+            }
+
+            set
+            {
+                _GlobalSceneObjects = value;
+            }
+        }
         public Game_Interface(Game CurrentGame)
         {
             Update = new Interface.InterfaceUpdate(OnInterfaceUpdate);
@@ -112,31 +125,24 @@ namespace Engineer.Interface
             _CurrentGame.Name = "New Game";
             ForceUpdate(InterfaceUpdateMessage.GameUpdated);
         }
-        public bool AddSceneItem(GenericSceneObjectType Type, ref string ErrorString)
+        public bool AddSceneItem(int Index, ref string ErrorString)
         {
             bool ReturnValue = false;
             try
             {
-                if (this.CurrentScene.Type == SceneType.Scene2D && Type == GenericSceneObjectType.Sprite)
+                if (_GlobalSceneObjects[Index].Type == SceneObjectType.DrawnSceneObject)
                 {
-                    Sprite NewSprite = new Sprite();
-                    DrawnSceneObject New_Object = new DrawnSceneObject("New Sprite", NewSprite);
-                    this.CurrentScene.AddSceneObject(New_Object);
+                    this.CurrentScene.AddSceneObject(new DrawnSceneObject((DrawnSceneObject)_GlobalSceneObjects[Index], _CurrentScene));
                     ReturnValue = true;
                 }
-                else if (this.CurrentScene.Type == SceneType.Scene3D && Type == GenericSceneObjectType.Floor || Type == GenericSceneObjectType.Cube || Type == GenericSceneObjectType.Soldier)
+                else if (_GlobalSceneObjects[Index].Type == SceneObjectType.ScriptSceneObject)
                 {
-                    Actor New_Actor = new Actor(_Scene3DContainers[(int)Type], _Scene3DContainers[(int)Type].Geometries[0].Name);
-                    New_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
-                    DrawnSceneObject New_Object = new DrawnSceneObject(_Scene3DContainers[(int)Type].Geometries[0].Name, New_Actor);
-                    this.CurrentScene.AddSceneObject(New_Object);
+                    this.CurrentScene.AddSceneObject(new ScriptSceneObject((ScriptSceneObject)_GlobalSceneObjects[Index], _CurrentScene));
                     ReturnValue = true;
                 }
-                else if (Type == GenericSceneObjectType.Event)
+                else if (_GlobalSceneObjects[Index].Type == SceneObjectType.SoundSceneObject)
                 {
-                    ScriptSceneObject New_Object = new ScriptSceneObject("New Event");
-                    this.CurrentScene.AddSceneObject(New_Object);
-                    ReturnValue = true;
+                    ReturnValue = false;
                 }
                 else ReturnValue = false;
             }
@@ -283,6 +289,26 @@ namespace Engineer.Interface
             XmlNode Main = Document.FirstChild;
             Material Mat = new Material(Main);
             Material.Default = Mat;
+
+            GlobalSceneObjects = new List<SceneObject>();
+            for(int i = 0; i < _Scene3DContainers.Count; i++)
+            {
+                Actor New_Actor = new Actor(_Scene3DContainers[i], _Scene3DContainers[i].Geometries[0].Name);
+                New_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
+                DrawnSceneObject New_Actor_Object = new DrawnSceneObject(_Scene3DContainers[i].Geometries[0].Name, New_Actor);
+                GlobalSceneObjects.Add(New_Actor_Object);
+            }
+            Light NewLight = new Light();
+            DrawnSceneObject New_Object = new DrawnSceneObject("New Light", NewLight);
+            GlobalSceneObjects.Add(New_Object);
+            Camera NewCamera = new Camera();
+            New_Object = new DrawnSceneObject("New Camera", NewCamera);
+            GlobalSceneObjects.Add(New_Object);
+            Sprite NewSprite = new Sprite();
+            New_Object = new DrawnSceneObject("New Sprite", NewSprite);
+            _GlobalSceneObjects.Add(New_Object);
+            ScriptSceneObject New_Script_Object = new ScriptSceneObject("New Event");
+            GlobalSceneObjects.Add(New_Script_Object);
         }
         public static bool LoadGame(string FilePath, ref Game CurrentGame, ref string ErrorString)
         {
