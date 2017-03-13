@@ -178,10 +178,11 @@ namespace Engineer.Draw
         }
         public override void Render2DGrid()
         {
+            String LibPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Engineer/";
             if (!this.IsMaterialReady("Grid2D"))
             {
-                string Vertex2D = File.ReadAllText("GLSL\\Generator\\Vertex2DGrid.shader");
-                string Fragment2D = File.ReadAllText("GLSL\\Generator\\Fragment2DGrid.shader");
+                string Vertex2D = File.ReadAllText(LibPath + "GLSL\\Generator\\Vertex2DGrid.shader");
+                string Fragment2D = File.ReadAllText(LibPath + "GLSL\\Generator\\Fragment2DGrid.shader");
                 this.SetMaterial(new object[3] { new string[6] { "Grid2D", Vertex2D, Fragment2D, null, null, null }, null, null }, true);
             }
             else this.SetMaterial(new object[3] { new string[6] { "Grid2D", null, null, null, null, null }, null, null }, false);

@@ -59,10 +59,11 @@ namespace Engineer.Draw
         {
             if (CurrentScene == null) return;
             this._CurrentRenderer.Toggle(RenderEnableCap.Depth, false);
+            String LibPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Engineer/";
             if (!this._CurrentRenderer.IsMaterialReady("2D"))
             {
-                string Vertex2D = File.ReadAllText("GLSL\\Generator\\Vertex2D.shader");
-                string Fragment2D = File.ReadAllText("GLSL\\Generator\\Fragment2D.shader");
+                string Vertex2D = File.ReadAllText(LibPath + "GLSL\\Generator\\Vertex2D.shader");
+                string Fragment2D = File.ReadAllText(LibPath + "GLSL\\Generator\\Fragment2D.shader");
                 this._CurrentRenderer.SetMaterial(new object[3] { new string[6] { "2D", Vertex2D, Fragment2D, null, null, null }, null, null }, true);
             }
 

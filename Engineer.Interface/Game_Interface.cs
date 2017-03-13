@@ -266,26 +266,28 @@ namespace Engineer.Interface
         {
             this._Scene3DContainers = new List<OBJContainer>();
 
+            String LibPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Engineer/";
+
             OBJContainer Floor_OBJ = new OBJContainer();
-            Floor_OBJ.Load("Library/Mesh/Floor.obj", null);
+            Floor_OBJ.Load(LibPath + "/Library/Mesh/Floor.obj", null);
             if (Floor_OBJ.Geometries[0].Normals.Count == 0) Floor_OBJ.RecalculateNormals();
             Floor_OBJ.Repack();
             _Scene3DContainers.Add(Floor_OBJ);
 
             OBJContainer Cube_OBJ = new OBJContainer();
-            Cube_OBJ.Load("Library/Mesh/Cube.obj", null);
+            Cube_OBJ.Load(LibPath + "Library/Mesh/Cube.obj", null);
             if (Cube_OBJ.Geometries[0].Normals.Count == 0) Cube_OBJ.RecalculateNormals();
             Cube_OBJ.Repack();
             _Scene3DContainers.Add(Cube_OBJ);
 
             OBJContainer Soldier_OBJ = new OBJContainer();
-            Soldier_OBJ.Load("Library/Mesh/Soldier.obj", null);
+            Soldier_OBJ.Load(LibPath + "Library/Mesh/Soldier.obj", null);
             if (Soldier_OBJ.Geometries[0].Normals.Count == 0) Soldier_OBJ.RecalculateNormals();
             Soldier_OBJ.Repack();
             _Scene3DContainers.Add(Soldier_OBJ);
 
             XmlDocument Document = new XmlDocument();
-            Document.Load("Library/Material/Default.mtx");
+            Document.Load(LibPath + "Library/Material/Default.mtx");
             XmlNode Main = Document.FirstChild;
             Material Mat = new Material(Main);
             Material.Default = Mat;
@@ -323,6 +325,7 @@ namespace Engineer.Interface
                     for (int j = 0; j < CurrentGame.Scenes[i].Objects.Count; j++)
                     {
                         SceneObject_Interface.PostLoad(CurrentGame.Scenes[i].Objects[i], DirPath, Files);
+                        CurrentGame.Scenes[i].Objects[j].ParentScene = CurrentGame.Scenes[i];
                     }
                 }
                 for (int i = 0; i < Files.Count; i++) File.Delete(Files[i]);
