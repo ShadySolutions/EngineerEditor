@@ -29,7 +29,7 @@ namespace Engineer.Interface
         private SceneObject _CurrentSceneObject;
         private Scene _CurrentScene;
         private Game _CurrentGame;
-        private List<OBJContainer> _Scene3DContainers;
+        private LibraryData _Library;
         private List<SceneObject> _GlobalSceneObjects;
         public event InterfaceUpdate Update;
         public object CurrentSelection
@@ -84,6 +84,8 @@ namespace Engineer.Interface
                 Update.Invoke(InterfaceUpdateMessage.GameUpdated);
             }
         }
+        public LibraryData Library
+        { get => _Library; set => _Library = value; }
         public List<SceneObject> GlobalSceneObjects
         {
             get
@@ -98,6 +100,7 @@ namespace Engineer.Interface
         }
         public Game_Interface(Game CurrentGame)
         {
+            this.Library = new LibraryData();
             Update = new Interface.InterfaceUpdate(OnInterfaceUpdate);
             if (CurrentGame != null) this.CurrentGame = CurrentGame;
             else
@@ -159,70 +162,13 @@ namespace Engineer.Interface
             if (ReturnValue) Update.Invoke(InterfaceUpdateMessage.SceneObjectsUpdated);
             return ReturnValue;
         }
-        public bool AddEmptyScene(SceneType Type, ref string ErrorString)
+        public bool AddEmptyScene(string SceneCode, ref string ErrorString)
         {
-            bool ReturnValue = false;
-            try
-            {
-                if (Type == SceneType.Scene2D)
-                {
-                    Actor Floor_Actor = new Actor(_Scene3DContainers[0], "Floor");
-                    Floor_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
-                    Camera MainCamera_Camera = new Camera();
-                    MainCamera_Camera.Translation = new Vertex(0, 0.6f, 0.8f);
-                    MainCamera_Camera.Rotation = new Vertex(30, 0, 0);
-                    Light Light1_Light = new Light();
-                    Light1_Light.Translation = new Vertex(4, -4, -4);
-                    Light1_Light.Color = Color.White;
-                    Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
-                    Light1_Light.Intensity = 0.3f;
-                    Scene2D NewScene = new Scene2D("Scene_" + (CurrentGame.Scenes.Count + 1).ToString("000"));
-                    NewScene.BackColor = Color.FromArgb(40, 40, 40);
-                    NewScene.Type = SceneType.Scene2D;
-                    this.CurrentScene = NewScene;
-                    this.CurrentGame.Scenes.Add(NewScene);
-                    ReturnValue = true;
-                }
-                else if (Type == SceneType.Scene3D)
-                {
-                    Actor Floor_Actor = new Actor(_Scene3DContainers[0], "Floor");
-                    Floor_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
-                    Camera MainCamera_Camera = new Camera();
-                    MainCamera_Camera.Translation = new Vertex(0, 0.6f, 0.8f);
-                    MainCamera_Camera.Rotation = new Vertex(30, 0, 0);
-                    Light Light1_Light = new Light();
-                    Light1_Light.Translation = new Vertex(4, -4, -4);
-                    Light1_Light.Color = Color.White;
-                    Light1_Light.Attenuation = new Vertex(0.6f, 0.2f, 0.2f);
-                    Light1_Light.Intensity = 0.3f;
-                    Scene3D NewScene = new Scene3D("Scene_" + (CurrentGame.Scenes.Count + 1).ToString("000"));
-                    NewScene.BackColor = Color.FromArgb(40, 40, 40);
-                    NewScene.Type = SceneType.Scene3D;
-                    DrawnSceneObject Floor_Object = new DrawnSceneObject("Floor", Floor_Actor);
-                    NewScene.AddSceneObject(Floor_Object);
-                    DrawnSceneObject Camera_Object = new DrawnSceneObject("Camera", MainCamera_Camera);
-                    NewScene.AddSceneObject(Camera_Object);
-                    DrawnSceneObject Light_Object = new DrawnSceneObject("Light", Light1_Light);
-                    NewScene.AddSceneObject(Light_Object);
-                    NewScene.ActiveCamera = new Camera(MainCamera_Camera);
-                    NewScene.EditorCamera = new Camera(MainCamera_Camera);
-                    this.CurrentScene = NewScene;
-                    this.CurrentGame.Scenes.Add(NewScene);
-                    ReturnValue = true;
-                }
-                else ReturnValue = false;
-            }
-            catch (Exception ex)
-            {
-                if (ex.InnerException != null)
-                {
-                    ErrorString = ex.InnerException.ToString();
-                }
-                else ErrorString = ex.Message;
-                ReturnValue = false;
-            }
-            if (ReturnValue) Update.Invoke(InterfaceUpdateMessage.SceneUpdated);
-            return ReturnValue;
+            //"Scene_" + (CurrentGame.Scenes.Count + 1).ToString("000")
+            if(this._Library.Scenes[SceneCode].Type == SceneType.Scene2D) this.CurrentScene = new Scene2D((Scene2D)this._Library.Scenes[SceneCode]);
+            else if (this._Library.Scenes[SceneCode].Type == SceneType.Scene3D) this.CurrentScene = new Scene3D((Scene3D)this._Library.Scenes[SceneCode]);
+            this.CurrentGame.Scenes.Add(this.CurrentScene);
+            return true;
         }
         public bool AddAsset(SceneObject NewAsset)
         {
@@ -236,11 +182,11 @@ namespace Engineer.Interface
             bool Value;
             if (Index == -1)
             {
-                Value = AddEmptyScene(SceneType.Scene2D, ref ErrorString);
+                Value = AddEmptyScene("EmptyScene2D", ref ErrorString);
             }
             else if (Index == -2)
             {
-                Value = AddEmptyScene(SceneType.Scene3D, ref ErrorString);
+                Value = AddEmptyScene("EmptyScene3D", ref ErrorString);
             }
             else
             {
@@ -264,11 +210,11 @@ namespace Engineer.Interface
         }
         private void AcquireData()
         {
-            this._Scene3DContainers = new List<OBJContainer>();
+            //this._Scene3DContainers = new List<OBJContainer>();
 
             String LibPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Engineer/";
 
-            OBJContainer Floor_OBJ = new OBJContainer();
+            /*OBJContainer Floor_OBJ = new OBJContainer();
             Floor_OBJ.Load(LibPath + "/Library/Mesh/Floor.obj", null);
             if (Floor_OBJ.Geometries[0].Normals.Count == 0) Floor_OBJ.RecalculateNormals();
             Floor_OBJ.Repack();
@@ -284,7 +230,7 @@ namespace Engineer.Interface
             Soldier_OBJ.Load(LibPath + "Library/Mesh/Soldier.obj", null);
             if (Soldier_OBJ.Geometries[0].Normals.Count == 0) Soldier_OBJ.RecalculateNormals();
             Soldier_OBJ.Repack();
-            _Scene3DContainers.Add(Soldier_OBJ);
+            _Scene3DContainers.Add(Soldier_OBJ);*/
 
             XmlDocument Document = new XmlDocument();
             Document.Load(LibPath + "Library/Material/Default.mtx");
@@ -293,13 +239,13 @@ namespace Engineer.Interface
             Material.Default = Mat;
 
             GlobalSceneObjects = new List<SceneObject>();
-            for(int i = 0; i < _Scene3DContainers.Count; i++)
+            /*for(int i = 0; i < _Scene3DContainers.Count; i++)
             {
                 Actor New_Actor = new Actor(_Scene3DContainers[i], _Scene3DContainers[i].Geometries[0].Name);
                 New_Actor.Scale = new Vertex(0.001f, 0.001f, 0.001f);
                 DrawnSceneObject New_Actor_Object = new DrawnSceneObject(_Scene3DContainers[i].Geometries[0].Name, New_Actor);
                 GlobalSceneObjects.Add(New_Actor_Object);
-            }
+            }*/
             Light NewLight = new Light();
             DrawnSceneObject New_Object = new DrawnSceneObject("New Light", NewLight);
             GlobalSceneObjects.Add(New_Object);

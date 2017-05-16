@@ -62,14 +62,15 @@ namespace Engineer.Editor
                 Entries.Controls.Add(NewButton);
                 NewButton.BringToFront();
             }
-            Button New2DButton = GenerateButton("New 2D Scene", Color.OrangeRed, SceneType.Scene2D);
-            New2DButton.Click += new EventHandler(NewSceneClick);
-            Entries.Controls.Add(New2DButton);
-            New2DButton.BringToFront();
-            Button New3DButton = GenerateButton("New 3D Scene", Color.CadetBlue, SceneType.Scene3D);
-            New3DButton.Click += new EventHandler(NewSceneClick);
-            Entries.Controls.Add(New3DButton);
-            New3DButton.BringToFront();
+            foreach(var LibraryScene in this._Interface.Library.Scenes)
+            {
+                Button NewButton = null;
+                if (LibraryScene.Value.Type == SceneType.Scene2D) NewButton = GenerateButton(LibraryScene.Value.Name, Color.RoyalBlue, LibraryScene.Value.Name);
+                if (LibraryScene.Value.Type == SceneType.Scene3D) NewButton = GenerateButton(LibraryScene.Value.Name, Color.MediumTurquoise, LibraryScene.Value.Name);
+                NewButton.Click += new EventHandler(NewSceneClick);
+                Entries.Controls.Add(NewButton);
+                NewButton.BringToFront();
+            }
         }
         private Button GenerateButton(string Text, Color TextColor, object Tag)
         {
@@ -90,7 +91,7 @@ namespace Engineer.Editor
             if (_BlockEvents) return;
             Button CurrentButton = sender as Button;
             string ErrorString = "";
-            if(!_Interface.AddEmptyScene((SceneType)CurrentButton.Tag, ref ErrorString))
+            if (!_Interface.AddEmptyScene(CurrentButton.Tag.ToString(), ref ErrorString))
             {
                 MessageBox.Show(ErrorString, "Error");
             }

@@ -21,6 +21,7 @@ namespace Engineer.Engine
     {
         private string _Name;
         private string _ID;
+        private string _IconInfo;
         private SceneObjectType _Type;
         private Scene _ParentScene;
         private EventsPackage _Events;
@@ -49,6 +50,7 @@ namespace Engineer.Engine
                 _ID = value;
             }
         }
+        public string IconInfo { get => _IconInfo; set => _IconInfo = value; }
         public SceneObjectType Type
         {
             get
@@ -130,6 +132,7 @@ namespace Engineer.Engine
         {
             this._Name = Name;
             this._ID = Guid.NewGuid().ToString();
+            this._IconInfo = "none";
             this._Type = SceneObjectType.Undefined;
             this._Events = new EventsPackage();
             this._Data = new Dictionary<string, object>();
@@ -138,6 +141,7 @@ namespace Engineer.Engine
         {
             this._Name = SO._Name;
             this._ID = Guid.NewGuid().ToString();
+            this._IconInfo = SO._IconInfo;
             this._Type = SO._Type;
             this._ParentScene = ParentScene;
             this._Events = new EventsPackage();

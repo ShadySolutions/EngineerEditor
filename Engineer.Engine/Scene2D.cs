@@ -57,7 +57,7 @@ namespace Engineer.Engine
         {
             this._Transformation = new Scene2DTransformation();
         }
-        public Scene2D(Scene2D S2D)
+        public Scene2D(Scene2D S2D) : base(S2D)
         {
             this._Transformation = new Scene2DTransformation(S2D._Transformation);
         }
