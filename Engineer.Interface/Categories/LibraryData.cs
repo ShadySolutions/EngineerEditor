@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using Engineer.Engine;
 
-namespace Engineer.Interface
+namespace Engineer.Interface.Categories
 {
     public class LibraryData
     {
@@ -26,6 +26,7 @@ namespace Engineer.Interface
             Scene2D NewScene = new Scene2D("EmptyScene2D");
             NewScene.BackColor = Color.FromArgb(40, 40, 40);
             NewScene.Type = SceneType.Scene2D;
+
             this._Scenes.Add("EmptyScene2D", NewScene);
 
             NewScene = new Scene2D("Platformer2D");
