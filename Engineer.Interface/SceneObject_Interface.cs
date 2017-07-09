@@ -17,9 +17,9 @@ namespace Engineer.Interface
             if (CurrentSceneObject.Type == SceneObjectType.DrawnSceneObject)
             {
                 DrawnSceneObject Drawn = (DrawnSceneObject)CurrentSceneObject;
-                if (Drawn.Representation.Type == DrawObjectType.Actor)
+                if (Drawn.Visual.Type == DrawObjectType.Actor)
                 {
-                    Actor CurrentActor = (Actor)Drawn.Representation;
+                    Actor CurrentActor = (Actor)Drawn.Visual;
                     if (Files.Contains(DirPath + CurrentActor.ID + ".obj"))
                     {
                         OBJContainer OBJ = new OBJContainer();
@@ -48,9 +48,9 @@ namespace Engineer.Interface
                         }
                     }
                 }
-                else if (Drawn.Representation.Type == DrawObjectType.Sprite)
+                else if (Drawn.Visual.Type == DrawObjectType.Sprite)
                 {
-                    Sprite CurrentSprite = (Sprite)Drawn.Representation;
+                    Sprite CurrentSprite = (Sprite)Drawn.Visual;
                     for (int k = 0; k < CurrentSprite.SpriteSets.Count; k++)
                     {
                         for (int l = 0;; l++)
@@ -73,9 +73,9 @@ namespace Engineer.Interface
             if (CurrentSceneObject.Type == SceneObjectType.DrawnSceneObject)
             {
                 DrawnSceneObject Drawn = (DrawnSceneObject)CurrentSceneObject;
-                if (Drawn.Representation.Type == DrawObjectType.Actor)
+                if (Drawn.Visual.Type == DrawObjectType.Actor)
                 {
-                    Actor CurrentActor = (Actor)Drawn.Representation;
+                    Actor CurrentActor = (Actor)Drawn.Visual;
                     if (CurrentActor.Geometries.Count > 0)
                     {
                         OBJContainer OBJ = new OBJContainer();
@@ -85,9 +85,9 @@ namespace Engineer.Interface
                         OBJ.Save(NewFilePath, null);
                     }
                 }
-                else if (Drawn.Representation.Type == DrawObjectType.Sprite)
+                else if (Drawn.Visual.Type == DrawObjectType.Sprite)
                 {
-                    Sprite CurrentSprite = (Sprite)Drawn.Representation;
+                    Sprite CurrentSprite = (Sprite)Drawn.Visual;
                     for (int k = 0; k < CurrentSprite.SpriteSets.Count; k++)
                     {
                         for (int l = 0; l < CurrentSprite.SpriteSets[k].Sprite.Count; l++)

@@ -64,31 +64,31 @@ namespace Engineer.Editor
             this._SceneNode = SceneNode;
             for (int i = 0; i < CurrentScene.Objects.Count; i++)
             {
-                if(CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Actor)
+                if(CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Visual.Type == DrawObjectType.Actor)
                 {
                     TreeNode ActorNode = new TreeNode(CurrentScene.Objects[i].Name, 1, 1);
                     ActorNode.Tag = new object[3] { SceneObjectType.DrawnSceneObject, DrawObjectType.Actor, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(ActorNode);
                 }
-                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Camera)
+                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Visual.Type == DrawObjectType.Camera)
                 {
                     TreeNode CameraNode = new TreeNode(CurrentScene.Objects[i].Name, 3, 3);
                     CameraNode.Tag = new object[3] { SceneObjectType.DrawnSceneObject, DrawObjectType.Camera, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(CameraNode);
                 }
-                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Light)
+                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Visual.Type == DrawObjectType.Light)
                 {
                     TreeNode LightNode = new TreeNode(CurrentScene.Objects[i].Name, 4, 4);
                     LightNode.Tag = new object[3] { SceneObjectType.DrawnSceneObject, DrawObjectType.Light, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(LightNode);
                 }
-                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Background)
+                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Visual.Type == DrawObjectType.Background)
                 {
                     TreeNode BackgroundNode = new TreeNode(CurrentScene.Objects[i].Name, 5, 5);
                     BackgroundNode.Tag = new object[3] { SceneObjectType.DrawnSceneObject, DrawObjectType.Background, CurrentScene.Objects[i].ID };
                     SceneNode.Nodes.Add(BackgroundNode);
                 }
-                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Representation.Type == DrawObjectType.Sprite)
+                else if (CurrentScene.Objects[i].Type == SceneObjectType.DrawnSceneObject && ((DrawnSceneObject)CurrentScene.Objects[i]).Visual.Type == DrawObjectType.Sprite)
                 {
                     TreeNode SpriteNode = new TreeNode(CurrentScene.Objects[i].Name, 6, 6);
                     SpriteNode.Tag = new object[3] { SceneObjectType.DrawnSceneObject, DrawObjectType.Sprite, CurrentScene.Objects[i].ID };

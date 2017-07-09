@@ -168,37 +168,37 @@ namespace Engineer.Editor
                     if(_Interface.CurrentGame.Assets[i].Type == SceneObjectType.DrawnSceneObject && (Index == -1 || Index == 0 || Index < 6))
                     {
                         DrawnSceneObject DSO = (DrawnSceneObject)_Interface.CurrentGame.Assets[i];
-                        if(DSO.Representation.Type == DrawObjectType.Actor && (Index == -1 || Index == 0))
+                        if(DSO.Visual.Type == DrawObjectType.Actor && (Index == -1 || Index == 0))
                         {
                             ListViewItem NewListViewItem = new ListViewItem(_Interface.CurrentGame.Assets[i].Name, 0);
                             NewListViewItem.Tag = new object[] {"Asset", i};
                             FileList.Items.Add(NewListViewItem);
                         }
-                        else if (DSO.Representation.Type == DrawObjectType.Camera && (Index == -1 || Index == 1))
+                        else if (DSO.Visual.Type == DrawObjectType.Camera && (Index == -1 || Index == 1))
                         {
                             ListViewItem NewListViewItem = new ListViewItem(_Interface.CurrentGame.Assets[i].Name, 1);
                             NewListViewItem.Tag = new object[] { "Asset", i };
                             FileList.Items.Add(NewListViewItem);
                         }
-                        else if (DSO.Representation.Type == DrawObjectType.Light && (Index == -1 || Index == 2))
+                        else if (DSO.Visual.Type == DrawObjectType.Light && (Index == -1 || Index == 2))
                         {
                             ListViewItem NewListViewItem = new ListViewItem(_Interface.CurrentGame.Assets[i].Name, 2);
                             NewListViewItem.Tag = new object[] { "Asset", i };
                             FileList.Items.Add(NewListViewItem);
                         }
-                        else if (DSO.Representation.Type == DrawObjectType.Background && (Index == -1 || Index == 3))
+                        else if (DSO.Visual.Type == DrawObjectType.Background && (Index == -1 || Index == 3))
                         {
                             ListViewItem NewListViewItem = new ListViewItem(_Interface.CurrentGame.Assets[i].Name, 3);
                             NewListViewItem.Tag = new object[] { "Asset", i };
                             FileList.Items.Add(NewListViewItem);
                         }
-                        else if (DSO.Representation.Type == DrawObjectType.Sprite && (Index == -1 || Index == 4))
+                        else if (DSO.Visual.Type == DrawObjectType.Sprite && (Index == -1 || Index == 4))
                         {
                             ListViewItem NewListViewItem = new ListViewItem(_Interface.CurrentGame.Assets[i].Name, 4);
                             NewListViewItem.Tag = new object[] { "Asset", i };
                             FileList.Items.Add(NewListViewItem);
                         }
-                        else if (DSO.Representation.Type == DrawObjectType.Figure && (Index == -1 || Index == 5))
+                        else if (DSO.Visual.Type == DrawObjectType.Figure && (Index == -1 || Index == 5))
                         {
                             ListViewItem NewListViewItem = new ListViewItem(_Interface.CurrentGame.Assets[i].Name, 5);
                             NewListViewItem.Tag = new object[] { "Asset", i };

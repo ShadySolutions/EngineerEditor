@@ -83,21 +83,21 @@ namespace Engineer.Editor
         {
             if (CurrentObject.Type == SceneObjectType.DrawnSceneObject)
             {
-                Properties_DrawObject PDO = new Properties_DrawObject(_Interface, ((DrawnSceneObject)CurrentObject).Representation);
+                Properties_DrawObject PDO = new Properties_DrawObject(_Interface, ((DrawnSceneObject)CurrentObject).Visual);
                 PDO.Dock = DockStyle.Top;
                 this.ContentPanel.Controls.Add(PDO);
                 PDO.BringToFront();
 
-                if(((DrawnSceneObject)CurrentObject).Representation.Type == DrawObjectType.Actor)
+                if(((DrawnSceneObject)CurrentObject).Visual.Type == DrawObjectType.Actor)
                 {
-                    Properties_Actor ActorProperties = new Properties_Actor(_Interface, ((DrawnSceneObject)CurrentObject).Representation as Actor, _Dock, _OpenForms);
+                    Properties_Actor ActorProperties = new Properties_Actor(_Interface, ((DrawnSceneObject)CurrentObject).Visual as Actor, _Dock, _OpenForms);
                     ActorProperties.Dock = DockStyle.Top;
                     this.ContentPanel.Controls.Add(ActorProperties);
                     ActorProperties.BringToFront();
                 }
-                if (((DrawnSceneObject)CurrentObject).Representation.Type == DrawObjectType.Sprite)
+                if (((DrawnSceneObject)CurrentObject).Visual.Type == DrawObjectType.Sprite)
                 {
-                    Properties_Sprite SpriteProperties = new Properties_Sprite(_Interface, ((DrawnSceneObject)CurrentObject).Representation as Sprite, _Dock, _OpenForms);
+                    Properties_Sprite SpriteProperties = new Properties_Sprite(_Interface, ((DrawnSceneObject)CurrentObject).Visual as Sprite, _Dock, _OpenForms);
                     SpriteProperties.Dock = DockStyle.Top;
                     this.ContentPanel.Controls.Add(SpriteProperties);
                     SpriteProperties.BringToFront();
