@@ -1,6 +1,7 @@
 ﻿using Engineer.Data;
 using Engineer.Engine;
 using Engineer.Mathematics;
+using Engineer.Engine.IO;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -38,7 +39,6 @@ namespace Engineer.Interface
             {
                 return _CurrentSelection;
             }
-
             set
             {
                 _CurrentSelection = value;
@@ -181,21 +181,12 @@ namespace Engineer.Interface
         {
             try
             {
-                string DirPath = FilePath.Replace(Path.GetFileName(FilePath), Path.GetFileNameWithoutExtension(FilePath)) + "\\";
-                ZipFile.ExtractToDirectory(FilePath, DirPath);
-                CurrentGame = Game.Deserialize(DirPath + Path.GetFileNameWithoutExtension(FilePath) + ".xml");
-                List<string> Files = new List<string>(Directory.GetFiles(DirPath));
-                for (int i = 0; i < CurrentGame.Scenes.Count; i++)
-                {
-                    for (int j = 0; j < CurrentGame.Scenes[i].Objects.Count; j++)
-                    {
-                        SceneObject_Interface.PostLoad(CurrentGame.Scenes[i].Objects[i], DirPath, Files);
-                        CurrentGame.Scenes[i].Objects[j].ParentScene = CurrentGame.Scenes[i];
-                    }
-                }
-                for (int i = 0; i < Files.Count; i++) File.Delete(Files[i]);
-                Directory.Delete(DirPath);
-                return true;
+                EFXInterface EFX = new EFXInterface();
+                bool Success = false;
+                object LoadedGame = null;
+                Success = EFX.LoadData(ref LoadedGame, FilePath, ref ErrorString);
+                CurrentGame = (Game)LoadedGame;
+                return Success;
             }
             catch (Exception ex)
             {
@@ -211,23 +202,10 @@ namespace Engineer.Interface
         {
             try
             {
-                if (File.Exists(FilePath)) File.Delete(FilePath);
-                string DirPath = FilePath.Replace(Path.GetFileName(FilePath), Path.GetFileNameWithoutExtension(FilePath)) + "\\";
-                Directory.CreateDirectory(DirPath);
-                List<string> Files = new List<string>();
-                for (int i = 0; i < CurrentGame.Scenes.Count; i++)
-                {
-                    for (int j = 0; j < CurrentGame.Scenes[i].Objects.Count; j++)
-                    {
-                        SceneObject_Interface.PostSave(CurrentGame.Scenes[i].Objects[j], DirPath, Files);
-                    }
-                }
-                Files.Add(DirPath + Path.GetFileNameWithoutExtension(FilePath) + ".xml");
-                Game.Serialize(CurrentGame, DirPath + Path.GetFileNameWithoutExtension(FilePath) + ".xml");
-                ZipFile.CreateFromDirectory(DirPath, FilePath);
-                for (int i = 0; i < Files.Count; i++) File.Delete(Files[i]);
-                Directory.Delete(DirPath);
-                return true;
+                EFXInterface EFX = new EFXInterface();
+                bool Success = false;
+                Success = EFX.SaveData(CurrentGame, FilePath, ref ErrorString);
+                return Success;
             }
             catch (Exception ex)
             {

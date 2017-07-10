@@ -55,8 +55,8 @@
             this.ControlsVisible = true;
             this.MaximiseVisible = true;
             this.Name = "WorldOptions";
-            this.Text = "World";
-            this.Title = "World Options";
+            this.Text = "Global Assets";
+            this.Title = "Global Assets";
             this.ContentPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

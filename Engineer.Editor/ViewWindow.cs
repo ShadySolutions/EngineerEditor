@@ -48,12 +48,12 @@ namespace Engineer.Editor
         {
             InitializeComponent();
         }
-        public ViewWindow(Game_Interface Interface, RenderTechType RenderType)
+        public ViewWindow(Game_Interface Interface)
         {
             InitializeComponent();
-            Init(Interface, RenderType);
+            Init(Interface);
         }
-        public void Init(Game_Interface Interface, RenderTechType RenderType)
+        public void Init(Game_Interface Interface)
         {
             this._BlockEvents = false;
             this._Interface = Interface;

@@ -161,8 +161,6 @@
     <Compile Include="Game_Interface.cs" />
     <Compile Include="Categories\LibraryData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RendererInterface.cs" />
-    <Compile Include="SceneObject_Interface.cs" />
     <Compile Include="Scene_Interface.cs" />
     <Compile Include="Scripting.evaluator.cs" />
     <Compile Include="Scripting.Extensions.cs" />

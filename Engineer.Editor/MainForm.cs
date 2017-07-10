@@ -60,7 +60,7 @@ namespace Engineer.Editor
             this._Library = new ContentLibrary(_Interface, LibPath + "Library");
             this._Scene = new SceneWindow(_Interface, _Properties);
             this._Properties = new PropertiesWindow(_Interface, MainDock, OpenForms);
-            this._View = new ViewWindow(_Interface, RenderTechType.OpenGLCore);
+            this._View = new ViewWindow(_Interface);
         }
         private void InterfaceUpdate(InterfaceUpdateMessage Message)
         {
@@ -123,7 +123,7 @@ namespace Engineer.Editor
         {
             if (_BlockEvents) return;
             SaveFileDialog Dialog = new SaveFileDialog();
-            Dialog.Filter = "Engineer Game XML (*.egx)|*.egx";
+            Dialog.Filter = "Engineer Format XML (*.efx)|*.efx";
             if(Dialog.ShowDialog() == DialogResult.OK && Dialog.FileName != "")
             {
                 string ErrorMessage = "";
@@ -136,11 +136,12 @@ namespace Engineer.Editor
         {
             if (_BlockEvents) return;
             OpenFileDialog Dialog = new OpenFileDialog();
-            Dialog.Filter = "Engineer Game XML (*.egx)|*.egx";
+            Dialog.Filter = "Engineer Format XML (*.efx)|*.efx";
             if (Dialog.ShowDialog() == DialogResult.OK && Dialog.FileName != "")
             {
                 string ErrorMessage = "";
                 Game LoadedGame = null;
+                
                 if (Game_Interface.LoadGame(Dialog.FileName, ref LoadedGame, ref ErrorMessage))
                 {
                     _Interface.CurrentGame = LoadedGame;

@@ -24,6 +24,8 @@ namespace Engineer.Editor
         public WorldOptions(Game_Interface Interface)
         {
             InitializeComponent();
+            this._Interface = Interface;
         }
+
     }
 }
