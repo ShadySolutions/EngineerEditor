@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.TextEditor", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadySolutions.UI.NodeEditor", "ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor\ShadySolutions.UI.NodeEditor.csproj", "{2D0C6C3B-A3C9-42C1-B1BE-6DB132A6B931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Interface", "Engineer.Interface\Engineer.Interface.csproj", "{CC8EAEEC-7517-4E47-8E6A-ADCEFA863F57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engineer.Editor.Interface", "Engineer.Interface\Engineer.Editor.Interface.csproj", "{CC8EAEEC-7517-4E47-8E6A-ADCEFA863F57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

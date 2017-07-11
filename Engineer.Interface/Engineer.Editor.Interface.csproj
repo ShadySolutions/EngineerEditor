@@ -7,8 +7,8 @@
     <ProjectGuid>{CC8EAEEC-7517-4E47-8E6A-ADCEFA863F57}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Engineer.Interface</RootNamespace>
-    <AssemblyName>Engineer.Interface</AssemblyName>
+    <RootNamespace>Engineer.Editor.Interface</RootNamespace>
+    <AssemblyName>Engineer.Editor.Interface</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

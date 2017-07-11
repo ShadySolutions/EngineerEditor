@@ -382,11 +382,11 @@
     <Compile Include="ViewWindow.Designer.cs">
       <DependentUpon>ViewWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorldOptions.cs">
+    <Compile Include="GlobalAssets.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorldOptions.Designer.cs">
-      <DependentUpon>WorldOptions.cs</DependentUpon>
+    <Compile Include="GlobalAssets.Designer.cs">
+      <DependentUpon>GlobalAssets.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ContentLibrary.resx">
       <DependentUpon>ContentLibrary.cs</DependentUpon>
@@ -494,8 +494,8 @@
     <EmbeddedResource Include="ViewWindow.resx">
       <DependentUpon>ViewWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorldOptions.resx">
-      <DependentUpon>WorldOptions.cs</DependentUpon>
+    <EmbeddedResource Include="GlobalAssets.resx">
+      <DependentUpon>GlobalAssets.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="bin\Debug\AppRuntime.zip" />
     <None Include="OpenTK.dll.config" />
@@ -514,9 +514,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engineer.Interface\Engineer.Interface.csproj">
+    <ProjectReference Include="..\Engineer.Interface\Engineer.Editor.Interface.csproj">
       <Project>{cc8eaeec-7517-4e47-8e6a-adcefa863f57}</Project>
-      <Name>Engineer.Interface</Name>
+      <Name>Engineer.Editor.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.TextEditor\Project\ICSharpCode.TextEditor.csproj">
       <Project>{2d18be89-d210-49eb-a9dd-2246fbb3df6d}</Project>

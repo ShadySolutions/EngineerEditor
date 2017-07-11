@@ -30,7 +30,7 @@ namespace Engineer.Editor
         private ContentLibrary _Library;
         private PropertiesWindow _Properties;
         private SceneWindow _Scene;
-        private WorldOptions _World;
+        private GlobalAssets _World;
         private ViewWindow _View;
         private Game_Interface _Interface;
         public _Parent()
@@ -56,7 +56,7 @@ namespace Engineer.Editor
             MainDock.DockLeftPortion = 310;
             String LibPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Engineer/";
             this._GameW = new GameWindow(this._Interface);
-            this._World = new WorldOptions(this._Interface);
+            this._World = new GlobalAssets(this._Interface);
             this._Library = new ContentLibrary(_Interface, LibPath + "Library");
             this._Scene = new SceneWindow(_Interface, _Properties);
             this._Properties = new PropertiesWindow(_Interface, MainDock, OpenForms);

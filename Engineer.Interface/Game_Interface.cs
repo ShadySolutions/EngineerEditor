@@ -96,7 +96,6 @@ namespace Engineer.Interface
                 this.CurrentGame = new Game();
                 this.CurrentGame.Name = "New Game";
             }
-            AcquireData();
         }
         public void ForceUpdate(InterfaceUpdateMessage Message)
         {
@@ -138,44 +137,22 @@ namespace Engineer.Interface
         public bool SetCurrentScene(int Index, ref string ErrorString)
         {
             bool Value;
-            if (Index == -1)
+            if (this.CurrentGame.Scenes.Count > Index)
             {
-                AddEmptyScene("EmptyScene2D", ref ErrorString);
-                Value = true;
-            }
-            else if (Index == -2)
-            {
-                AddEmptyScene("EmptyScene3D", ref ErrorString);
+                this.CurrentScene = this.CurrentGame.Scenes[Index];
                 Value = true;
             }
             else
             {
-                if (this.CurrentGame.Scenes.Count > Index)
-                {
-                    this.CurrentScene = this.CurrentGame.Scenes[Index];
-                    Value = true;
-                }
-                else
-                {
-                    ErrorString = "No Scene at requested index";
-                    Value = false;
-                }
-                if(Value) Update.Invoke(InterfaceUpdateMessage.SceneUpdated);
+                ErrorString = "No Scene at requested index";
+                Value = false;
             }
+            if (Value) Update.Invoke(InterfaceUpdateMessage.SceneUpdated);
             return Value;
         }       
         private void OnInterfaceUpdate(InterfaceUpdateMessage Message)
         {
 
-        }
-        private void AcquireData()
-        {
-            String LibPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/Engineer/";
-            XmlDocument Document = new XmlDocument();
-            Document.Load(LibPath + "Library/Material/Default.mtx");
-            XmlNode Main = Document.FirstChild;
-            Material Mat = new Material(Main);
-            Material.Default = Mat;
         }
         public static bool LoadGame(string FilePath, ref Game CurrentGame, ref string ErrorString)
         {
