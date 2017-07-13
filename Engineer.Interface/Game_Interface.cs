@@ -115,9 +115,10 @@ namespace Engineer.Interface
             _CurrentGame.Name = "New Game";
             ForceUpdate(InterfaceUpdateMessage.GameUpdated);
         }
-        public void SceneItem(string ItemCode, ref string ErrorString)
+        public void AddSceneItem(SceneObject NewSceneObject)
         {
-            
+            CurrentScene.AddSceneObject(NewSceneObject);
+            Update.Invoke(InterfaceUpdateMessage.SceneObjectsUpdated);
         }
         public bool AddEmptyScene(string SceneCode, ref string ErrorString)
         {

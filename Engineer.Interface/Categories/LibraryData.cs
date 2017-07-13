@@ -64,7 +64,14 @@ namespace Engineer.Interface.Categories
                 {
                     if(Files[j].EndsWith(".efx"))
                     {
-                        NewGroup.Objects.Add((SceneObject)EFX.Load(Files[j]));
+                        try
+                        {
+                            NewGroup.Objects.Add((SceneObject)EFX.Load(Files[j]));
+                        }
+                        catch (Exception E)
+                        {
+                            
+                        }
                     }
                 }
                 this._Groups.Add(NewGroup);
